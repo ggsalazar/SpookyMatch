@@ -1,0 +1,819 @@
+﻿  Collision.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Vec2.h(110,16): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Collision.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Vec2.h(110,16):
+      the template instantiation context (the oldest one first) is
+          C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Collision.cpp(31,12):
+          see reference to function template instantiation 'float Distance<int>(const Vec2<int> &,const Vec2<int> &)' being compiled
+  
+  Input.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Core/Input.cpp')
+  
+  Math.cpp
+  Entity.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/Entity.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\Entity.cpp(21,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\Entity.cpp(34,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\Entity.cpp(48,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\Entity.cpp(49,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Button.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Button.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Entities/UI/Button.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+  Picker.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Entities/UI/Picker.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(11,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(12,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(13,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(14,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(17,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(18,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(19,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(20,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(74,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(75,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(77,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Picker.cpp(96,33): warning C4244: '=': conversion from 'double' to 'uint', possible loss of data
+  Slider.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Entities/UI/Slider.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(19,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(20,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(26,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(45,37): warning C4244: '=': conversion from 'T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(45,37): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(45,37): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(45,37): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(45,37): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(46,45): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(46,31): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(82,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(83,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(86,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Entities\UI\Slider.cpp(88,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Toggle.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Entities/UI/Toggle.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+  UI.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Entities/UI/UI.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Entities/UI/UI.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+  Game.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Game.cpp')
+  
+  Menu.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Menu.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Game/Menu.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(37,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(58,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(88,32): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(88,32): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(88,32): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(88,32): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.cpp(88,32): warning C4244:         ]
+  Scene.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Game/Scene.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Menu.h(14,13): warning C4150: deletion of pointer to incomplete type 'UI'; no destructor called
+  (compiling source file 'src/Game/Scene.cpp')
+      C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Game\Scene.h(11,7):
+      see declaration of 'UI'
+  
+  Renderer.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Renderer.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,30): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,37): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,62): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(17,87): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4838: conversion from 'T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(30,42): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4838: conversion from 'T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(31,23): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,23): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4838: conversion from 'const T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4244: 'initializing': conversion from 'const T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(32,41): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(35,41): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(35,41): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(36,22): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(36,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4838: conversion from 'T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(37,24): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4838: conversion from 'T' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4838:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4838:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4838:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4838:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4244:             T=int
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(38,24): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(41,86): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(41,68): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(41,50): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(42,50): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(90,39): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(90,39): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(90,51): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(90,51): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(92,14): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(92,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(93,14): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(93,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(123,88): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(123,73): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(123,58): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(123,43): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(125,125): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(125,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(125,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(125,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(136,118): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(136,96): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(136,74): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(136,52): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(137,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(138,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(139,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(148,110): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(148,90): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(148,70): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(148,50): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(149,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(150,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(185,117): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(185,95): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(185,73): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(185,51): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(196,11): warning C4244: 'initializing': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(197,11): warning C4244: 'initializing': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(209,110): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(209,90): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(209,70): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(209,50): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(216,118): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(216,96): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(216,74): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(216,52): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(218,49): warning C4838: conversion from 'const uchar' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(221,64): warning C4838: conversion from 'const uchar' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(224,56): warning C4838: conversion from 'const uchar' to 'float' requires a narrowing conversion
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Renderer.cpp(227,70): warning C4838: conversion from 'const uchar' to 'float' requires a narrowing conversion
+  Sprite.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/Graphics/Sprite.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(87,23): warning C4244: '=': conversion from 'double' to 'uchar', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(89,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(98,58): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(98,58): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(98,58): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(98,58): warning C4244:             T=float
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(98,58): warning C4244:         ]
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(99,58): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(99,58): warning C4244:         with
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(99,58): warning C4244:         [
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(99,58): warning C4244:             T=float
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.cpp(99,58): warning C4244:         ]
+  Window.cpp
+  main.cpp
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(23,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(35,43): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(36,45): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(47,124): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Geometry.h(60,39): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,67): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Core\Camera.h(14,110): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(50,56): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(64,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Sprite.h(65,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(11,37): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Font.h(15,38): warning C4244: 'argument': conversion from 'uint' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(50,55): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(75,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\src\Graphics\Text.h(76,52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+  Generating Code...
+  SpookyMatch.vcxproj -> C:\Users\Griffin G. Salazar\Cpp Projects\SpookyMatch\x64\Debug\SpookyMatch.exe
