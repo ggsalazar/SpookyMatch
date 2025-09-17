@@ -21,7 +21,7 @@ void Scene::Init(Game* g) {
 void Scene::ChangeScene(SceneName new_scn) {
 	curr_scn = new_scn;
 
-	//Sipe the slate clean
+	//Wipe the slate clean
 	for (auto& m : menus)
 		m->Open(false);
 	menus.clear();
@@ -123,7 +123,6 @@ void Scene::Draw() {
 }
 
 void Scene::DrawGUI() {
-	//Entities
 	for (const auto& e : entities) e->DrawGUI();
 
 

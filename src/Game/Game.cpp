@@ -2,7 +2,6 @@
 #include <string>
 #include "Game.h"
 #include "../Core/Input.h"
-#include "../Core/Math.h"
 
 Game::Game(const char* title, const uint init_fps)
     : fps(init_fps), resolution(min_res*2), camera({ 0 }, Vec2i(min_res)),
@@ -115,17 +114,6 @@ void Game::Render() {
 
     renderer.DrawSprite(cursor);
     renderer.EndFrame();
-}
-
-void Game::SetMusicVolume(float n_v) {
-    Math::Clamp(n_v, 0, 100);
-    music_volume = n_v;
-    //dj.SetVolume(music_volume);
-}
-
-void Game::SetSFXVolume(float n_v) {
-    Math::Clamp(n_v, 0, 100);
-    sfx_volume = n_v;
 }
 
 void Game::SetResolution(uchar res_scalar) {
