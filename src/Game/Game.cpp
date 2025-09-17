@@ -5,7 +5,7 @@
 #include "../Core/Math.h"
 
 Game::Game(const char* title, const uint init_fps)
-    : fps(init_fps), resolution(min_res), camera({ 0 }, Vec2i(min_res)),
+    : fps(init_fps), resolution(min_res*2), camera({ 0 }, Vec2i(min_res)),
     window("SpookyMatch", resolution), renderer(window.GetWin(), &camera) {
 
     //Set random seed
@@ -39,9 +39,8 @@ Game::Game(const char* title, const uint init_fps)
     //Play the title track - TO-DO
 
     //Init scene, which sets the Game* in all the classes that need it
-    //gm.Init(this);
-    //Open the title scene
-    //gm.ChangeScene();
+    scene.Init(this);
+    scene.ChangeScene(SceneName::Title);
 
     //Initialize cursor
     //Cursor sprite info
@@ -90,6 +89,9 @@ void Game::ProcessInput() {
 
     //Update cursor position
     cursor.MoveTo(Input::MousePos());
+
+    //Get input for the scene
+    scene.GetInput();
 }
 
 //Update the game world
@@ -98,7 +100,7 @@ void Game::Update() {
     Input::Update();
 
     //Update the current scene
-
+    scene.Update();
 }
 
 //Draw the game world
@@ -107,8 +109,11 @@ void Game::Render() {
     renderer.BeginFrame(); //This also clears the frame
 
 
-    renderer.DrawSprite(cursor);
+    scene.Draw();
+    scene.DrawGUI();
 
+
+    renderer.DrawSprite(cursor);
     renderer.EndFrame();
 }
 

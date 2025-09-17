@@ -1,5 +1,11 @@
 #pragma once
 
+enum class IconType {
+	Ghost,
+	Pumpkin,
+	Witch
+};
+
 //Engine
 enum class SceneName {
 	Game,
@@ -11,6 +17,7 @@ enum class MenuName {
 	GO,
 	Main,
 	Options,
+	Options_I,
 	Pause,
 };
 
@@ -19,18 +26,11 @@ enum class UIElem {
 	//Buttons
 	Apply,
 	Back,
-	Close,
-	Fullscreen,
-	Load,
-	No,
 	Options,
+	Play,
 	Quit,
 	Resume,
 	Title,
-	Yes,
 	//Pickers
-	Resolution,
-	//Sliders
-	Music_V,
-	SFX_V
+	Resolution
 };

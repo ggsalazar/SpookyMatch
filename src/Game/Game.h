@@ -24,19 +24,17 @@ private:
 
 public:
     //Game UTH details
-    const Vec2u min_res = { 640 };
+    const Vec2u min_res = { 400 };
     Vec2u resolution;
     Window window;
     Renderer renderer;
     bool running = true;
     float delta_time = 0.f;
     bool paused = false;
-    uchar curr_ui_layer = 0;
+    Scene scene;
 
     //Camera
     Camera camera;
-    float cam_move_spd = 5.5f; //1 - 10 by .5
-    bool edge_panning = false;
 
     //Music & SFX - waiting for SDL_mixer 3.0
     //DJ dj;
@@ -50,8 +48,6 @@ public:
     Game(const char* title, const uint init_fps);
     ~Game() {
         TTF_Quit();
-        //Mix_CloseAudio();
-        //Mix_Quit();
         SDL_Quit(); //Pretty sure this has to be called last
     }
 

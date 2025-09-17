@@ -1,67 +1,45 @@
 #include "UI.h"
 
-UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e, const uchar init_ui_layer)
-    : Entity(s_i), menu(m), elem(e), ui_layer(init_ui_layer), label(&game->default_fonts[18 * Text::res_scale]) {
+UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
+    : Entity(s_i), menu(m), elem(e), label(&game->default_fonts[18 * Text::res_scale]) {
 
     //Label
     string l_str = "";
 
-    //Buttons
     switch (elem) {
-    case UIElem::Apply:
-        l_str = "Apply";
-        SetActive(false);
-        break;
+        case UIElem::Apply:
+            l_str = "Apply";
+            SetActive(false);
+            break;
 
-    case UIElem::Back:
-        l_str = "Back";
-        break;
+        case UIElem::Back:
+            l_str = "Back";
+            break;
 
-    case UIElem::No:
-        l_str = "No";
-        break;
+        case UIElem::Options:
+            l_str = "Options";
+            break;
 
-    case UIElem::Options:
-        l_str = "Options";
-        break;
+        case UIElem::Play:
+            l_str = "Play!";
+            break;
 
-    case UIElem::Quit:
-        l_str = "Quit";
-        break;
+        case UIElem::Quit:
+            l_str = "Quit";
+            break;
 
-    case UIElem::Resume:
-        l_str = "Resume";
-        break;
+        case UIElem::Resolution:
+            l_str = "Resolution";
+            break;
 
-    case UIElem::Title:
-        l_str = "Return to Title";
-        break;
+        case UIElem::Resume:
+            l_str = "Resume";
+            break;
 
-    case UIElem::Yes:
-        l_str = "Yes";
-        break;
-    }
-    //Pickers, sliders, and toggles
-    switch (elem) {
-        //Pickers
+        case UIElem::Title:
+            l_str = "Return to Title";
+            break;
 
-    case UIElem::Resolution:
-        l_str = "Resolution";
-        break;
-
-        //Sliders
-    case UIElem::Music_V:
-        l_str = "Music Volume";
-        break;
-
-    case UIElem::SFX_V:
-        l_str = "SFX Volume";
-        break;
-
-        //Toggles
-    case UIElem::Fullscreen:
-        l_str = "Fullscreen";
-        break;
     }
 
     label.MoveTo(pos);
@@ -69,17 +47,6 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e, const uchar init_ui_lay
     label.SetOrigin();
 
     sprite.SetDFC(-10);
-
-    //Sound
-    /*
-    if (!sb.loadFromFile("assets/SFX/ButtonClick.mp3")) {
-        cerr << "Failed to load sound for UI element!" << endl;
-        return;
-    }
-    sound.setBuffer(sb);
-    sound.setVolume(game->GetSFXVolume());
-    */
-
 }
 
 void UI::GetInput() {
@@ -111,5 +78,4 @@ void UI::SetActive(const bool new_active) {
 
 void UI::Pressed() {
     primed = true;
-    //sound.play();
 }

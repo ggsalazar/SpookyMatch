@@ -1,8 +1,7 @@
 #include "Picker.h"
 
-Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e,
-    const uchar init_ui_layer)
-    : UI(s_i, m, e, init_ui_layer), picking(label.font) {
+Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e)
+    : UI(s_i, m, e), picking(label.font) {
 
     label_offset = 6;
     label.MoveTo({ pos.x, pos.y - label_offset });
@@ -66,7 +65,7 @@ void Picker::Draw() {
 }
 
 void Picker::Move() {
-    //Entity::Move() takes care of sprite & bbox
+    //Entity::Move() is called in MoveBy/MoveTo takes care of sprite & bbox
 
     //Move everything else
 
@@ -93,7 +92,7 @@ void Picker::LeftReleased() {
             uint curr_res = stoi(p);
 
             if (--curr_res < 1)
-                curr_res = floor(game->window.ScreenSize().x / game->min_res.x);
+                curr_res = min(floor(game->window.ScreenSize().x / game->min_res.x), floor(game->window.ScreenSize().y / game->min_res.y));
 
             p = to_string(curr_res);
 
@@ -112,7 +111,7 @@ void Picker::RightReleased() {
         case UIElem::Resolution: {
             uint curr_res = stoi(p);
 
-            if (++curr_res > floor(game->window.ScreenSize().x / game->min_res.x))
+            if (++curr_res > min(floor(game->window.ScreenSize().x / game->min_res.x), floor(game->window.ScreenSize().y/game->min_res.y)))
                 curr_res = 1;
 
             p = to_string(curr_res);

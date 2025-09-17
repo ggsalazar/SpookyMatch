@@ -8,7 +8,7 @@ Renderer::Renderer(SDL_Window* window, Camera* cam) : camera(cam) {
 	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
 	renderer = SDL_CreateRenderer(window, NULL);
 
-	//Set the renderer to *logically* render things at 640x360, then scale it up to the window at rendering time
+	//Set the renderer to *logically* render things at the minimum resolution (400x400), then scale it up to the window at rendering time
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderLogicalPresentation(renderer, min_res.x, min_res.y, SDL_LOGICAL_PRESENTATION_INTEGER_SCALE);
 }
@@ -20,13 +20,12 @@ void Renderer::DrawSheet(const Sprite& sheet, const Vec2i& pos) {
 }
 
 void Renderer::DrawSprite(const Sprite& spr) {
-	//Cast to SDL
 	const Sprite::Info* si = &spr.info;
 
 	//Only draw sprites if they will be seen by the camera
 	Vec2i sprite_pos = Round(si->pos.x - (si->spr_size.x * si->scale.x * si->origin.x),
 		si->pos.y - (si->spr_size.y * si->scale.y * si->origin.y));
-	if (Collision::AABB(camera->viewport, Rect(sprite_pos, { si->spr_size.x * si->scale.x, si->spr_size.y * si->scale.y }))) {
+	if (Collision::AABB(camera->viewport, Rect(sprite_pos, Round(si->spr_size.x * si->scale.x, si->spr_size.y * si->scale.y)))) {
 		const SDL_FRect src = { si->curr_frame * si->frame_size.x,
 								si->sheet_row * si->frame_size.y,
 								si->frame_size.x,	si->frame_size.y };
@@ -100,13 +99,13 @@ void Renderer::DrawTxt(Text& txt) {
 	SDL_SetRenderLogicalPresentation(renderer, min_res.x, min_res.y, SDL_LOGICAL_PRESENTATION_INTEGER_SCALE);
 }
 
-void Renderer::DrawGrid(const Vec2i& start, const Vec2i& end, const uchar& tile_size) {
+void Renderer::DrawGrid(const Vec2i& start, const Vec2i& end, const uchar& tile_size, const Color& grid_color) {
 	//Vertical Lines
-	for (int i = start.x; i < end.x; i += tile_size)
-		DrawLine(Line{ {i, start.y}, {i, end.y} }, Color(1, 0, 0));
+	for (int i = start.x; i <= end.x; i += tile_size)
+		DrawLine(Line{ {i, start.y}, {i, end.y} }, grid_color);
 	//Horizontal lines
-	for (int i = start.y; i < end.y; i += tile_size)
-		DrawLine(Line{ {start.x, i}, {end.x, i} }, Color(1, 0, 0));
+	for (int i = start.y; i <= end.y; i += tile_size)
+		DrawLine(Line{ {start.x, i}, {end.x, i} }, grid_color);
 }
 
 void Renderer::DrawPath(std::vector<Vec2i> path, const Color& path_color) {

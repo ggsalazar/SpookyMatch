@@ -36,7 +36,7 @@ public:
 	//Text
 	void DrawTxt(Text& txt);
 
-	void DrawGrid(const Vec2i& start = { 0, 0 }, const Vec2i& end = { 640, 360 }, const uchar& tile_size = 16);
+	void DrawGrid(const Vec2i& start = { 0, 0 }, const Vec2i& end = { 400 }, const uchar& tile_size = 16, const Color& grid_color = Color(1));
 
 	void DrawPath(std::vector<Vec2i> path, const Color& path_color = Color(1));
 
@@ -51,6 +51,6 @@ private:
 	SDL_Surface* surface = nullptr;
 	SDL_Texture* text_tar = nullptr;
 	Camera* camera = nullptr;
-	const Vec2i min_res = { 640, 360 };
+	const Vec2i min_res = { 400 };
 	Vec2i win_size;
 };

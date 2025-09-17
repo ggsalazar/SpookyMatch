@@ -1,8 +1,6 @@
 #include "Menu.h"
 #include "../Entities/UI/Button.h"
-#include "../Entities/UI/Slider.h"
 #include "../Entities/UI/Picker.h"
-#include "../Entities/UI/Toggle.h"
 
 Menu::Menu(const MenuName i_name) : name(i_name) {
 
@@ -18,7 +16,7 @@ Menu::Menu(const MenuName i_name) : name(i_name) {
 
     sup_text.SetOrigin();
     Vec2i s_t_pos = { 0 };
-    string s_t_str = "SUPPLEMENTARY DEFAULT";
+    string s_t_str = "";
     uint s_t_str_max_w = -1;
 
     Sprite::Info elem_info = {}; elem_info.origin = ui_ori;
@@ -26,70 +24,62 @@ Menu::Menu(const MenuName i_name) : name(i_name) {
     //What we do depends on our name
     switch (name) {
 
-    case MenuName::Main: {
+        case MenuName::Main: {
 
-        m_t_pos = Round(game->min_res.x * .5f, game->min_res.y * .12f); m_t_str = "Shadows of Autongrad";
-        s_t_pos = Round(m_t_pos.x, game->min_res.y * .15f); s_t_str = "An Iron & Aether Adventure";
+            m_t_pos = Round(game->min_res.x * .5f, game->min_res.y * .12f); m_t_str = "SpookyMatch!";
 
-        elem_info.sheet = "UI/Button";
-        elem_info.pos = Round(game->min_res.x * .5f, game->min_res.y * .4f);
+            elem_info.sheet = "UI/Button";
+            elem_info.pos = Round(game->min_res.x * .5f, game->min_res.y * .4f);
 
-        e_y_buffer = round(game->min_res.y * .1f);
+            e_y_buffer = round(game->min_res.y * .1f);
 
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::Load, new Button(elem_info, this, UIElem::Load) });
+            ui_elems.insert({ UIElem::Play, new Button(elem_info, this, UIElem::Play) });
 
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::Options, new Button(elem_info, this, UIElem::Options) });
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Options, new Button(elem_info, this, UIElem::Options) });
 
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
 
-        break;
-    }
+            break;
+        }
 
-    case MenuName::Options: {
-        m_t_pos = Round(game->min_res.x * .5f, game->min_res.y * .12f); m_t_str = "Shadows of Autongrad";
-        s_t_pos = Round(m_t_pos.x, game->min_res.y * .15f); s_t_str = "Options";
+        case MenuName::Options: {
+            m_t_pos = Round(game->min_res.x * .5f, game->min_res.y * .12f); m_t_str = "Settings";
 
-        elem_info.pos = Round(m_t_pos.x, game->min_res.y * .3f);
-        elem_info.sheet = "UI/Slider";
+            elem_info.pos = Round(m_t_pos.x, game->min_res.y * .3f);
+            e_y_buffer = round(game->min_res.y * .1f);
 
-        e_y_buffer = round(game->min_res.y * .09f);
+            elem_info.sheet = "UI/Button";
+            ui_elems.insert({ UIElem::Resolution, new Picker(elem_info, this, UIElem::Resolution) });
 
-        //Music and sfx sliders
-        ui_elems.insert({ UIElem::Music_V, new Slider(elem_info, this, UIElem::Music_V) });
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Apply, new Button(elem_info, this, UIElem::Apply) });
 
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::SFX_V, new Slider(elem_info, this, UIElem::SFX_V) });
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Back, new Button(elem_info, this, UIElem::Back) });
 
+            break;
+        }
 
-        //Resolution picker, fullscreen toggle, and apply button
-        elem_info.sheet = "UI/Button";
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::Resolution, new Picker(elem_info, this, UIElem::Resolution) });
+        case MenuName::Options_I: {
+            m_t_pos = Round(game->min_res.x * .5f, game->min_res.y * .12f); m_t_str = "Settings";
 
+            elem_info.pos = Round(m_t_pos.x, game->min_res.y * .3f);
+            e_y_buffer = round(game->min_res.y * .1f);
 
-        elem_info.sheet = "UI/Toggle"; elem_info.frame_size = { 24 };
-        elem_info.pos.y += e_y_buffer;
-        elem_info.pos.x += 34;
-        ui_elems.insert({ UIElem::Fullscreen, new Toggle(elem_info, this, UIElem::Fullscreen) });
-        elem_info.pos.x -= 34;
+            //Resolution picker, fullscreen toggle, and apply button
+            elem_info.sheet = "UI/Button";
+            ui_elems.insert({ UIElem::Resume, new Button(elem_info, this, UIElem::Resume) });
 
-        //Reset the size of a single frame
-        elem_info.frame_size = { 0 };
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Title, new Button(elem_info, this, UIElem::Title) });
 
-        elem_info.sheet = "UI/Button";
-        elem_info.pos.y += e_y_buffer;
-        ui_elems.insert({ UIElem::Apply, new Button(elem_info, this, UIElem::Apply) });
+            elem_info.pos.y += e_y_buffer;
+            ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
 
-
-        //Back button
-        elem_info.pos.y = round(game->min_res.y * .9f);
-        ui_elems.insert({ UIElem::Back, new Button(elem_info, this, UIElem::Back) });
-
-        break;
-    }
+            break;
+        }
     }
 
 
@@ -103,10 +93,8 @@ Menu::Menu(const MenuName i_name) : name(i_name) {
 
 void Menu::GetInput() {
     if (open) {
-        for (auto& uie : ui_elems) {
+        for (auto& uie : ui_elems)
             uie.second->GetInput();
-            // cout << uie.second->GetPos() << '\n';
-        }
 
         for (auto& s_m : sub_menus)
             s_m.second->GetInput();
@@ -114,8 +102,9 @@ void Menu::GetInput() {
 }
 
 void Menu::Update() {
-    //Should this also be updating ui_elems? Otherwise this ain't doing shit
     if (open) {
+        for (auto& ui : ui_elems) ui.second->Update();
+
         for (const auto& s_m : sub_menus)
             s_m.second->Update();
     }
@@ -142,12 +131,12 @@ void Menu::Resize() {
     for (auto& uie : ui_elems) {
         uie.second->label.font = &game->default_fonts[18 * Text::res_scale];
         if (Picker* p = dynamic_cast<Picker*>(uie.second)) p->SetPickingF();
-        else if (Slider* s = dynamic_cast<Slider*>(uie.second)) s->SetKLF();
     }
 }
 
 void Menu::Open(const bool o) {
     open = o;
+    has_focus = open;
 
     if (!open) {
         for (const auto& sm : sub_menus)
@@ -180,12 +169,6 @@ void Menu::SetUIElemStatus(const UIElem ui, const string new_status) {
     if (CheckUIElem(ui)) {
         if (auto picker = dynamic_cast<Picker*>(ui_elems[ui]))
             picker->SetPicking(new_status);
-        else if (auto toggle = dynamic_cast<Toggle*>(ui_elems[ui])) {
-            if (new_status == "True")
-                toggle->on = true;
-            else
-                toggle->on = false;
-        }
     }
 }
 
@@ -199,10 +182,6 @@ string Menu::GetUIElemStatus(const UIElem ui) {
     if (CheckUIElem(ui)) {
         if (auto picker = dynamic_cast<Picker*>(ui_elems[ui]))
             return picker->GetPicking();
-        else if (auto toggle = dynamic_cast<Toggle*>(ui_elems[ui])) {
-            if (toggle->on) return "True";
-            return "False";
-        }
     }
 
     return "No such UIElem exists";

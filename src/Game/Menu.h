@@ -6,28 +6,22 @@ class UI;
 
 class Menu {
 public:
-    bool to_close = false;
+    bool to_close = false, has_focus = false;
 
     Menu(const MenuName i_name);
     virtual ~Menu() {
-        for (auto& [_, ui] : ui_elems) {
-            delete ui;
-            ui = nullptr;
-        }
+        for (auto& [_, ui] : ui_elems) delete ui;
         ui_elems.clear();
 
-        for (auto& [_, sm] : sub_menus) {
-            delete sm;
-            sm = nullptr;
-        }
+        for (auto& [_, sm] : sub_menus) delete sm;
         sub_menus.clear();
     }
     static inline void SetGame(Game* g) { game = g; }
 
     //Engine
-    virtual void GetInput();
-    virtual void Update();
-    virtual void Draw();
+    void GetInput();
+    void Update();
+    void Draw();
 
     void Resize();
 
