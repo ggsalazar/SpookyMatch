@@ -1,7 +1,7 @@
 #include "UI.h"
 
 UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
-    : Entity(s_i), menu(m), elem(e), label(&game->default_fonts[18 * Text::res_scale]) {
+    : Entity(s_i), menu(m), elem(e), label(18) {
 
     //Label
     string l_str = "";
@@ -62,7 +62,7 @@ void UI::GetInput() {
 
 void UI::Draw() {
     Entity::Draw();
-    game->renderer.DrawTxt(label);
+    engine->renderer.DrawTxt(label);
 }
 
 void UI::SetActive(const bool new_active) {

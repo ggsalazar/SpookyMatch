@@ -1,13 +1,18 @@
 #pragma once
 
 enum class IconType {
-	Ghost,
-	Pumpkin,
-	Witch
+	Candy = 0,
+	Ghost = 1,
+	Mummy = 2,
+	Pumpkin = 3,
+	Skeleton = 4,
+	Spider = 5,
+	Witch = 6,
+	Zombie = 7
 };
 
 //Engine
-enum class SceneName {
+enum class Scene {
 	Game,
 	Title
 };

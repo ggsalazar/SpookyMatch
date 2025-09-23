@@ -7,7 +7,7 @@ void Button::Update() {
 
 void Button::Draw() {
     if (Selected())
-        game->renderer.DrawRect(bbox, Color(1, 0, 0));
+        engine->renderer.DrawRect(bbox, Color(1, 0, 0));
 
     UI::Draw();
 }
@@ -24,12 +24,12 @@ void Button::Released() {
             if (menu->GetName() == MenuName::Options) {
                 //Set the game's current resolution to the scale determined by the resolution picker
                 uint new_scale = stoi(menu->GetUIElemStatus(UIElem::Resolution));
-                uint old_scale = game->resolution.x / game->min_res.x;
+                uint old_scale = engine->resolution.x / engine->min_res.x;
                 if (new_scale != old_scale)
-                    game->SetResolution(new_scale);
+                    engine->SetResolution(new_scale);
 
                 //Resize all the text
-                game->scene.Resize();
+                game->Resize();
 
                 SetActive(false);
             }
@@ -37,29 +37,29 @@ void Button::Released() {
 
         case UIElem::Back:
             menu->Open(false);
-            game->scene.OpenMenu(MenuName::Main);
+            game->OpenMenu(MenuName::Main);
         break;
 
         case UIElem::Options:
             menu->Open(false);
-            game->scene.OpenMenu(MenuName::Options);
+            game->OpenMenu(MenuName::Options);
         break;
 
         case UIElem::Play:
-            game->scene.ChangeScene(SceneName::Game);
+            game->ChangeScene(Scene::Game);
         break;
 
         case UIElem::Quit:
-            game->window.open = false;
+            engine->window.open = false;
         break;
 
         case UIElem::Resume:
             menu->Open(false);
-            game->paused = false;
+            engine->paused = false;
         break;
 
         case UIElem::Title:
-            game->scene.ChangeScene(SceneName::Title);
+            game->ChangeScene(Scene::Title);
         break;
     }
 }

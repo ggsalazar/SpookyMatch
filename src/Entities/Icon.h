@@ -3,6 +3,10 @@
 
 class Icon : public Entity {
 public:
+	IconType type;
+	bool selected = false;
+	Icon(const Sprite::Info& i_si, const IconType i_type);
 
-	Icon(const Sprite::Info& s_info) : Entity(s_info) {}
+	void GetInput() override;
+	void Draw() override;
 };

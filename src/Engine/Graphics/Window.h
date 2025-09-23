@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_video.h>
-#include "../Core/Vec2.h" //iostream
+#include "../Math/Vec2.h" //iostream
 
 class Window {
 public:
