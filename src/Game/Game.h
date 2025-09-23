@@ -17,6 +17,7 @@ class Game {
 public:
     Scene curr_scn = Scene::Title;
     vector<Entity*> entities;
+    vector<Icon*> icons;
     uint score = 0;
     Text* score_txt;
     Icon* selected_icon = nullptr;
@@ -40,7 +41,6 @@ public:
     void DrawGUI();
     void Resize();
 
-
     //Menu handling
     void CreateMenu(const MenuName menu);
     void OpenMenu(const MenuName menu, const bool o = true);
@@ -50,6 +50,9 @@ public:
     //Entities
     inline void AddEntity(Entity* e) { entities.push_back(e); }
     void RemoveEntity(Entity* e);
+
+    //Gameplay
+    void CheckSwap(Icon* icon);
 
 private:
     vector<Menu*> menus;

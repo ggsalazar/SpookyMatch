@@ -12,17 +12,14 @@ void Game::Init(Engine* e) {
 	Menu::SetEngine(engine);
 	Entity::SetEngine(engine, this);
 
+	Text::Info t_info = {};
+	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 10, 4 };
+	score_txt = new Text(t_info);
+
 	selected_tile.w = selected_tile.h = 33;
 }
 
 void Game::ChangeScene(Scene new_scn) {
-	//Init the score text if it hasn't already
-	if (!score_txt) {
-		Text::Info t_info = {};
-		t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 10, 4 };
-		score_txt = new Text(t_info);
-	}
-	
 	curr_scn = new_scn;
 
 	//Wipe the slate clean
@@ -30,6 +27,7 @@ void Game::ChangeScene(Scene new_scn) {
 		m->Open(false);
 	menus.clear();
 	entities.clear();
+	icons.clear();
 	score = 0;
 	selected_tile.x = selected_tile.y = -32;
 
@@ -50,7 +48,7 @@ void Game::ChangeScene(Scene new_scn) {
 				for (uchar col = 0; col <= 9; ++col) {
 					icon_info.pos = { 56 + col * 32, 56 + row * 32 };
 
-					entities.push_back(new Icon(icon_info, static_cast<IconType>(rand()%8)));
+					icons.push_back(new Icon(icon_info, static_cast<IconType>(rand()%8)));
 				}
 			}
 		break;
@@ -61,6 +59,7 @@ void Game::GetInput() {
 	//Input for the entities
 	for (auto& e : entities)
 		e->GetInput();
+	for (auto& i : icons) i->GetInput();
 
 	//Input for the menus
 	for (uchar i = 0; i < menus.size(); ++i)
@@ -85,6 +84,7 @@ void Game::Update() {
 	//Update entities, interface buttons, & menus
 	for (auto& e : entities)
 		e->Update();
+	for (auto& i : icons) i->Update();
 	for (auto& m : menus) {
 		m->Update();
 		if (m->to_close) OpenMenu(m->GetName(), false);
@@ -97,6 +97,8 @@ void Game::Update() {
 		// last (closest to the camera)
 		sort(entities.begin(), entities.end(),
 			[](const Entity* a, const Entity* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
+		sort(icons.begin(), icons.end(),
+			[](const Icon* a, const Icon* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
 	}
 }
 
@@ -114,11 +116,12 @@ void Game::Draw() {
 	//Entities
 	for (const auto& e : entities)
 		e->Draw();
+	for (const auto& i : icons) i->Draw();
 }
 
 void Game::DrawGUI() {
 	for (const auto& e : entities) e->DrawGUI();
-
+	for (const auto& i : icons) i->DrawGUI();
 
 	//Draw the score
 	if (curr_scn == Scene::Game)
@@ -138,7 +141,6 @@ void Game::OpenMenu(const MenuName menu, const bool o) {
 		m->Open();
 	else
 		cout << "Game::OpenMenu(): Cannot open non-existent menu.\n";
-
 }
 
 Menu* Game::FindMenu(MenuName menu) {
@@ -146,4 +148,67 @@ Menu* Game::FindMenu(MenuName menu) {
 		if (m->GetName() == menu) return m;
 
 	return nullptr;
+}
+
+void Game::CheckSwap(Icon* icon) {
+	//Check the icons that were just swapped to see if we matched 3+ - TO-DO
+	//Will have to swap back if no match was made - TO-DO
+	vector<Icon*> matched_icons;
+	matched_icons.push_back(icon);
+	bool check_left = true, check_right = false;
+
+	for (uchar i = 1; i < 9; ++i) {
+		for (auto& ic : icons) {
+			//Check l/r
+			if (ic->GetPos().y == icon->GetPos().y) {
+				//Check left
+				if (check_left and ic->GetPos().x == icon->GetPos().x - 32 * i) {
+					if (ic->type == icon->type)	matched_icons.push_back(ic);
+					else {
+						check_left = false;
+						check_right = true;
+						i = 1;
+					}
+				}
+				//Check right
+				else if (check_right and ic->GetPos().x == icon->GetPos().x + 32 * i) {
+					if (ic->type == icon->type) matched_icons.push_back(ic);
+					else {
+						check_right = false;
+						i = 9;
+					}
+				}
+			}
+		}
+	}
+
+	if (matched_icons.size() < 3) {
+		matched_icons.clear();
+		matched_icons.push_back(icon);
+		bool check_up = true, check_down = false;
+
+		for (uchar i = 1; i < 9; ++i) {
+			for (auto& ic : icons) {
+				if (ic->GetPos().x == icon->GetPos().x) {
+					//Check up
+					if (check_up and ic->GetPos().y == icon->GetPos().y - 32 * i) {
+						if (ic->type == icon->type) matched_icons.push_back(ic);
+						else {
+							check_up = false;
+							check_down = true;
+							i = 1;
+						}
+					}
+					//check down
+					else if (check_down and ic->GetPos().y == icon->GetPos().y + 32 * i) {
+						if (ic->type == icon->type) matched_icons.push_back(ic);
+						else {
+							check_down = false;
+							i = 9;
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -25,6 +25,11 @@ void Entity::MoveTo(const Vec2f new_pos) {
 
     Entity::Move();
 }
+void Entity::MoveTo(const Vec2i new_pos) {
+    pos = new_pos;
+
+    Entity::Move();
+}
 
 void Entity::Move() {
     sprite.MoveTo(pos);

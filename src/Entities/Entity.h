@@ -24,6 +24,7 @@ public:
 
     virtual void MoveBy(const Vec2f offset);
     virtual void MoveTo(const Vec2f new_pos);
+    virtual void MoveTo(const Vec2i new_pos);
 
     inline Vec2i GetPos() const { return pos; }
     inline Rect GetBBox() const { return bbox; }
