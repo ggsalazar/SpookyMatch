@@ -27,6 +27,7 @@ void Game::ChangeScene(Scene new_scn) {
 	entities.clear();
 	icons.clear();
 	score = 0;
+	paused = false;
 
 	switch (curr_scn) {
 		case Scene::Title:
@@ -45,7 +46,7 @@ void Game::ChangeScene(Scene new_scn) {
 				for (uchar col = 0; col <= 9; ++col) {
 					icon_info.pos = { 56 + col * 32, 56 + row * 32 };
 
-					icons.push_back(new Icon(icon_info, static_cast<IconType>(rand()%8)));
+					icons.push_back(new Icon(icon_info));
 				}
 			}
 		break;
@@ -74,12 +75,18 @@ void Game::GetInput() {
 
 void Game::Update() {
 	
-	//Reset match_made
-	match_made = false;
+	//Reset swapped_icons
+	swapped_icons[0] = swapped_icons[1] = nullptr;
+
 	//Update entities, interface buttons, & menus
-	for (auto& e : entities)
-		e->Update();
+	for (auto& e : entities) e->Update();
 	for (auto& i : icons) i->Update();
+	//After all the icons are done updating, if the swapped_icons array contains two icons, then swap those icons back to their original positions
+	if (swapped_icons[0] and swapped_icons[1]) {
+		swapped_icons[0]->pos_goal = swapped_icons[0]->old_pos;
+		swapped_icons[1]->pos_goal = swapped_icons[1]->old_pos;
+	}
+
 	for (auto& m : menus) {
 		m->Update();
 		if (m->to_close) OpenMenu(m->GetName(), false);
@@ -263,9 +270,8 @@ void Game::CheckSwap(Icon* icon) {
 
 	//If we have a matched set, score and remove the matched icons
 	if (matched_icons.size() >= 3) {
-		match_made = true;
-		if (chosen_icon) chosen_icon->swapping = false;
-		if (swapped_icon) swapped_icon->swapping = false;
+		chosen_icon = nullptr;
+		swapped_icon = nullptr;
 
 		//Score
 		switch (matched_icons.size()) {
@@ -278,14 +284,23 @@ void Game::CheckSwap(Icon* icon) {
 			case 9: score += 1000000; break;
 		}
 
-		//Mark the matched icons for removal and the icons above them to move down
+		//Create replacement icons
+		Sprite::Info icon_info = {}; icon_info.origin = { .5 };
+		for (uchar i = 0; i < matched_icons.size(); ++i) {
+			icon_info.pos = { matched_icons[i]->GetPos().x, 24 - (32 * (i * (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x)))};
+			icons.push_back(new Icon(icon_info));
+		}
+
+
+		//Mark the matched icons for removal, the icons above them to move down, and create the replacement icons
 		for (auto& mi : matched_icons) {
 			mi->to_remove = true;
 		
 			for (auto& i : icons) {
 				//Horizontal match
-				if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y)
+				if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y) {
 					i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 };
+				}
 
 				//Vertical match
 				else if (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x and i->GetPos().x == matched_icons[0]->GetPos().x and i->GetPos().y < matched_icons[0]->GetPos().y)
@@ -296,8 +311,8 @@ void Game::CheckSwap(Icon* icon) {
 	}
 
 	//Swap back if no match was made for either icon
-	else if (chosen_icon and swapped_icon and chosen_icon->swapping and swapped_icon->swapping) {
-		icon->pos_goal = icon->old_pos;
-		icon->old_pos = { 0 };
+	else if (chosen_icon and swapped_icon) {
+		if (!swapped_icons[0]) swapped_icons[0] = icon;
+		else swapped_icons[1] = icon;
 	}
 }

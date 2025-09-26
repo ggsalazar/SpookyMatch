@@ -1,2 +1,3 @@
--Icons sometimes swapping back when they shouldn't be because the icon that made the match is setting match_made AFTER the one icon decides to swap back
--Sometimes when icons are cascading, they reset their position to their old_pos if they have previously been chosen/swapped
+Icons sometimes matching when they shouldn't be
+	-Implement a delay before matched icons are eliminated so I can pause and see what the hot shit is going on
+	-Appears to only be happening on pre-existing sets

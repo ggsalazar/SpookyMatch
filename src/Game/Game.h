@@ -18,8 +18,9 @@ public:
     Scene curr_scn = Scene::Title;
     vector<Entity*> entities;
     vector<Icon*> icons;
+    Icon* swapped_icons[2];
     uint score = 0;
-    bool match_made = false, swapped_match_made = false, paused = false;
+    bool paused = false;
     Text* score_txt;
     Icon* chosen_icon = nullptr;
     Icon* swapped_icon = nullptr;
@@ -28,6 +29,9 @@ public:
 	~Game() {
         for (auto& e : entities) delete e;
         entities.clear();
+
+        for (auto& i : icons) delete i;
+        icons.clear();
 
         for (auto& m : menus) delete m;
         menus.clear();
@@ -44,9 +48,7 @@ public:
     void Resize();
 
     //Menu handling
-    void CreateMenu(const MenuName menu);
     void OpenMenu(const MenuName menu, const bool o = true);
-    bool MenuOpen(const MenuName menu);
     Menu* FindMenu(const MenuName menu);
 
     //Entities

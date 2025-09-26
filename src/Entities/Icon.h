@@ -4,10 +4,10 @@
 class Icon : public Entity {
 public:
 	IconType type;
-	bool selected = false, chosen = false, to_remove = false, swapping = false;
+	bool special = false, selected = false, chosen = false, to_remove = false;
 	Vec2i pos_goal, old_pos;
 
-	Icon(const Sprite::Info& i_si, const IconType i_type);
+	Icon(const Sprite::Info& i_si);
 
 	void GetInput() override;
 	void Update() override;

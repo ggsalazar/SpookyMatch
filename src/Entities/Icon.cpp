@@ -2,9 +2,14 @@
 #include "../Engine/Input.h"
 #include "../Engine/Math/Math.h"
 
-Icon::Icon(const Sprite::Info& i_si, const IconType i_type) :
-	Entity(i_si), type(i_type) {
+Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 
+	//Randomly determine type
+	type = static_cast<IconType>(rand() % 8);
+
+	//1 in 50 chance of being a special token
+	special = !(rand() % 50);
+	
 	//Could put all of the icons into one sheet but not doing that for clarity reasons
 	string new_sheet = "Icons/";
 	switch (type) {
@@ -51,17 +56,16 @@ void Icon::GetInput() {
 
 		if (selected and Input::BtnPressed(LMB)) {
 			if (game->chosen_icon) {
-				//Swap with the chosen icon IFF chosen icon adjacent
+				//Swap with the chosen icon IFF chosen icon adjacent and chosen icon not of the same type
 				Vec2i ci_pos = game->chosen_icon->GetPos();
-				if ((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y)) {
+				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y))
+					and type != game->chosen_icon->type) {
+
 					pos_goal = ci_pos;
 					old_pos = pos;
-					swapping = true;
 					game->swapped_icon = this;
 					game->chosen_icon->pos_goal = pos;
 					game->chosen_icon->old_pos = game->chosen_icon->pos;
-					game->chosen_icon->swapping = true;
-					game->chosen_icon = nullptr;
 				}
 				else {
 					game->chosen_icon->chosen = false;
@@ -69,15 +73,7 @@ void Icon::GetInput() {
 				}
 			}
 
-			else {
-				game->chosen_icon = this;
-			}
-		}
-
-		//This is pretty useless so I'll probably remove it
-		else if (selected and Input::BtnPressed(RMB)) {
-			chosen = false;
-			if (game->chosen_icon == this) game->chosen_icon = nullptr;
+			else game->chosen_icon = this;
 		}
 	}
 }
@@ -114,7 +110,10 @@ void Icon::Update() {
 }
 
 void Icon::Draw() {
-	Entity::Draw();
+	//Only draw if on the grid
+	if (Collision::AABB(bbox, Rect({ 40 }, 320))) {
+		Entity::Draw();
 
-	engine->renderer.DrawRect(Rect({ bbox.x, bbox.y }, {bbox.w+1, bbox.h+1}), Color(0, 0), Color(selected, chosen, 0, (selected or chosen)));
+		engine->renderer.DrawRect(Rect({ bbox.x, bbox.y }, { bbox.w + 1, bbox.h + 1 }), Color(0, 0), Color(selected, chosen, special, (selected or chosen or special)));
+	}
 }
