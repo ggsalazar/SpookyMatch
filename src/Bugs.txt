@@ -1,0 +1,2 @@
+-Icons sometimes swapping back when they shouldn't be because the icon that made the match is setting match_made AFTER the one icon decides to swap back
+-Sometimes when icons are cascading, they reset their position to their old_pos if they have previously been chosen/swapped

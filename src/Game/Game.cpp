@@ -15,8 +15,6 @@ void Game::Init(Engine* e) {
 	Text::Info t_info = {};
 	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 10, 4 };
 	score_txt = new Text(t_info);
-
-	selected_tile.w = selected_tile.h = 33;
 }
 
 void Game::ChangeScene(Scene new_scn) {
@@ -29,7 +27,6 @@ void Game::ChangeScene(Scene new_scn) {
 	entities.clear();
 	icons.clear();
 	score = 0;
-	selected_tile.x = selected_tile.y = -32;
 
 	switch (curr_scn) {
 		case Scene::Title:
@@ -68,19 +65,17 @@ void Game::GetInput() {
 	//Game Input
 	if (curr_scn == Scene::Game) {
 		//Open the Options Menu
-		if (Input::KeyPressed(SCO)) OpenMenu(MenuName::Options_I);
-		
-		//Move the selected_tile rect
-		selected_tile.x = 8 + floor((Input::MousePos().x-8) / 32) * 32;
-		selected_tile.y = 8 + floor((Input::MousePos().y-8) / 32) * 32;
-		Math::Clamp(selected_tile.x, 40, 328);
-		Math::Clamp(selected_tile.y, 40, 328);
+		if (Input::KeyPressed(SCO)) {
+			OpenMenu(MenuName::Options_I, !paused);
+			paused = true;
+		}
 	}
 }
 
 void Game::Update() {
-
-	//Every frame:
+	
+	//Reset match_made
+	match_made = false;
 	//Update entities, interface buttons, & menus
 	for (auto& e : entities)
 		e->Update();
@@ -100,6 +95,13 @@ void Game::Update() {
 		sort(icons.begin(), icons.end(),
 			[](const Icon* a, const Icon* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
 	}
+
+	//Remove dead icons walking
+	for (auto it = icons.begin(); it != icons.end();) {
+		Icon* i = *it;
+		if (i->to_remove) it = icons.erase(it);
+		else ++it;
+	}
 }
 
 void Game::Draw() {
@@ -107,9 +109,6 @@ void Game::Draw() {
 	if (curr_scn == Scene::Game) {
 		//First draw the grid
 		engine->renderer.DrawGrid({ 40 }, { 360 }, 32);
-
-		//Draw the currently selected tile
-		engine->renderer.DrawRect(selected_tile, Color(0, 0), Color(1, 0, 0));
 	}
 
 
@@ -151,64 +150,154 @@ Menu* Game::FindMenu(MenuName menu) {
 }
 
 void Game::CheckSwap(Icon* icon) {
-	//Check the icons that were just swapped to see if we matched 3+ - TO-DO
-	//Will have to swap back if no match was made - TO-DO
+	//Check the icons that were just swapped to see if we matched 3+
 	vector<Icon*> matched_icons;
 	matched_icons.push_back(icon);
-	bool check_left = true, check_right = false;
+	bool check_left = true, check_right = true;
 
-	for (uchar i = 1; i < 9; ++i) {
+	uchar i = 1;
+	uchar check_counter = 0;
+	Vec2i check_pos = icon->GetPos();
+	//Check left
+	while (check_left and check_pos.x > 40) {
+		check_pos.x = icon->GetPos().x - 32 * i;
+		//Infinite loop being caused by the fact that it can't check what isn't there
+		//Check counter is temp fix until I implement icon replacement
+		check_counter = 0;
 		for (auto& ic : icons) {
-			//Check l/r
-			if (ic->GetPos().y == icon->GetPos().y) {
-				//Check left
-				if (check_left and ic->GetPos().x == icon->GetPos().x - 32 * i) {
-					if (ic->type == icon->type)	matched_icons.push_back(ic);
-					else {
-						check_left = false;
-						check_right = true;
-						i = 1;
-					}
+			if (++check_counter >= icons.size()) {
+				check_left = false;
+				break;
+			}
+			if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+				if (ic->type == icon->type) {
+					++i;
+					matched_icons.push_back(ic);
 				}
-				//Check right
-				else if (check_right and ic->GetPos().x == icon->GetPos().x + 32 * i) {
-					if (ic->type == icon->type) matched_icons.push_back(ic);
-					else {
-						check_right = false;
-						i = 9;
+				else check_left = false;
+
+				break;
+			}
+		}
+	}
+	//Check right
+	i = 1;
+	while (check_right and check_pos.x < 360) {
+		check_pos.x = icon->GetPos().x + 32 * i;
+		//Infinite loop being caused by the fact that it can't check what isn't there
+		//Check counter is temp fix until I implement icon replacement
+		check_counter = 0;
+		for (auto& ic : icons) {
+			if (++check_counter >= icons.size()) {
+				check_right = false;
+				break;
+			}
+			if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+				if (ic->type == icon->type) {
+					++i;
+					matched_icons.push_back(ic);
+				}
+				else check_right = false;
+
+				break;
+			}
+		}
+	}
+
+	//Only check up/down if we haven't made a matched set yet
+	if (matched_icons.size() < 3) {
+		//Reset variables
+		matched_icons.clear();
+		matched_icons.push_back(icon);
+		check_pos = icon->GetPos();
+		bool check_up = true, check_down = true;
+
+		//Check up
+		i = 1;
+		while (check_up and check_pos.y > 40) {
+			check_pos.y = icon->GetPos().y - 32 * i;
+			//Infinite loop being caused by the fact that it can't check what isn't there
+			//Check counter is temp fix until I implement icon replacement
+			check_counter = 0;
+			for (auto& ic : icons) {
+				if (++check_counter >= icons.size()) {
+					check_up = false;
+					break;
+				}
+				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+					if (ic->type == icon->type) {
+						++i;
+						matched_icons.push_back(ic);
 					}
+					else check_up = false;
+
+					break;
+				}
+			}
+		}
+
+		//Check down
+		i = 1;
+		while (check_down and check_pos.y < 360) {
+			check_pos.y = icon->GetPos().y + 32 * i;
+			//Infinite loop being caused by the fact that it can't check what isn't there
+			//Check counter is temp fix until I implement icon replacement
+			check_counter = 0;
+			for (auto& ic : icons) {
+				if (++check_counter >= icons.size()) {
+					check_down = false;
+					break;
+				}
+				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+					if (ic->type == icon->type) {
+						++i;
+						matched_icons.push_back(ic);
+					}
+					else check_down = false;
+
+					break;
 				}
 			}
 		}
 	}
 
-	if (matched_icons.size() < 3) {
-		matched_icons.clear();
-		matched_icons.push_back(icon);
-		bool check_up = true, check_down = false;
+	//If we have a matched set, score and remove the matched icons
+	if (matched_icons.size() >= 3) {
+		match_made = true;
+		if (chosen_icon) chosen_icon->swapping = false;
+		if (swapped_icon) swapped_icon->swapping = false;
 
-		for (uchar i = 1; i < 9; ++i) {
-			for (auto& ic : icons) {
-				if (ic->GetPos().x == icon->GetPos().x) {
-					//Check up
-					if (check_up and ic->GetPos().y == icon->GetPos().y - 32 * i) {
-						if (ic->type == icon->type) matched_icons.push_back(ic);
-						else {
-							check_up = false;
-							check_down = true;
-							i = 1;
-						}
-					}
-					//check down
-					else if (check_down and ic->GetPos().y == icon->GetPos().y + 32 * i) {
-						if (ic->type == icon->type) matched_icons.push_back(ic);
-						else {
-							check_down = false;
-							i = 9;
-						}
-					}
-				}
+		//Score
+		switch (matched_icons.size()) {
+			case 3: score += 100; break;
+			case 4: score += 250; break;
+			case 5: score += 1000; break;
+			case 6: score += 5000; break;
+			case 7: score += 25000; break;
+			case 8: score += 100000; break;
+			case 9: score += 1000000; break;
+		}
+
+		//Mark the matched icons for removal and the icons above them to move down
+		for (auto& mi : matched_icons) {
+			mi->to_remove = true;
+		
+			for (auto& i : icons) {
+				//Horizontal match
+				if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y)
+					i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 };
+
+				//Vertical match
+				else if (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x and i->GetPos().x == matched_icons[0]->GetPos().x and i->GetPos().y < matched_icons[0]->GetPos().y)
+					i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * (int)matched_icons.size() };
 			}
 		}
+
+	}
+
+	//Swap back if no match was made for either icon
+	else if (chosen_icon and swapped_icon and chosen_icon->swapping and swapped_icon->swapping) {
+		icon->pos_goal = icon->old_pos;
+		icon->old_pos = { 0 };
 	}
 }

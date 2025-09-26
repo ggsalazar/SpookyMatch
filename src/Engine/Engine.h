@@ -31,7 +31,6 @@ public:
     Renderer renderer;
     bool running = true;
     float delta_time = 0.f;
-    bool paused = false;
     Game game;
 
     //Camera

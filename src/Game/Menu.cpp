@@ -21,7 +21,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
         case MenuName::Main: {
             m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "SpookyMatch!";
-            s_t_pos = m_t_pos; s_t_pos.y += round(engine->min_res.y * .1f); s_t_str = "LMB to select, RMB to swap";
 
             elem_info.sheet = "UI/Button";
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .4f);

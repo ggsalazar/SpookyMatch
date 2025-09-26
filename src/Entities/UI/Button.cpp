@@ -55,7 +55,7 @@ void Button::Released() {
 
         case UIElem::Resume:
             menu->Open(false);
-            engine->paused = false;
+            game->paused = false;
         break;
 
         case UIElem::Title:

@@ -5,7 +5,7 @@
 Icon::Icon(const Sprite::Info& i_si, const IconType i_type) :
 	Entity(i_si), type(i_type) {
 
-	//CONSIDER PUTTING ALL OF THE ICONS INTO ONE SHEET
+	//Could put all of the icons into one sheet but not doing that for clarity reasons
 	string new_sheet = "Icons/";
 	switch (type) {
 		case IconType::Candy:
@@ -42,28 +42,43 @@ Icon::Icon(const Sprite::Info& i_si, const IconType i_type) :
 	}
 	sprite.SetSheet(new_sheet);
 	Entity::Move();
-	++bbox.w;
-	++bbox.h;
 }
 
 void Icon::GetInput() {
-	if (Collision::RectPoint(bbox, Input::MousePos()) and Input::BtnPressed(LMB)) {
-		if (game->selected_icon)
-			game->selected_icon->selected = false;
-		game->selected_icon = this;
-		selected = true;
-	}
+	if (!game->paused) {
+		selected = Collision::RectPoint(bbox, Input::MousePos());
+		chosen = game->chosen_icon == this;
 
-	else if (Collision::RectPoint(bbox, Input::MousePos()) and Input::BtnPressed(RMB) and game->selected_icon) {
-		//Swap with the selected icon IFF selected icon adjacent
-		Vec2i si_pos = game->selected_icon->GetPos();
-		if ((si_pos.x == pos.x and si_pos.y == pos.y + 32) or (si_pos.x == pos.x and si_pos.y == pos.y - 32) or (si_pos.x == pos.x + 32 and si_pos.y == pos.y) or (si_pos.x == pos.x - 32 and si_pos.y == pos.y)) {
-			pos_goal = si_pos;
-			game->selected_icon->pos_goal = pos;
+		if (selected and Input::BtnPressed(LMB)) {
+			if (game->chosen_icon) {
+				//Swap with the chosen icon IFF chosen icon adjacent
+				Vec2i ci_pos = game->chosen_icon->GetPos();
+				if ((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y)) {
+					pos_goal = ci_pos;
+					old_pos = pos;
+					swapping = true;
+					game->swapped_icon = this;
+					game->chosen_icon->pos_goal = pos;
+					game->chosen_icon->old_pos = game->chosen_icon->pos;
+					game->chosen_icon->swapping = true;
+					game->chosen_icon = nullptr;
+				}
+				else {
+					game->chosen_icon->chosen = false;
+					game->chosen_icon = this;
+				}
+			}
+
+			else {
+				game->chosen_icon = this;
+			}
 		}
 
-		game->selected_icon->selected = false;
-		game->selected_icon = nullptr;
+		//This is pretty useless so I'll probably remove it
+		else if (selected and Input::BtnPressed(RMB)) {
+			chosen = false;
+			if (game->chosen_icon == this) game->chosen_icon = nullptr;
+		}
 	}
 }
 
@@ -72,27 +87,27 @@ void Icon::Update() {
 
 	//Move to our goal
 	if (pos_goal != Vec2i(0)) {
-		Vec2i new_pos = Round(Math::Lerp(Vec2f(pos), Vec2f(pos_goal), .15));
+		Vec2i new_pos = Round(Math::Lerp(Vec2f(pos), Vec2f(pos_goal), .142));
 		//Moving up/down
 		if (pos_goal.x == pos.x and new_pos.y == pos.y) {
 			//Up
-			if (pos_goal.y < pos.y) --new_pos.y;
+			new_pos.y -= pos_goal.y < pos.y;
 			//Down
-			else if (pos_goal.y > pos.y) ++new_pos.y;
+			new_pos.y += pos_goal.y > pos.y;
 		}
 		//Moving l/r
 		else if (pos_goal.y == pos.y and new_pos.x == pos.x) {
 			//left
-			if (pos_goal.x < pos.x) --new_pos.x;
+			new_pos.x -= pos_goal.x < pos.x;
 			//right
-			else if (pos_goal.x > pos.x) ++new_pos.x;
+			new_pos.x += pos_goal.x > pos.x;
 		}
 
 		MoveTo(new_pos);
 
 		if (pos == pos_goal) {
 			pos_goal = { 0 };
-			//This works because BOTH of the swapped icons will be calling the function, thereby checking both
+			//BOTH of the swapped icons will be calling the function, thereby checking both
 			game->CheckSwap(this);
 		}
 	}
@@ -101,12 +116,5 @@ void Icon::Update() {
 void Icon::Draw() {
 	Entity::Draw();
 
-	if (selected)
-		engine->renderer.DrawRect(bbox, Color(0, 0), Color(0, 1, 0));
-}
-
-void Icon::MoveTo(const Vec2i new_pos) {
-	Entity::MoveTo(new_pos);
-
-	++bbox.w; ++bbox.h;
+	engine->renderer.DrawRect(Rect({ bbox.x, bbox.y }, {bbox.w+1, bbox.h+1}), Color(0, 0), Color(selected, chosen, 0, (selected or chosen)));
 }

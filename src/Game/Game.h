@@ -19,8 +19,10 @@ public:
     vector<Entity*> entities;
     vector<Icon*> icons;
     uint score = 0;
+    bool match_made = false, swapped_match_made = false, paused = false;
     Text* score_txt;
-    Icon* selected_icon = nullptr;
+    Icon* chosen_icon = nullptr;
+    Icon* swapped_icon = nullptr;
 
     Game() = default;
 	~Game() {
@@ -56,7 +58,6 @@ public:
 
 private:
     vector<Menu*> menus;
-    Rect selected_tile;
 
     inline static Engine* engine = nullptr;
 };
