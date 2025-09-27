@@ -1,3 +1,1 @@
-Icons sometimes matching when they shouldn't be
-	-Implement a delay before matched icons are eliminated so I can pause and see what the hot shit is going on
-	-Appears to only be happening on pre-existing sets
+Stupid fucking combo counter stmfgwtfdidtstmsijwtmrpgs

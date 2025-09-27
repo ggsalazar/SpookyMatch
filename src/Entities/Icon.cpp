@@ -4,6 +4,8 @@
 
 Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 
+	sprite.SetOrigin();
+
 	//Randomly determine type
 	type = static_cast<IconType>(rand() % 8);
 
@@ -59,11 +61,10 @@ void Icon::GetInput() {
 				//Swap with the chosen icon IFF chosen icon adjacent and chosen icon not of the same type
 				Vec2i ci_pos = game->chosen_icon->GetPos();
 				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y))
-					and type != game->chosen_icon->type) {
+					and type != game->chosen_icon->type and !game->match_made) {
 
 					pos_goal = ci_pos;
 					old_pos = pos;
-					game->swapped_icon = this;
 					game->chosen_icon->pos_goal = pos;
 					game->chosen_icon->old_pos = game->chosen_icon->pos;
 				}
@@ -115,5 +116,7 @@ void Icon::Draw() {
 		Entity::Draw();
 
 		engine->renderer.DrawRect(Rect({ bbox.x, bbox.y }, { bbox.w + 1, bbox.h + 1 }), Color(0, 0), Color(selected, chosen, special, (selected or chosen or special)));
+
+		engine->renderer.DrawRect(Rect({ bbox.x + 1, bbox.y + 1 }, { bbox.w - 1, bbox.h - 1 }), Color(0, 0), Color(1, 0, 0, matched));
 	}
 }

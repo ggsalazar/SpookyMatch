@@ -15,6 +15,14 @@ void Game::Init(Engine* e) {
 	Text::Info t_info = {};
 	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 10, 4 };
 	score_txt = new Text(t_info);
+	t_info.str = "Combo: "; t_info.origin.x = 1; t_info.pos.x = 390;
+	combo_txt = new Text(t_info);
+
+	//Debug stuff
+	t_info.origin.x = .5;
+	t_info.str = "MATCH MADE!!!";
+	t_info.pos = { 200, 365 };
+	match_txt = new Text(t_info);
 }
 
 void Game::ChangeScene(Scene new_scn) {
@@ -27,7 +35,9 @@ void Game::ChangeScene(Scene new_scn) {
 	entities.clear();
 	icons.clear();
 	score = 0;
+	combo = 0;
 	paused = false;
+	match_timer = match_timer_max;
 
 	switch (curr_scn) {
 		case Scene::Title:
@@ -41,7 +51,7 @@ void Game::ChangeScene(Scene new_scn) {
 			menus.push_back(new Menu(MenuName::Options_I));
 
 			//Next we gotta add in our icons
-			Sprite::Info icon_info = {}; icon_info.origin = { .5 };
+			Sprite::Info icon_info = {};
 			for (uchar row = 0; row <= 9; ++row) {
 				for (uchar col = 0; col <= 9; ++col) {
 					icon_info.pos = { 56 + col * 32, 56 + row * 32 };
@@ -74,7 +84,6 @@ void Game::GetInput() {
 }
 
 void Game::Update() {
-	
 	//Reset swapped_icons
 	swapped_icons[0] = swapped_icons[1] = nullptr;
 
@@ -92,7 +101,16 @@ void Game::Update() {
 		if (m->to_close) OpenMenu(m->GetName(), false);
 	}
 
+	//Did we make a match?
+	match_timer -= match_made;
+	if (match_timer <= 0) {
+		RemoveIcons();
+		match_timer = match_timer_max;
+	}
+	//cout << match_timer << '\n';
+
 	score_txt->SetStr("Score: " + to_string(score));
+	combo_txt->SetStr("Combo: " + to_string(combo) + "x | " + to_string(max_combo) + 'x');
 
 	if (engine->GetGameFrames() % 10 == 0) {
 		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
@@ -129,9 +147,12 @@ void Game::DrawGUI() {
 	for (const auto& e : entities) e->DrawGUI();
 	for (const auto& i : icons) i->DrawGUI();
 
-	//Draw the score
-	if (curr_scn == Scene::Game)
+	//Draw the score & combo
+	if (curr_scn == Scene::Game) {
 		engine->renderer.DrawTxt(*score_txt);
+		engine->renderer.DrawTxt(*combo_txt);
+		if (match_made) engine->renderer.DrawTxt(*match_txt);
+	}
 
 	//Menus are drawn last since they will always be closest to the camera
 	for (const auto& m : menus)
@@ -158,64 +179,48 @@ Menu* Game::FindMenu(MenuName menu) {
 
 void Game::CheckSwap(Icon* icon) {
 	//Check the icons that were just swapped to see if we matched 3+
-	vector<Icon*> matched_icons;
-	matched_icons.push_back(icon);
-	bool check_left = true, check_right = true;
+	vector<Icon*> horiz_match;
+	vector<Icon*> vert_match;
+	if (!match_made) {
+		horiz_match.push_back(icon);
+		bool check_left = true, check_right = true;
 
-	uchar i = 1;
-	uchar check_counter = 0;
-	Vec2i check_pos = icon->GetPos();
-	//Check left
-	while (check_left and check_pos.x > 40) {
-		check_pos.x = icon->GetPos().x - 32 * i;
-		//Infinite loop being caused by the fact that it can't check what isn't there
-		//Check counter is temp fix until I implement icon replacement
-		check_counter = 0;
-		for (auto& ic : icons) {
-			if (++check_counter >= icons.size()) {
-				check_left = false;
-				break;
-			}
-			if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
-				if (ic->type == icon->type) {
-					++i;
-					matched_icons.push_back(ic);
+		uchar i = 1;
+		Vec2i check_pos = icon->GetPos();
+		//Check left
+		while (check_left and check_pos.x > 40) {
+			check_pos.x = icon->GetPos().x - 32 * i;
+			for (auto& ic : icons) {
+				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+					if (ic->type == icon->type) {
+						++i;
+						horiz_match.push_back(ic);
+					}
+					else check_left = false;
+
+					break;
 				}
-				else check_left = false;
-
-				break;
 			}
 		}
-	}
-	//Check right
-	i = 1;
-	while (check_right and check_pos.x < 360) {
-		check_pos.x = icon->GetPos().x + 32 * i;
-		//Infinite loop being caused by the fact that it can't check what isn't there
-		//Check counter is temp fix until I implement icon replacement
-		check_counter = 0;
-		for (auto& ic : icons) {
-			if (++check_counter >= icons.size()) {
-				check_right = false;
-				break;
-			}
-			if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
-				if (ic->type == icon->type) {
-					++i;
-					matched_icons.push_back(ic);
-				}
-				else check_right = false;
+		//Check right
+		i = 1;
+		while (check_right and check_pos.x < 360) {
+			check_pos.x = icon->GetPos().x + 32 * i;
+			for (auto& ic : icons) {
+				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
+					if (ic->type == icon->type) {
+						++i;
+						horiz_match.push_back(ic);
+					}
+					else check_right = false;
 
-				break;
+					break;
+				}
 			}
 		}
-	}
 
-	//Only check up/down if we haven't made a matched set yet
-	if (matched_icons.size() < 3) {
-		//Reset variables
-		matched_icons.clear();
-		matched_icons.push_back(icon);
+		//Check up/down even if we have made a horizontal match to see if we can make a bigger match
+		vert_match.push_back(icon);
 		check_pos = icon->GetPos();
 		bool check_up = true, check_down = true;
 
@@ -223,18 +228,11 @@ void Game::CheckSwap(Icon* icon) {
 		i = 1;
 		while (check_up and check_pos.y > 40) {
 			check_pos.y = icon->GetPos().y - 32 * i;
-			//Infinite loop being caused by the fact that it can't check what isn't there
-			//Check counter is temp fix until I implement icon replacement
-			check_counter = 0;
 			for (auto& ic : icons) {
-				if (++check_counter >= icons.size()) {
-					check_up = false;
-					break;
-				}
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
 						++i;
-						matched_icons.push_back(ic);
+						vert_match.push_back(ic);
 					}
 					else check_up = false;
 
@@ -247,18 +245,11 @@ void Game::CheckSwap(Icon* icon) {
 		i = 1;
 		while (check_down and check_pos.y < 360) {
 			check_pos.y = icon->GetPos().y + 32 * i;
-			//Infinite loop being caused by the fact that it can't check what isn't there
-			//Check counter is temp fix until I implement icon replacement
-			check_counter = 0;
 			for (auto& ic : icons) {
-				if (++check_counter >= icons.size()) {
-					check_down = false;
-					break;
-				}
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
 						++i;
-						matched_icons.push_back(ic);
+						vert_match.push_back(ic);
 					}
 					else check_down = false;
 
@@ -266,53 +257,71 @@ void Game::CheckSwap(Icon* icon) {
 				}
 			}
 		}
-	}
 
-	//If we have a matched set, score and remove the matched icons
-	if (matched_icons.size() >= 3) {
-		chosen_icon = nullptr;
-		swapped_icon = nullptr;
+		if (horiz_match.size() >= vert_match.size())
+			for (auto& hm : horiz_match) matched_icons.push_back(hm);
+		else if (vert_match.size() > horiz_match.size())
+			for (auto& vm : vert_match) matched_icons.push_back(vm);
 
-		//Score
-		switch (matched_icons.size()) {
-			case 3: score += 100; break;
-			case 4: score += 250; break;
-			case 5: score += 1000; break;
-			case 6: score += 5000; break;
-			case 7: score += 25000; break;
-			case 8: score += 100000; break;
-			case 9: score += 1000000; break;
-		}
+		match_made = matched_icons.size() >= 3;
+		combo += match_made;
+		max_combo = combo > max_combo ? combo : max_combo;
 
-		//Create replacement icons
-		Sprite::Info icon_info = {}; icon_info.origin = { .5 };
-		for (uchar i = 0; i < matched_icons.size(); ++i) {
-			icon_info.pos = { matched_icons[i]->GetPos().x, 24 - (32 * (i * (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x)))};
-			icons.push_back(new Icon(icon_info));
-		}
+		for (auto& mi : matched_icons) mi->matched = match_made;
 
+		if (!match_made) {
+			matched_icons.clear();
+			combo = 0;
 
-		//Mark the matched icons for removal, the icons above them to move down, and create the replacement icons
-		for (auto& mi : matched_icons) {
-			mi->to_remove = true;
-		
-			for (auto& i : icons) {
-				//Horizontal match
-				if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y) {
-					i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 };
-				}
-
-				//Vertical match
-				else if (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x and i->GetPos().x == matched_icons[0]->GetPos().x and i->GetPos().y < matched_icons[0]->GetPos().y)
-					i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * (int)matched_icons.size() };
+			//I honestly don't think this is a long-term solution but whatever
+			if (icon->old_pos != icon->GetPos()) {
+				if (!swapped_icons[0]) swapped_icons[0] = icon;
+				else swapped_icons[1] = icon;
 			}
 		}
+	}
+}
 
+void Game::RemoveIcons() {
+	chosen_icon = nullptr;
+	match_made = false;
+
+	//Score
+	uint new_score = 0;
+	switch (matched_icons.size()) {
+		case 3: new_score = 100; break;
+		case 4: new_score = 250; break;
+		case 5: new_score = 1000; break;
+		case 6: new_score = 5000; break;
+		case 7: new_score = 25000; break;
+		case 8: new_score = 100000; break;
+		case 9: new_score = 1000000; break;
+	}
+	score += new_score * combo;
+
+	//Create replacement icons
+	Sprite::Info icon_info = {};
+	for (uchar i = 0; i < matched_icons.size(); ++i) {
+		icon_info.pos = { matched_icons[i]->GetPos().x, 24 - (32 * (i * (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x))) };
+		icons.push_back(new Icon(icon_info));
 	}
 
-	//Swap back if no match was made for either icon
-	else if (chosen_icon and swapped_icon) {
-		if (!swapped_icons[0]) swapped_icons[0] = icon;
-		else swapped_icons[1] = icon;
+
+	//Mark the matched icons for removal, the icons above them to move down, and create the replacement icons
+	for (auto& mi : matched_icons) {
+		mi->to_remove = true;
+
+		for (auto& i : icons) {
+			//Horizontal match
+			if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y) {
+				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 };
+			}
+
+			//Vertical match
+			else if (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x and i->GetPos().x == matched_icons[0]->GetPos().x and i->GetPos().y < matched_icons[0]->GetPos().y)
+				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * (int)matched_icons.size() };
+		}
 	}
+	//Clear out matched_icons
+	matched_icons.clear();
 }

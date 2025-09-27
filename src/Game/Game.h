@@ -18,12 +18,19 @@ public:
     Scene curr_scn = Scene::Title;
     vector<Entity*> entities;
     vector<Icon*> icons;
+    Icon* chosen_icon;
     Icon* swapped_icons[2];
     uint score = 0;
+    uchar combo = 0, max_combo = 0;
     bool paused = false;
-    Text* score_txt;
-    Icon* chosen_icon = nullptr;
-    Icon* swapped_icon = nullptr;
+    Text* score_txt = nullptr;
+    Text* combo_txt = nullptr;
+
+    //Debug stuff
+    Text* match_txt;
+    bool match_made = false;
+    uint match_timer_max = 200, match_timer = 200;
+    vector<Icon*> matched_icons;
 
     Game() = default;
 	~Game() {
@@ -35,6 +42,9 @@ public:
 
         for (auto& m : menus) delete m;
         menus.clear();
+
+        delete score_txt;
+        delete match_txt;
     }
 	void Init(Engine* e);
 
@@ -53,10 +63,10 @@ public:
 
     //Entities
     inline void AddEntity(Entity* e) { entities.push_back(e); }
-    void RemoveEntity(Entity* e);
 
     //Gameplay
     void CheckSwap(Icon* icon);
+    void RemoveIcons();
 
 private:
     vector<Menu*> menus;

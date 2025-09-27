@@ -4,7 +4,7 @@
 class Icon : public Entity {
 public:
 	IconType type;
-	bool special = false, selected = false, chosen = false, to_remove = false;
+	bool special = false, selected = false, chosen = false, to_remove = false, matched = false;
 	Vec2i pos_goal, old_pos;
 
 	Icon(const Sprite::Info& i_si);
