@@ -24,6 +24,14 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e)
         case UIElem::Resolution:
             picking_str = to_string(engine->resolution.x / engine->min_res.x);
         break;
+
+        case UIElem::Moves_P:
+            picking_str = to_string(30);
+        break;
+
+        case UIElem::Time_P:
+            picking_str = to_string(SEC*60*5);
+        break;
     }
     picking.SetStr(picking_str);
     picking.SetOrigin();
@@ -55,8 +63,16 @@ void Picker::Draw() {
         engine->renderer.DrawRect(bbox, Color(0, 1, 0));
 
     UI::Draw();
-
-    engine->renderer.DrawTxt(picking);
+    
+    //Gotta convert the time being picked into seconds
+    if (elem == UIElem::Time_P) {
+        uint true_time = stoi(picking.GetStr());
+        uint time_secs = true_time / SEC;
+        picking.SetStr(to_string(time_secs));
+        engine->renderer.DrawTxt(picking);
+        picking.SetStr(to_string(true_time));
+    }
+    else engine->renderer.DrawTxt(picking);
 
     if (LeftSelected())
         engine->renderer.DrawRect(l_bbox, Color(1, 0, 0, .5)); //Red, 50% opacity
@@ -85,41 +101,53 @@ void Picker::SetPicking(const string new_p) {
 }
 
 void Picker::LeftReleased() {
-    string p = picking.GetStr();
+    uint curr_picking = stoi(picking.GetStr());
+
     switch (elem) {
-        case UIElem::Resolution: {
-            uint curr_res = stoi(p);
-
-            if (--curr_res < 1)
-                curr_res = min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y / engine->min_res.y));
-
-            p = to_string(curr_res);
+        case UIElem::Resolution:
+            if (--curr_picking < 1)
+                curr_picking = min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y / engine->min_res.y));
 
             //Set the Apply button to active
             menu->SetUIElemActive(UIElem::Apply);
-            break;
-        }
+        break;
+
+        case UIElem::Moves_P:
+            curr_picking -= 5;
+            if (curr_picking <= 0) curr_picking = 100;
+        break;
+
+        case UIElem::Time_P:
+            curr_picking -= 30 * SEC;
+            if (curr_picking <= 0) curr_picking = SEC * 60 * 15;
+        break;
     }
 
-    picking.SetStr(p);
+    picking.SetStr(to_string(curr_picking));
 }
 
 void Picker::RightReleased() {
-    string p = picking.GetStr();
+    uint curr_picking = stoi(picking.GetStr());
+
     switch (elem) {
-        case UIElem::Resolution: {
-            uint curr_res = stoi(p);
-
-            if (++curr_res > min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y/engine->min_res.y)))
-                curr_res = 1;
-
-            p = to_string(curr_res);
+        case UIElem::Resolution:
+            if (++curr_picking > min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y/engine->min_res.y)))
+                curr_picking = 1;
 
             //Set the Apply button to active
             menu->SetUIElemActive(UIElem::Apply);
+        break;
+
+        case UIElem::Moves_P:
+            curr_picking += 5;
+            if (curr_picking > 100) curr_picking = 5;
             break;
-        }
+
+        case UIElem::Time_P:
+            curr_picking += 30 * SEC;
+            if (curr_picking > SEC*60*15) curr_picking = SEC * 30;
+        break;
     }
 
-    picking.SetStr(p);
+    picking.SetStr(to_string(curr_picking));
 }

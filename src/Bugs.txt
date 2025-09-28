@@ -1,1 +1,0 @@
-If two tiles are swapped where both should make a match, only one does

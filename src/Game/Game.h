@@ -16,6 +16,8 @@ class Text;
 class Game {
 public:
     Scene curr_scn = Scene::Title;
+    GameMode gm_mode = GameMode::NONE;
+    uint time_remaining = 0, moves_remaining = 0;
     vector<Entity*> entities;
     vector<Icon*> icons;
     Icon* chosen_icons[2];
@@ -24,8 +26,9 @@ public:
     bool paused = false;
     Text* score_txt = nullptr;
     Text* combo_txt = nullptr;
+    Text* remaining_txt = nullptr;
 
-    //Debug stuff
+    //Matching stuff
     Text* match_txt;
     bool match_made = false, swap_back = false;
     uint match_timer_max = 200, match_timer = 200;
@@ -43,7 +46,9 @@ public:
         menus.clear();
 
         delete score_txt;
+        delete combo_txt;
         delete match_txt;
+        delete remaining_txt;
     }
 	void Init(Engine* e);
 

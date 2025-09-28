@@ -17,11 +17,14 @@ void Game::Init(Engine* e) {
 	score_txt = new Text(t_info);
 	t_info.str = "Combo: "; t_info.origin.x = 1; t_info.pos.x = 390;
 	combo_txt = new Text(t_info);
+	t_info.pos.y = 365;
+	remaining_txt = new Text(t_info);
 
-	//Debug stuff
-	t_info.origin.x = .5;
+
+	//matching stuff
+	t_info.origin.x = .0;
 	t_info.str = "MATCH MADE!!!";
-	t_info.pos = { 200, 365 };
+	t_info.pos = { 10, 365 };
 	match_txt = new Text(t_info);
 }
 
@@ -44,11 +47,16 @@ void Game::ChangeScene(Scene new_scn) {
 			menus.push_back(new Menu(MenuName::Main));
 			FindMenu(MenuName::Main)->Open();
 			menus.push_back(new Menu(MenuName::Options));
+			menus.push_back(new Menu(MenuName::Choose_Game));
+
+			moves_remaining = 0;
+			time_remaining = 0;
 		break;
 
 		case Scene::Game:
-			//First add the pause menu
+			//First add the pause and game over menus
 			menus.push_back(new Menu(MenuName::Options_I));
+			menus.push_back(new Menu(MenuName::GO));
 
 			//Next we gotta add in our icons
 			Sprite::Info icon_info = {};
@@ -100,7 +108,6 @@ void Game::Update() {
 	}
 	swap_back = false;
 
-
 	for (auto& m : menus) {
 		m->Update();
 		if (m->to_close) OpenMenu(m->GetName(), false);
@@ -113,8 +120,26 @@ void Game::Update() {
 		match_timer = match_timer_max;
 	}
 
+	//Count down the pertinent mechanic
+	if (gm_mode == GameMode::Moves and moves_remaining == 0 and !match_made) {
+		paused = true;
+		OpenMenu(MenuName::GO);
+	}
+	else if (gm_mode == GameMode::Time) {
+		time_remaining -= !paused;
+		if (time_remaining <= 0 and !match_made) {
+			paused = true;
+			OpenMenu(MenuName::GO);
+		}
+	}
+
+	//Texts
 	score_txt->SetStr("Score: " + to_string(score));
 	combo_txt->SetStr("Combo: " + to_string(combo) + "x | " + to_string(max_combo) + 'x');
+	if (gm_mode == GameMode::Moves)
+		remaining_txt->SetStr("Moves: " + to_string(moves_remaining));
+	else if (gm_mode == GameMode::Time)
+		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining/60)));
 
 	if (engine->GetGameFrames() % 10 == 0) {
 		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
@@ -156,6 +181,7 @@ void Game::DrawGUI() {
 		engine->renderer.DrawTxt(*score_txt);
 		engine->renderer.DrawTxt(*combo_txt);
 		if (match_made) engine->renderer.DrawTxt(*match_txt);
+		engine->renderer.DrawTxt(*remaining_txt);
 	}
 
 	//Menus are drawn last since they will always be closest to the camera

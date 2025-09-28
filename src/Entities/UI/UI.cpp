@@ -16,6 +16,14 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
             l_str = "Back";
             break;
 
+        case UIElem::Moves:
+            l_str = "Moves";
+            break;
+
+        case UIElem::Moves_P:
+            l_str = "Available Moves:";
+            break;
+
         case UIElem::Options:
             l_str = "Options";
             break;
@@ -34,6 +42,14 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
 
         case UIElem::Resume:
             l_str = "Resume";
+            break;
+
+        case UIElem::Time:
+            l_str = "Time";
+            break;
+
+        case UIElem::Time_P:
+            l_str = "Available Time:";
             break;
 
         case UIElem::Title:

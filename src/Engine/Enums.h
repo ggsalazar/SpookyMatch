@@ -1,5 +1,11 @@
 #pragma once
 
+enum class GameMode {
+	NONE,
+	Moves,
+	Time
+};
+
 enum class IconType {
 	Candy = 0,
 	Ghost = 1,
@@ -18,7 +24,7 @@ enum class Scene {
 };
 
 enum class MenuName {
-	Confirm_Quit,
+	Choose_Game,
 	GO,
 	Main,
 	Options,
@@ -31,11 +37,15 @@ enum class UIElem {
 	//Buttons
 	Apply,
 	Back,
+	Moves,
 	Options,
 	Play,
 	Quit,
 	Resume,
+	Time,
 	Title,
 	//Pickers
-	Resolution
+	Resolution,
+	Moves_P,
+	Time_P
 };

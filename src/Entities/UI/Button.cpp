@@ -40,13 +40,20 @@ void Button::Released() {
             game->OpenMenu(MenuName::Main);
         break;
 
+        case UIElem::Moves:
+            game->moves_remaining = stoi(menu->GetUIElemStatus(UIElem::Moves_P));
+            game->gm_mode = GameMode::Moves;
+            game->ChangeScene(Scene::Game);
+        break;
+
         case UIElem::Options:
             menu->Open(false);
             game->OpenMenu(MenuName::Options);
         break;
 
         case UIElem::Play:
-            game->ChangeScene(Scene::Game);
+            menu->Open(false);
+            game->OpenMenu(MenuName::Choose_Game);
         break;
 
         case UIElem::Quit:
@@ -56,6 +63,12 @@ void Button::Released() {
         case UIElem::Resume:
             menu->Open(false);
             game->paused = false;
+        break;
+
+        case UIElem::Time:
+            game->time_remaining = stoi(menu->GetUIElemStatus(UIElem::Time_P));
+            game->gm_mode = GameMode::Time;
+            game->ChangeScene(Scene::Game);
         break;
 
         case UIElem::Title:

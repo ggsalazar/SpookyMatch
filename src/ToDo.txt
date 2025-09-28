@@ -1,4 +1,2 @@
 Special icons
 High score saving/loading
-Limited time
-Limited moves
