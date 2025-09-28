@@ -54,27 +54,32 @@ Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 void Icon::GetInput() {
 	if (!game->paused) {
 		selected = Collision::RectPoint(bbox, Input::MousePos());
-		chosen = game->chosen_icon == this;
+		chosen = game->chosen_icons[0] == this;
 
 		if (selected and Input::BtnPressed(LMB)) {
-			if (game->chosen_icon) {
+			if (game->chosen_icons[0]) {
 				//Swap with the chosen icon IFF chosen icon adjacent and chosen icon not of the same type
-				Vec2i ci_pos = game->chosen_icon->GetPos();
+				Vec2i ci_pos = game->chosen_icons[0]->GetPos();
 				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y))
-					and type != game->chosen_icon->type and !game->match_made) {
+					and type != game->chosen_icons[0]->type and !game->match_made) {
+
+					//If we're swapping, gotta reset the combo
+					game->combo = 0;
 
 					pos_goal = ci_pos;
 					old_pos = pos;
-					game->chosen_icon->pos_goal = pos;
-					game->chosen_icon->old_pos = game->chosen_icon->pos;
+					game->chosen_icons[1] = this;
+
+					game->chosen_icons[0]->pos_goal = pos;
+					game->chosen_icons[0]->old_pos = ci_pos;
 				}
 				else {
-					game->chosen_icon->chosen = false;
-					game->chosen_icon = this;
+					game->chosen_icons[0]->chosen = false;
+					game->chosen_icons[0] = this;
 				}
 			}
 
-			else game->chosen_icon = this;
+			else game->chosen_icons[0] = this;
 		}
 	}
 }
@@ -101,12 +106,6 @@ void Icon::Update() {
 		}
 
 		MoveTo(new_pos);
-
-		if (pos == pos_goal) {
-			pos_goal = { 0 };
-			//BOTH of the swapped icons will be calling the function, thereby checking both
-			game->CheckSwap(this);
-		}
 	}
 }
 

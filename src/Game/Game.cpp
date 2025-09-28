@@ -84,17 +84,22 @@ void Game::GetInput() {
 }
 
 void Game::Update() {
-	//Reset swapped_icons
-	swapped_icons[0] = swapped_icons[1] = nullptr;
-
 	//Update entities, interface buttons, & menus
 	for (auto& e : entities) e->Update();
-	for (auto& i : icons) i->Update();
-	//After all the icons are done updating, if the swapped_icons array contains two icons, then swap those icons back to their original positions
-	if (swapped_icons[0] and swapped_icons[1]) {
-		swapped_icons[0]->pos_goal = swapped_icons[0]->old_pos;
-		swapped_icons[1]->pos_goal = swapped_icons[1]->old_pos;
+	for (auto& i : icons) {
+		i->Update();
+
+		if (i->GetPos() == i->pos_goal)	CheckSwap(i);
 	}
+
+	//If there was no match made, then the chosen icons need to swap back to their original positions
+	if (!match_made and swap_back and chosen_icons[0] and chosen_icons[1]) {
+		chosen_icons[0]->pos_goal = chosen_icons[0]->old_pos;
+		chosen_icons[1]->pos_goal = chosen_icons[1]->old_pos;
+		chosen_icons[0] = chosen_icons[1] = nullptr;
+	}
+	swap_back = false;
+
 
 	for (auto& m : menus) {
 		m->Update();
@@ -107,7 +112,6 @@ void Game::Update() {
 		RemoveIcons();
 		match_timer = match_timer_max;
 	}
-	//cout << match_timer << '\n';
 
 	score_txt->SetStr("Score: " + to_string(score));
 	combo_txt->SetStr("Combo: " + to_string(combo) + "x | " + to_string(max_combo) + 'x');
@@ -178,10 +182,14 @@ Menu* Game::FindMenu(MenuName menu) {
 }
 
 void Game::CheckSwap(Icon* icon) {
+
+	icon->pos_goal = { 0 };
+
 	//Check the icons that were just swapped to see if we matched 3+
-	vector<Icon*> horiz_match;
-	vector<Icon*> vert_match;
 	if (!match_made) {
+		vector<Icon*> horiz_match;
+		vector<Icon*> vert_match;
+
 		horiz_match.push_back(icon);
 		bool check_left = true, check_right = true;
 
@@ -271,19 +279,14 @@ void Game::CheckSwap(Icon* icon) {
 
 		if (!match_made) {
 			matched_icons.clear();
-			combo = 0;
 
-			//I honestly don't think this is a long-term solution but whatever
-			if (icon->old_pos != icon->GetPos()) {
-				if (!swapped_icons[0]) swapped_icons[0] = icon;
-				else swapped_icons[1] = icon;
-			}
+			swap_back = (chosen_icons[0] and chosen_icons[1]);
 		}
 	}
 }
 
 void Game::RemoveIcons() {
-	chosen_icon = nullptr;
+	chosen_icons[0] = chosen_icons[1] = nullptr;
 	match_made = false;
 
 	//Score

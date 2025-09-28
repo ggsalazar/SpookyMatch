@@ -18,8 +18,7 @@ public:
     Scene curr_scn = Scene::Title;
     vector<Entity*> entities;
     vector<Icon*> icons;
-    Icon* chosen_icon;
-    Icon* swapped_icons[2];
+    Icon* chosen_icons[2];
     uint score = 0;
     uchar combo = 0, max_combo = 0;
     bool paused = false;
@@ -28,7 +27,7 @@ public:
 
     //Debug stuff
     Text* match_txt;
-    bool match_made = false;
+    bool match_made = false, swap_back = false;
     uint match_timer_max = 200, match_timer = 200;
     vector<Icon*> matched_icons;
 
