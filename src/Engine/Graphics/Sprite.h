@@ -90,6 +90,6 @@ public:
 private:
     Info info; //private because whenever a member is set, other ancillary functions must be performed
     SDL_Texture* texture = nullptr;
-    inline static SDL_Renderer* renderer;
-    inline static uint game_fps = 60;
+    static inline SDL_Renderer* renderer;
+    static inline uint game_fps = 60;
 };
