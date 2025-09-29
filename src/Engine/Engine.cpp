@@ -34,9 +34,9 @@ Engine::Engine(const char* title, const uint init_fps)
 
     //Initialize fonts
     for (int i = 12; i <= 300; i += 2)
-        default_fonts.insert({ i, Font("m5x7", i) });
+        fonts.insert({ i, Font("m5x7", i) });
 
-    //Init scene, which sets the Game* in all the classes that need it
+    //Init game, which sets the Engine* in all the classes that need it
     game.Init(this);
     game.ChangeScene(Scene::Title);
 

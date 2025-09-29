@@ -1,2 +1,4 @@
+Get release build working
+
 Special icons
 High score saving/loading

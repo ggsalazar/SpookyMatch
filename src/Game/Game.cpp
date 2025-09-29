@@ -190,6 +190,12 @@ void Game::DrawGUI() {
 }
 
 void Game::Resize() {
+	//Reset the fonts of the texts
+	score_txt->SetFont();
+	combo_txt->SetFont();
+	match_txt->SetFont();
+	remaining_txt->SetFont();
+
 	for (const auto& m : menus) m->Resize();
 }
 
