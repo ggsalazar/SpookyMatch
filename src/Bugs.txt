@@ -1,0 +1,2 @@
+Game needs to end when combo is done, not when first match of combo is done
+Decrementing moves remaining by 2 whenever a match is made on an existing set (on the swap back, basically)

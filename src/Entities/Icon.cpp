@@ -63,9 +63,6 @@ void Icon::GetInput() {
 				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y))
 					and type != game->chosen_icons[0]->type and !game->match_made) {
 
-					//Reduce the number of moves if applicable
-					game->moves_remaining -= game->gm_mode == GameMode::Moves;
-
 					//If we're swapping, gotta reset the combo
 					game->combo = 0;
 

@@ -2,6 +2,7 @@
 
 enum class GameMode {
 	NONE,
+	Infinite,
 	Moves,
 	Time
 };
@@ -37,6 +38,7 @@ enum class UIElem {
 	//Buttons
 	Apply,
 	Back,
+	Infinite,
 	Moves,
 	Options,
 	Play,

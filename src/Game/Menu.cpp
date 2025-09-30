@@ -44,14 +44,17 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.sheet = "UI/Button";
             
             ui_elems.insert({ UIElem::Time, new Button(elem_info, this, UIElem::Time) });
-            elem_info.pos.y = engine->min_res.y * .5f;
+            elem_info.pos.y = engine->min_res.y * .47f;
             ui_elems.insert({ UIElem::Time_P, new Picker(elem_info, this, UIElem::Time_P) });
 
 
             elem_info.pos = Round(engine->min_res.x * .7f, engine->min_res.y * .4f);
             ui_elems.insert({ UIElem::Moves, new Button(elem_info, this, UIElem::Moves) });
-            elem_info.pos.y = engine->min_res.y * .5f;
+            elem_info.pos.y = engine->min_res.y * .47f;
             ui_elems.insert({ UIElem::Moves_P, new Picker(elem_info, this, UIElem::Moves_P) });
+
+            elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .55f);
+            ui_elems.insert({ UIElem::Infinite, new Button(elem_info, this, UIElem::Infinite) });
 
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .8f);
             ui_elems.insert({ UIElem::Back, new Button(elem_info, this, UIElem::Back) });
@@ -67,8 +70,9 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.sheet = "UI/Button";
             ui_elems.insert({ UIElem::Title, new Button(elem_info, this, UIElem::Title) });
 
-            elem_info.pos.y += e_y_buffer;
+            elem_info.pos.y = engine->min_res.y * .5f;
             ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
+            break;
         }
         
         case MenuName::Options: {

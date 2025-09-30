@@ -16,6 +16,10 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
             l_str = "Back";
             break;
 
+        case UIElem::Infinite:
+            l_str = "Infinite";
+            break;
+
         case UIElem::Moves:
             l_str = "Moves";
             break;

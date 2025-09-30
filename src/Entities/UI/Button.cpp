@@ -40,6 +40,11 @@ void Button::Released() {
             game->OpenMenu(MenuName::Main);
         break;
 
+        case UIElem::Infinite:
+            game->gm_mode = GameMode::Infinite;
+            game->ChangeScene(Scene::Game);
+        break;
+
         case UIElem::Moves:
             game->moves_remaining = stoi(menu->GetUIElemStatus(UIElem::Moves_P));
             game->gm_mode = GameMode::Moves;
@@ -72,6 +77,7 @@ void Button::Released() {
         break;
 
         case UIElem::Title:
+            game->gm_mode = GameMode::NONE;
             game->ChangeScene(Scene::Title);
         break;
     }

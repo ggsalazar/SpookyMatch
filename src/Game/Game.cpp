@@ -1,3 +1,5 @@
+#include <fstream>
+#include <nlohmann/json.hpp>
 #include "Game.h"
 #include "Menu.h"
 #include "../Engine/Engine.h"
@@ -5,6 +7,8 @@
 #include "../Engine/Graphics/Text.h"
 #include "../Engine/Math/Math.h"
 #include "../Entities/Icon.h"
+
+using json = nlohmann::json;
 
 void Game::Init(Engine* e) {
 	//Initialize all the things
@@ -19,13 +23,27 @@ void Game::Init(Engine* e) {
 	combo_txt = new Text(t_info);
 	t_info.pos.y = 365;
 	remaining_txt = new Text(t_info);
-
-
 	//matching stuff
 	t_info.origin.x = .0;
 	t_info.str = "MATCH MADE!!!";
 	t_info.pos = { 10, 365 };
 	match_txt = new Text(t_info);
+
+	//Load high scores
+	ifstream in_file("high_scores.json");
+	if (in_file.good()) {
+		in_file >> high_scores;
+		/*if (gm_mode == GameMode::Moves and j.contains(to_string(max_moves_remaining)))
+			high_score = j[to_string(max_moves_remaining)];
+		else if (gm_mode == GameMode::Time and j.contains(to_string(max_time_remaining)))
+			high_score = j[to_string(max_time_remaining)];
+		else if (j.contains("Infinite"))
+			high_score = j["Infinite"];*/
+	}
+	else {
+		ofstream out_file("high_scores.json");
+		high_scores << "{\n";
+	}
 }
 
 void Game::ChangeScene(Scene new_scn) {
@@ -57,6 +75,11 @@ void Game::ChangeScene(Scene new_scn) {
 			//First add the pause and game over menus
 			menus.push_back(new Menu(MenuName::Options_I));
 			menus.push_back(new Menu(MenuName::GO));
+
+
+			if (gm_mode == GameMode::Moves) max_moves_remaining = moves_remaining;
+			else if (gm_mode == GameMode::Time) max_time_remaining = time_remaining;
+
 
 			//Next we gotta add in our icons
 			Sprite::Info icon_info = {};
@@ -102,6 +125,7 @@ void Game::Update() {
 
 	//If there was no match made, then the chosen icons need to swap back to their original positions
 	if (!match_made and swap_back and chosen_icons[0] and chosen_icons[1]) {
+		moves_remaining -= gm_mode == GameMode::Moves;
 		chosen_icons[0]->pos_goal = chosen_icons[0]->old_pos;
 		chosen_icons[1]->pos_goal = chosen_icons[1]->old_pos;
 		chosen_icons[0] = chosen_icons[1] = nullptr;
@@ -120,19 +144,6 @@ void Game::Update() {
 		match_timer = match_timer_max;
 	}
 
-	//Count down the pertinent mechanic
-	if (gm_mode == GameMode::Moves and moves_remaining == 0 and !match_made) {
-		paused = true;
-		OpenMenu(MenuName::GO);
-	}
-	else if (gm_mode == GameMode::Time) {
-		time_remaining -= !paused;
-		if (time_remaining <= 0 and !match_made) {
-			paused = true;
-			OpenMenu(MenuName::GO);
-		}
-	}
-
 	//Texts
 	score_txt->SetStr("Score: " + to_string(score));
 	combo_txt->SetStr("Combo: " + to_string(combo) + "x | " + to_string(max_combo) + 'x');
@@ -140,6 +151,38 @@ void Game::Update() {
 		remaining_txt->SetStr("Moves: " + to_string(moves_remaining));
 	else if (gm_mode == GameMode::Time)
 		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining/60)));
+
+
+	//Count down time if necessary
+	time_remaining -= (!paused and gm_mode == GameMode::Time);
+
+	//End the game
+	if (((gm_mode == GameMode::Moves and moves_remaining <= 0) or (gm_mode == GameMode::Time and time_remaining <= 0))
+		and !match_made and !paused) {
+
+		paused = true;
+		chosen_icons[0] = chosen_icons[1] = nullptr;
+		OpenMenu(MenuName::GO);
+
+		//Save the score for the given max time or moves remaining
+		ofstream out_file("high_scores.json", ios::app);
+
+		if (score > high_score) {
+			if (gm_mode == GameMode::Moves) {
+				j[to_string(max_moves_remaining)] = score;
+			}
+			else if (gm_mode == GameMode::Time) {
+				j[to_string(max_time_remaining)] = score;
+			}
+			else {
+				j["Infinite"] = score;
+			}
+
+			out_file << j.dump(4) << '\n';
+		}
+		out_file.close();
+	}
+
 
 	if (engine->GetGameFrames() % 10 == 0) {
 		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
@@ -181,7 +224,7 @@ void Game::DrawGUI() {
 		engine->renderer.DrawTxt(*score_txt);
 		engine->renderer.DrawTxt(*combo_txt);
 		if (match_made) engine->renderer.DrawTxt(*match_txt);
-		engine->renderer.DrawTxt(*remaining_txt);
+		if (gm_mode != GameMode::Infinite) engine->renderer.DrawTxt(*remaining_txt);
 	}
 
 	//Menus are drawn last since they will always be closest to the camera
@@ -320,6 +363,8 @@ void Game::CheckSwap(Icon* icon) {
 void Game::RemoveIcons() {
 	chosen_icons[0] = chosen_icons[1] = nullptr;
 	match_made = false;
+	//Decrement moves
+	moves_remaining -= (gm_mode == GameMode::Moves and combo == 1);
 
 	//Score
 	uint new_score = 0;
