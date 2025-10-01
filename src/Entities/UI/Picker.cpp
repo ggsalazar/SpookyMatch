@@ -114,12 +114,18 @@ void Picker::LeftReleased() {
 
         case UIElem::Moves_P:
             curr_picking -= 5;
-            if (curr_picking <= 0) curr_picking = 100;
+            curr_picking = curr_picking <= 0 ? 100 : curr_picking;
+            if (game->high_scores.contains(to_string(curr_picking)))
+                game->high_score = game->high_scores[to_string(curr_picking)];
+            else game->high_score = 0;
         break;
 
         case UIElem::Time_P:
             curr_picking -= 30 * SEC;
-            if (curr_picking <= 0) curr_picking = SEC * 60 * 15;
+            curr_picking = curr_picking <= 0 ? SEC * 60 * 15 : curr_picking;
+            if (game->high_scores.contains(to_string(curr_picking)))
+                game->high_score = game->high_scores[to_string(curr_picking)];
+            else game->high_score = 0;
         break;
     }
 
@@ -140,12 +146,18 @@ void Picker::RightReleased() {
 
         case UIElem::Moves_P:
             curr_picking += 5;
-            if (curr_picking > 100) curr_picking = 5;
+            curr_picking = curr_picking > 100 ? 5 : curr_picking;
+            if (game->high_scores.contains(to_string(curr_picking)))
+                game->high_score = game->high_scores[to_string(curr_picking)];
+            else game->high_score = 0;
             break;
 
         case UIElem::Time_P:
             curr_picking += 30 * SEC;
-            if (curr_picking > SEC*60*15) curr_picking = SEC * 30;
+            curr_picking = curr_picking > SEC * 60 * 15 ? SEC * 30 : curr_picking;
+            if (game->high_scores.contains(to_string(curr_picking)))
+                game->high_score = game->high_scores[to_string(curr_picking)];
+            else game->high_score = 0;
         break;
     }
 

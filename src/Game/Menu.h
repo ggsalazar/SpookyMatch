@@ -38,6 +38,7 @@ public:
     bool CheckUIElem(const UIElem ui);
     bool GetUIElemActive(const UIElem ui);
     void SetUIElemActive(const UIElem ui, const bool a = true);
+    Vec2i GetUIElemPos(const UIElem ui);
     void SetUIElemStatus(const UIElem ui, const string new_status);
     string GetUIElemStatus(const UIElem ui);
 

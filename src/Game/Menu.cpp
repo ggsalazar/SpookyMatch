@@ -208,6 +208,14 @@ void Menu::SetUIElemActive(const UIElem ui, const bool a) {
         ui_elems[ui]->SetActive(a);
 }
 
+Vec2i Menu::GetUIElemPos(const UIElem ui) {
+    if (CheckUIElem(ui))
+        return ui_elems[ui]->GetPos();
+
+    cout << "Menu::GetUIElemPos(): No such UIElem exists\n";
+    return Vec2i();
+}
+
 string Menu::GetUIElemStatus(const UIElem ui) {
 
     if (CheckUIElem(ui)) {
@@ -215,7 +223,7 @@ string Menu::GetUIElemStatus(const UIElem ui) {
             return picker->GetPicking();
     }
 
-    return "No such UIElem exists";
+    return "Menu::GetUIElemStatus(): No such UIElem exists\n";
 }
 
 bool Menu::GetUIElemActive(const UIElem ui) {

@@ -1,5 +1,1 @@
-High score saving/loading
--Load high scores when the game inits for easy displaying
--Save whenever score > appropriate high score
--Display on game mode selection screen
 Special icons

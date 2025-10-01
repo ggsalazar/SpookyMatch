@@ -1,10 +1,12 @@
 #pragma once
 #include <queue>
 #include <unordered_map>
+#include <nlohmann/json.hpp>
 #include "../Engine/Enums.h"
 #include "../Engine/Math/Geometry.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 class Engine;
 class Menu;
@@ -24,6 +26,7 @@ public:
     uchar combo = 0, max_combo = 0;
     bool paused = false;
     Text* score_txt = nullptr;
+    Text* high_score_txts[3];
     Text* combo_txt = nullptr;
     Text* remaining_txt = nullptr;
 
@@ -47,6 +50,7 @@ public:
         menus.clear();
 
         delete score_txt;
+        for (auto& h : high_score_txts) delete h;
         delete combo_txt;
         delete match_txt;
         delete remaining_txt;

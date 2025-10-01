@@ -1,5 +1,4 @@
 #include <fstream>
-#include <nlohmann/json.hpp>
 #include "Game.h"
 #include "Menu.h"
 #include "../Engine/Engine.h"
@@ -7,8 +6,6 @@
 #include "../Engine/Graphics/Text.h"
 #include "../Engine/Math/Math.h"
 #include "../Entities/Icon.h"
-
-using json = nlohmann::json;
 
 void Game::Init(Engine* e) {
 	//Initialize all the things
@@ -30,19 +27,24 @@ void Game::Init(Engine* e) {
 	match_txt = new Text(t_info);
 
 	//Load high scores
+	t_info.origin.x = .5;
+	t_info.str = "";
+	t_info.pos = { 0 };
+	t_info.font_size = 24;
+	for (uchar i=0; i < 3; ++i)
+		high_score_txts[i] = new Text(t_info);
 	ifstream in_file("high_scores.json");
-	if (in_file.good()) {
+	if (in_file.good())
 		in_file >> high_scores;
-		/*if (gm_mode == GameMode::Moves and j.contains(to_string(max_moves_remaining)))
-			high_score = j[to_string(max_moves_remaining)];
-		else if (gm_mode == GameMode::Time and j.contains(to_string(max_time_remaining)))
-			high_score = j[to_string(max_time_remaining)];
-		else if (j.contains("Infinite"))
-			high_score = j["Infinite"];*/
-	}
 	else {
 		ofstream out_file("high_scores.json");
-		high_scores << "{\n";
+		for (uint i = 5; i <= 100; i+=5)
+			high_scores["Moves"][to_string(i)] = 0;
+		for (uint i = 0; i <= 900; i += 30)
+			high_scores["Time"][to_string(i)] = 0;
+		high_scores["Infinite"] = 0;
+		out_file << high_scores.dump(4);
+		high_score = 0;
 	}
 }
 
@@ -55,8 +57,7 @@ void Game::ChangeScene(Scene new_scn) {
 	menus.clear();
 	entities.clear();
 	icons.clear();
-	score = 0;
-	combo = 0;
+	score = high_score = combo = 0;
 	paused = false;
 	match_timer = match_timer_max;
 
@@ -145,16 +146,15 @@ void Game::Update() {
 	}
 
 	//Texts
-	score_txt->SetStr("Score: " + to_string(score));
-	combo_txt->SetStr("Combo: " + to_string(combo) + "x | " + to_string(max_combo) + 'x');
+	score_txt->SetStr("Score: " + to_string(score) + "|" + to_string(high_score));
+	combo_txt->SetStr("Combo: " + to_string(combo) + "x|" + to_string(max_combo) + 'x');
 	if (gm_mode == GameMode::Moves)
 		remaining_txt->SetStr("Moves: " + to_string(moves_remaining));
-	else if (gm_mode == GameMode::Time)
-		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining/60)));
-
-
-	//Count down time if necessary
-	time_remaining -= (!paused and gm_mode == GameMode::Time);
+	else if (gm_mode == GameMode::Time) {
+		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining / 60)));
+		//Count down time
+		time_remaining -= (!paused and !match_made);
+	}
 
 	//End the game
 	if (((gm_mode == GameMode::Moves and moves_remaining <= 0) or (gm_mode == GameMode::Time and time_remaining <= 0))
@@ -163,26 +163,23 @@ void Game::Update() {
 		paused = true;
 		chosen_icons[0] = chosen_icons[1] = nullptr;
 		OpenMenu(MenuName::GO);
-
-		//Save the score for the given max time or moves remaining
-		ofstream out_file("high_scores.json", ios::app);
-
-		if (score > high_score) {
-			if (gm_mode == GameMode::Moves) {
-				j[to_string(max_moves_remaining)] = score;
-			}
-			else if (gm_mode == GameMode::Time) {
-				j[to_string(max_time_remaining)] = score;
-			}
-			else {
-				j["Infinite"] = score;
-			}
-
-			out_file << j.dump(4) << '\n';
-		}
-		out_file.close();
 	}
 
+
+	//Get high scores
+	if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen()) {
+		Menu* m = FindMenu(MenuName::Choose_Game);
+		high_score_txts[0]->MoveTo({m->GetUIElemPos(UIElem::Moves).x, m->GetUIElemPos(UIElem::Moves).y - 40});
+		high_score_txts[1]->MoveTo({m->GetUIElemPos(UIElem::Time).x, m->GetUIElemPos(UIElem::Time).y - 40});
+		high_score_txts[2]->MoveTo({m->GetUIElemPos(UIElem::Infinite).x, m->GetUIElemPos(UIElem::Infinite).y + 12});
+
+		high_score = high_scores["Moves"][m->GetUIElemStatus(UIElem::Moves_P)];
+		high_score_txts[0]->SetStr("High Score: " + to_string(high_score));
+		high_score = high_scores["Time"][to_string(stoi(m->GetUIElemStatus(UIElem::Time_P))/60)];
+		high_score_txts[1]->SetStr("High Score: " + to_string(high_score));
+		high_score = high_scores["Infinite"];
+		high_score_txts[2]->SetStr("High Score: " + to_string(high_score));
+	}
 
 	if (engine->GetGameFrames() % 10 == 0) {
 		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
@@ -226,6 +223,9 @@ void Game::DrawGUI() {
 		if (match_made) engine->renderer.DrawTxt(*match_txt);
 		if (gm_mode != GameMode::Infinite) engine->renderer.DrawTxt(*remaining_txt);
 	}
+	//Display high scores
+	else if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen())
+		for (uchar i = 0; i < 3; ++i) engine->renderer.DrawTxt(*high_score_txts[i]);
 
 	//Menus are drawn last since they will always be closest to the camera
 	for (const auto& m : menus)
@@ -378,7 +378,19 @@ void Game::RemoveIcons() {
 		case 9: new_score = 1000000; break;
 	}
 	score += new_score * combo;
+	//Save the score for the given max time or moves remaining
+	ofstream out_file("high_scores.json", ios::app);
 
+	if (score > high_score) {
+		high_score = score;
+		if (gm_mode == GameMode::Moves) high_scores["Moves"][to_string(max_moves_remaining)] = score;
+		else if (gm_mode == GameMode::Time) high_scores["Time"][to_string(max_time_remaining/60)] = score;
+		else high_scores["Infinite"] = score;
+
+		out_file << high_scores.dump(4) << '\n';
+	}
+	out_file.close();
+	
 	//Create replacement icons
 	Sprite::Info icon_info = {};
 	for (uchar i = 0; i < matched_icons.size(); ++i) {
