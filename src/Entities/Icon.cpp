@@ -1,4 +1,5 @@
 #include "Icon.h"
+#include "../Engine/Engine.h" //Game
 #include "../Engine/Input.h"
 #include "../Engine/Math/Math.h"
 
@@ -65,6 +66,12 @@ void Icon::GetInput() {
 
 					//If we're swapping, gotta reset the combo
 					game->combo = 0;
+
+					//Decrement moves remaining if appropriate
+					game->moves_remaining -= game->gm_mode == GameMode::Moves;
+
+					//Start the move_buffer
+					game->move_buffer = game->move_buffer_max;
 
 					pos_goal = ci_pos;
 					old_pos = pos;

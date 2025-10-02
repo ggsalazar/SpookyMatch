@@ -1,4 +1,7 @@
 #include "Picker.h"
+#include "../../Engine/Engine.h"
+#include "../../Engine/Input.h"
+#include "../../Game/Menu.h"
 
 Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e)
     : UI(s_i, m, e), picking(label.GetFontSize()) {
@@ -96,6 +99,10 @@ void Picker::Move() {
     picking.MoveTo(pos);
 }
 
+bool Picker::LeftSelected() {
+    return active and Collision::RectPoint(l_bbox, Input::MousePos());
+}
+
 void Picker::SetPicking(const string new_p) {
     picking.SetStr(new_p);
 }
@@ -130,6 +137,10 @@ void Picker::LeftReleased() {
     }
 
     picking.SetStr(to_string(curr_picking));
+}
+
+bool Picker::RightSelected() { 
+    return active and Collision::RectPoint(r_bbox, Input::MousePos());
 }
 
 void Picker::RightReleased() {

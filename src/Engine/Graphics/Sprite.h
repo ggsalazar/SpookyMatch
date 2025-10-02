@@ -26,6 +26,8 @@ public:
         int dfc = 0; //Distance from camera; draw order, basically - the lower the number, the closer to the camera
     };
 
+    //ANY SPRITE (OR SOMETHING THAT HAS ONE) THAT IS COPY/MOVE CONSTRUCTED MUST BE INITIALIZED ON THE HEAP - JUST. FUCKING. TRUST!
+
     Sprite(const Info& i = {}) : info(i) { Init(i); }
     ~Sprite() {
         if (texture) {
@@ -35,11 +37,15 @@ public:
     }
     void Init(const Info& i);
 
-    static inline void SetRenderer(SDL_Renderer* r) { renderer = r; }
+    static inline void SetSDLRenderer(SDL_Renderer* r) { sdl_renderer = r; }
+    static inline void SetRenderer(Renderer* r) { renderer = r; }
+
+    static inline void SetGameFPS(uchar gfps) { game_fps = gfps; }
 
     inline SDL_Texture* GetTexture() const { return texture; }
 
     void Update();
+    void Draw() const;
 
     void SetSheet(std::string new_sheet);
     inline std::string GetSheet() const { return info.sheet; }
@@ -90,6 +96,7 @@ public:
 private:
     Info info; //private because whenever a member is set, other ancillary functions must be performed
     SDL_Texture* texture = nullptr;
-    static inline SDL_Renderer* renderer;
-    static inline uint game_fps = 60;
+    static inline SDL_Renderer* sdl_renderer;
+    static inline Renderer* renderer;
+    static inline uchar game_fps = 0;
 };

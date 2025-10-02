@@ -55,7 +55,6 @@ void Game::ChangeScene(Scene new_scn) {
 	for (auto& m : menus)
 		m->Open(false);
 	menus.clear();
-	entities.clear();
 	icons.clear();
 	score = high_score = combo = 0;
 	paused = false;
@@ -96,9 +95,11 @@ void Game::ChangeScene(Scene new_scn) {
 }
 
 void Game::GetInput() {
-	//Input for the entities
-	for (auto& e : entities)
-		e->GetInput();
+
+	//Update cursor position
+	cursor.MoveTo(Input::MousePos());
+
+	//Input for the icons
 	for (auto& i : icons) i->GetInput();
 
 	//Input for the menus
@@ -116,17 +117,16 @@ void Game::GetInput() {
 }
 
 void Game::Update() {
-	//Update entities, interface buttons, & menus
-	for (auto& e : entities) e->Update();
+	//Update icons, interface buttons, & menus
 	for (auto& i : icons) {
 		i->Update();
 
-		if (i->GetPos() == i->pos_goal)	CheckSwap(i);
+		if (i->GetPos() == i->pos_goal) CheckSwap(i);
 	}
 
 	//If there was no match made, then the chosen icons need to swap back to their original positions
 	if (!match_made and swap_back and chosen_icons[0] and chosen_icons[1]) {
-		moves_remaining -= gm_mode == GameMode::Moves;
+		move_buffer = move_buffer_max;
 		chosen_icons[0]->pos_goal = chosen_icons[0]->old_pos;
 		chosen_icons[1]->pos_goal = chosen_icons[1]->old_pos;
 		chosen_icons[0] = chosen_icons[1] = nullptr;
@@ -145,20 +145,23 @@ void Game::Update() {
 		match_timer = match_timer_max;
 	}
 
+	//Are we waiting for icons to move into place?
+	move_buffer -= (move_buffer != 0 and !paused);
+
 	//Texts
 	score_txt->SetStr("Score: " + to_string(score) + "|" + to_string(high_score));
 	combo_txt->SetStr("Combo: " + to_string(combo) + "x|" + to_string(max_combo) + 'x');
 	if (gm_mode == GameMode::Moves)
 		remaining_txt->SetStr("Moves: " + to_string(moves_remaining));
 	else if (gm_mode == GameMode::Time) {
-		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining / 60)));
+		remaining_txt->SetStr("Time: " + to_string((int)ceil(time_remaining / Entity::SEC)));
 		//Count down time
 		time_remaining -= (!paused and !match_made);
 	}
 
 	//End the game
 	if (((gm_mode == GameMode::Moves and moves_remaining <= 0) or (gm_mode == GameMode::Time and time_remaining <= 0))
-		and !match_made and !paused) {
+		and !match_made and !paused and !move_buffer) {
 
 		paused = true;
 		chosen_icons[0] = chosen_icons[1] = nullptr;
@@ -175,7 +178,7 @@ void Game::Update() {
 
 		high_score = high_scores["Moves"][m->GetUIElemStatus(UIElem::Moves_P)];
 		high_score_txts[0]->SetStr("High Score: " + to_string(high_score));
-		high_score = high_scores["Time"][to_string(stoi(m->GetUIElemStatus(UIElem::Time_P))/60)];
+		high_score = high_scores["Time"][to_string(stoi(m->GetUIElemStatus(UIElem::Time_P))/Entity::SEC)];
 		high_score_txts[1]->SetStr("High Score: " + to_string(high_score));
 		high_score = high_scores["Infinite"];
 		high_score_txts[2]->SetStr("High Score: " + to_string(high_score));
@@ -184,8 +187,6 @@ void Game::Update() {
 	if (engine->GetGameFrames() % 10 == 0) {
 		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
 		// last (closest to the camera)
-		sort(entities.begin(), entities.end(),
-			[](const Entity* a, const Entity* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
 		sort(icons.begin(), icons.end(),
 			[](const Icon* a, const Icon* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
 	}
@@ -207,14 +208,11 @@ void Game::Draw() {
 
 
 	//Entities
-	for (const auto& e : entities)
-		e->Draw();
-	for (const auto& i : icons) i->Draw();
+	for (auto& i : icons) i->Draw();
 }
 
 void Game::DrawGUI() {
-	for (const auto& e : entities) e->DrawGUI();
-	for (const auto& i : icons) i->DrawGUI();
+	for (auto& i : icons) i->DrawGUI();
 
 	//Draw the score & combo
 	if (curr_scn == Scene::Game) {
@@ -230,6 +228,11 @@ void Game::DrawGUI() {
 	//Menus are drawn last since they will always be closest to the camera
 	for (const auto& m : menus)
 		m->Draw();
+
+
+
+	//JK lol the cursor is drawn last
+	engine->renderer.DrawSprite(cursor);
 }
 
 void Game::Resize() {
@@ -362,9 +365,9 @@ void Game::CheckSwap(Icon* icon) {
 
 void Game::RemoveIcons() {
 	chosen_icons[0] = chosen_icons[1] = nullptr;
+	//Reset the move buffer
+	move_buffer = move_buffer_max;
 	match_made = false;
-	//Decrement moves
-	moves_remaining -= (gm_mode == GameMode::Moves and combo == 1);
 
 	//Score
 	uint new_score = 0;
@@ -384,7 +387,7 @@ void Game::RemoveIcons() {
 	if (score > high_score) {
 		high_score = score;
 		if (gm_mode == GameMode::Moves) high_scores["Moves"][to_string(max_moves_remaining)] = score;
-		else if (gm_mode == GameMode::Time) high_scores["Time"][to_string(max_time_remaining/60)] = score;
+		else if (gm_mode == GameMode::Time) high_scores["Time"][to_string(max_time_remaining/Entity::SEC)] = score;
 		else high_scores["Infinite"] = score;
 
 		out_file << high_scores.dump(4) << '\n';

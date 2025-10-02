@@ -2,6 +2,8 @@
 #include <vector>
 #include "UI.h"
 
+using std::vector;
+
 class Picker : public UI {
 public:
     Picker(const Sprite::Info& s_i, Menu* m, const UIElem e);
@@ -31,11 +33,11 @@ private:
     //Functions
     void Move() override;
 
-    inline bool LeftSelected() { return active and Collision::RectPoint(l_bbox, Input::MousePos()); }
+    bool LeftSelected();
     inline void LeftPressed() { l_primed = true; }
     void LeftReleased();
 
-    inline bool RightSelected() { return active and Collision::RectPoint(r_bbox, Input::MousePos()); }
+    bool RightSelected();
     inline void RightPressed() { r_primed = true; }
     void RightReleased();
 };

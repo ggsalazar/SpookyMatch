@@ -1,17 +1,22 @@
 #include "Entity.h"
+#include "../Engine/Engine.h" //Game
 
-int Entity::SEC = 0;
+//Just trust
+Engine* Entity::engine = nullptr;
+Game* Entity::game = nullptr;
 
-Entity::Entity(const Sprite::Info s_i)
-    : sprite(s_i) {
-
+Entity::Entity(const Sprite::Info s_i) : sprite(s_i) {
     Entity::MoveTo(Vec2f(sprite.GetPos()));
+}
 
+void Entity::SetEngine(Engine* e, Game* g) {
+    engine = e;
+    game = g;
     SEC = engine->GetFPS();
 }
 
 void Entity::Draw() {
-    engine->renderer.DrawSprite(sprite);
+    sprite.Draw();
 }
 
 void Entity::MoveBy(const Vec2f offset) {

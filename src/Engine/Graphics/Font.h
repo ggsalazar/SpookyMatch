@@ -20,10 +20,11 @@ public:
 
 	}
 	~Font() {
+		//Likely does not need to be called because of copy construction bullshit
 		//TTF_CloseFont(font);
 	}
 
-	inline TTF_Font* GetFont() const { if (font) return font; return nullptr; }
+	inline TTF_Font* GetFont() const { return font; }
 
 private:
 	TTF_Font* font = nullptr;

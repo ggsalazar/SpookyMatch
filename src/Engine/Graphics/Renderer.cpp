@@ -1,6 +1,8 @@
 #include <sstream>
 #include "Renderer.h"
-#include "Text.h" //Engine (Camera, Font, Sprite)
+#include "Camera.h"
+#include "Text.h" //Font
+#include "Sprite.h"
 #include "../Collision.h"
 
 Renderer::Renderer(SDL_Window* window, Camera* cam) : camera(cam) {
@@ -54,7 +56,7 @@ void Renderer::DrawTxt(Text& txt) {
 		static_cast<Uint8>(ti->color.a * 255)
 	};
 
-	if (!txt.font->GetFont()) {
+	if (!txt.font.GetFont()) {
 		std::cout << "Font is null\n";
 		return;
 	}
@@ -65,7 +67,7 @@ void Renderer::DrawTxt(Text& txt) {
 	SDL_SetRenderLogicalPresentation(renderer, win_size.x, win_size.y, SDL_LOGICAL_PRESENTATION_DISABLED);
 
 	if (surface) SDL_DestroySurface(surface);
-	surface = TTF_RenderText_Blended_Wrapped(txt.font->GetFont(), ti->str.c_str(), ti->str.length(), c, txt.GetMaxW(true));
+	surface = TTF_RenderText_Blended_Wrapped(txt.font.GetFont(), ti->str.c_str(), ti->str.length(), c, txt.GetMaxW(true));
 	if (!surface) {
 		std::cout << "Failed to create text surface!\n";
 		return;
@@ -77,7 +79,7 @@ void Renderer::DrawTxt(Text& txt) {
 		return;
 	}
 
-	TTF_GetStringSizeWrapped(txt.font->GetFont(), ti->str.c_str(), strlen(ti->str.c_str()), txt.GetMaxW(true), &ti->str_size.x, &ti->str_size.y);
+	TTF_GetStringSizeWrapped(txt.font.GetFont(), ti->str.c_str(), strlen(ti->str.c_str()), txt.GetMaxW(true), &ti->str_size.x, &ti->str_size.y);
 
 	Rect true_cam_vp = Rect({ camera->viewport.x, camera->viewport.y },
 		{ camera->viewport.w * Text::res_scale, camera->viewport.h * Text::res_scale });

@@ -1,4 +1,6 @@
 #include "UI.h"
+#include "../../Engine/Input.h" //Window
+#include "../../Game/Menu.h"
 
 UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
     : Entity(s_i), menu(m), elem(e), label(18) {
@@ -83,6 +85,10 @@ void UI::GetInput() {
 void UI::Draw() {
     Entity::Draw();
     engine->renderer.DrawTxt(label);
+}
+
+bool UI::Selected() {
+    return active and Collision::RectPoint(bbox, Input::MousePos()) and menu->has_focus;
 }
 
 void UI::SetActive(const bool new_active) {

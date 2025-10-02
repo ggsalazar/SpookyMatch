@@ -1,20 +1,22 @@
 #pragma once
 #include "../Engine/Collision.h" //Geometry (Vec2 (iostream))
-#include "../Engine/Engine.h"
+#include "../Engine/Enums.h"
 #include "../Engine/Graphics/Sprite.h"
-#include "../Engine/Graphics/Text.h"
-#include "../Game/Game.h"
+
+class Engine;
+class Game;
 
 class Entity {
 public:
     //Variables
     Vec2i size = { 0, 0 };
     Sprite sprite;
+    inline static uchar SEC;
 
     Entity(const Sprite::Info s_i);
     virtual ~Entity() = default;
 
-    static inline void SetEngine(Engine* e, Game* g) { engine = e; game = g; }
+    static void SetEngine(Engine* e, Game* g);
 
     inline virtual void GetInput() {}
     inline virtual void Update() { sprite.SetDFC(-pos.y); }
@@ -33,10 +35,8 @@ protected:
     Vec2i pos;
     Rect bbox;
 
-    inline static Engine* engine = nullptr;
-    inline static Game* game = nullptr;
-    static int SEC;
-
+    static Engine* engine;
+    static Game* game;
 
     virtual void Move();
 };

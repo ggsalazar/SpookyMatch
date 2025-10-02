@@ -99,7 +99,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
             e_y_buffer = round(engine->min_res.y * .1f);
 
-            //Resolution picker, fullscreen toggle, and apply button
+            //Resolution new Picker, fullscreen toggle, and apply new Button
             elem_info.sheet = "UI/Button";
             ui_elems.insert({ UIElem::Resume, new Button(elem_info, this, UIElem::Resume) });
 
@@ -183,7 +183,7 @@ void Menu::OpenSM(const MenuName s_m) {
 
 void Menu::RemoveUIElem(const UIElem ui) {
     if (CheckUIElem(ui)) {
-        delete ui_elems[ui];
+        //delete ui_elems[ui];
         ui_elems.erase(ui);
     }
 }
@@ -198,8 +198,8 @@ bool Menu::CheckUIElem(const UIElem ui) {
 void Menu::SetUIElemStatus(const UIElem ui, const string new_status) {
 
     if (CheckUIElem(ui)) {
-        if (auto picker = dynamic_cast<Picker*>(ui_elems[ui]))
-            picker->SetPicking(new_status);
+        if (auto p = dynamic_cast<Picker*>(ui_elems[ui]))
+            p->SetPicking(new_status);
     }
 }
 
@@ -219,8 +219,8 @@ Vec2i Menu::GetUIElemPos(const UIElem ui) {
 string Menu::GetUIElemStatus(const UIElem ui) {
 
     if (CheckUIElem(ui)) {
-        if (auto picker = dynamic_cast<Picker*>(ui_elems[ui]))
-            return picker->GetPicking();
+        if (Picker* p = dynamic_cast<Picker*>(ui_elems[ui]))
+            return p->GetPicking();
     }
 
     return "Menu::GetUIElemStatus(): No such UIElem exists\n";

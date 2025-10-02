@@ -8,7 +8,7 @@
 Engine::Engine(const char* title, const uint init_fps)
     : fps(init_fps), resolution(min_res*2), camera({ 0 }, Vec2i(min_res)),
     window(title, resolution), renderer(window.GetWin(), &camera) {
-
+ 
     //Set random seed
     srand((uint)time(nullptr));
 
@@ -20,33 +20,24 @@ Engine::Engine(const char* title, const uint init_fps)
     target_frame_time = 1.f / fps;
     last_time = hr_clock::now();
 
-    //Set the resolution, camera dimensions, and tile size
+    //Set the resolution
     resolution = window.WinSize();
     SetResolution(resolution);
-    Sprite::SetRenderer(renderer.GetRenderer());
 
-    //Initialize Text engine & cam
-    Text::SetEngine(this);
-    Text::SetCam(&camera);
+    //Set sprite's renderer & game fps
+    Sprite::SetSDLRenderer(renderer.GetRenderer());
+    Sprite::SetRenderer(&renderer);
+    Sprite::SetGameFPS(fps);
+
+    //Initialize text fonts
+    Text::InitFonts();
 
     //Initialize the Input namespace
     Input::Init(&window, &camera);
 
-    //Initialize fonts
-    for (int i = 12; i <= 300; i += 2)
-        fonts.insert({ i, Font("m5x7", i) });
-
     //Init game, which sets the Engine* in all the classes that need it
     game.Init(this);
     game.ChangeScene(Scene::Title);
-
-    //Initialize cursor
-    //Cursor sprite info
-    //Sprite::Info csi = {};
-    //csi.sheet = "UI/Cursors"; csi.frame_size = csi.spr_size = { 16 };
-    //cursor.Init(csi);
-    //SDL_SetWindowRelativeMouseMode(); //This will lock the cursor to the game window
-    //SDL_HideCursor();
 }
 
 void Engine::Run() {
@@ -84,11 +75,7 @@ void Engine::Run() {
 
 //Process input
 void Engine::ProcessInput() {
-
-    //Update cursor position
-    cursor.MoveTo(Input::MousePos());
-
-    //Get input for the scene
+    //Get input for the game
     game.GetInput();
 }
 
@@ -103,15 +90,11 @@ void Engine::Update() {
 
 //Draw the game world
 void Engine::Render() {
-
     renderer.BeginFrame(); //This also clears the frame
-
 
     game.Draw();
     game.DrawGUI();
 
-
-    renderer.DrawSprite(cursor);
     renderer.EndFrame();
 }
 

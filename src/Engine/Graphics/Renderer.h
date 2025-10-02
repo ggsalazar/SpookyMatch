@@ -2,9 +2,10 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_render.h>
 #include <vector>
-#include "Sprite.h" //Geometry.h
+#include "../Math/Geometry.h"
 
 class Camera;
+class Sprite;
 class Text;
 
 class Renderer {

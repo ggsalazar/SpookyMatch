@@ -1,10 +1,10 @@
 #pragma once
 #include <chrono>
-#include "Graphics/Camera.h"
-#include "Graphics/Font.h"
-#include "Graphics/Window.h"
-#include "Graphics/Renderer.h" //SDL_render, Sprite (SDL_image)
-#include "../Game/Game.h"
+#include <SDL3_ttf/SDL_ttf.h>
+#include "Graphics/Camera.h" //Geometry (Vec2 (iostream))
+#include "Graphics/Window.h" //SDL, SDL_main, SDL_video
+#include "Graphics/Renderer.h" //SDL_render
+#include "../Game/Game.h" //Enums, Sprite
 
 using namespace std;
 using namespace chrono;
@@ -14,14 +14,11 @@ using durationf = duration<float>;
 class Engine {
 private:
     //Variables
-    uint fps = 0;
-    uint game_frames = 0;
-    float target_frame_time;
+    uchar fps = 0, game_frames = 0;
+    float target_frame_time, delta_time = .0f;
     hr_clock::time_point last_time;
     durationf delta;
     float accumulated_time = 0.f;
-    float music_volume = 100;
-    float sfx_volume = 100;
 
 public:
     //Game UTH details
@@ -29,16 +26,9 @@ public:
     Vec2u resolution;
     Window window;
     Renderer renderer;
-    bool running = true;
-    float delta_time = 0.f;
     Game game;
-
-    //Camera
     Camera camera;
-
-    //Miscellaneous
-    unordered_map<int, Font> fonts;
-    Sprite cursor;
+    bool running = true;
 
     Engine(const char* title, const uint init_fps);
     ~Engine() {
@@ -57,11 +47,6 @@ public:
     inline int GetGameFrames() const { return game_frames; }
 
     //Settings
-    void SetMusicVolume(float n_v);
-    inline float GetMusicVolume() const { return music_volume; }
-    void SetSFXVolume(float n_v);
-    inline float GetSFXVolume() const { return sfx_volume; }
-
     void SetResolution(uchar res_scalar);
     void SetResolution(Vec2u n_r);
     void SetRes();

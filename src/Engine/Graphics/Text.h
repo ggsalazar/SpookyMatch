@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
-#include "../Engine.h" //Camera, Font, Sprite (Geometry)
+#include <unordered_map>
+#include "../Math/Geometry.h" //Vec2 (iostream)
+#include "Font.h"
 
-using std::string;
+using std::string, std::unordered_map;
 
 class Text {
     friend class Font;
@@ -19,7 +21,8 @@ public:
         float rot = 0.f;
     };
     static inline uchar res_scale = 1;
-    Font* font = nullptr;
+    static inline unordered_map<int, Font> fonts;
+    Font font;
 
     Text(const Info& i = {}) {
         Init(i);
@@ -35,18 +38,21 @@ public:
         SetFont();
     }
 
-    static inline void SetResScale(uchar new_scale) { res_scale = new_scale; }
-    static inline void SetEngine(Engine* e) { engine = e; }
-    static inline void SetCam(Camera* c) { cam = c; }
+    static inline void InitFonts() {
+        for (int i = 12; i <= 300; i += 2)
+            fonts.insert({ i, Font("m5x7", i) });
+    }
 
-    //Should just be used for rendering
+    static inline void SetResScale(uchar new_scale) { res_scale = new_scale; }
+
+    
     inline Info GetInfo() const { return info; }
 
 
     inline void SetFont(uint new_font_size = -1) { 
         info.font_size = new_font_size == -1 ? info.font_size : new_font_size;
         
-        font = &engine->fonts[info.font_size * res_scale];
+        font = fonts[info.font_size * res_scale];
     }
     inline uint GetFontSize() const { return info.font_size; }
 
@@ -59,7 +65,7 @@ public:
     inline Vec2i GetPos() const { return info.pos; }
 
     inline Vec2i GetStrSize(const bool physical = false) {
-        TTF_GetStringSizeWrapped(font->GetFont(), info.str.c_str(), strlen(info.str.c_str()), GetMaxW(true), &info.str_size.x, &info.str_size.y);
+        TTF_GetStringSizeWrapped(font.GetFont(), info.str.c_str(), strlen(info.str.c_str()), GetMaxW(true), &info.str_size.x, &info.str_size.y);
         if (physical) return info.str_size;
         else return info.str_size / res_scale;
     }
@@ -88,6 +94,4 @@ public:
 
 private:
     Info info = {};
-    inline static Camera* cam = nullptr;
-    inline static Engine* engine = nullptr;
 };

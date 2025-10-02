@@ -1,4 +1,6 @@
+#include <SDL3/SDL_render.h>
 #include "Sprite.h"
+#include "Renderer.h"
 
 void Sprite::Init(const Info& i) {
     info = i;
@@ -12,7 +14,7 @@ void Sprite::Init(const Info& i) {
             SDL_DestroyTexture(texture);
             texture = nullptr;
         }
-        texture = IMG_LoadTexture(renderer, sheet_png.c_str());
+        texture = IMG_LoadTexture(sdl_renderer, sheet_png.c_str());
 
         if (!texture)
             std::cout << "Could not load texture from file: " << sheet_png << "!\n";
@@ -36,13 +38,17 @@ void Sprite::Update() {
     }
 }
 
+void Sprite::Draw() const {
+    renderer->DrawSprite(*this);
+}
+
 void Sprite::SetSheet(std::string new_sheet) {
     new_sheet = "assets/Sprites/" + new_sheet + ".png";
     if (texture) {
         SDL_DestroyTexture(texture);
         texture = nullptr;
     }
-    texture = IMG_LoadTexture(renderer, new_sheet.c_str());
+    texture = IMG_LoadTexture(sdl_renderer, new_sheet.c_str());
 
     if (!texture)
         std::cout << "Could not load texture from file: " << new_sheet << "!\n";

@@ -1,19 +1,20 @@
 #pragma once
-#include "../Entity.h" //Collision (Geometry (Vec2 (iostream))), Sprite, Text, Game, Scene
-#include "../../Engine/Input.h" //Window
-#include "../../Game/Menu.h"
+#include "../Entity.h" //Collision (Geometry (Vec2 (iostream))), Enums, Sprite
+#include "../../Engine/Graphics/Text.h"
+
+class Menu;
 
 class UI : public Entity {
 public:
     Menu* menu = nullptr;
     Text label;
 
-    UI(const Sprite::Info& s_i, Menu* m, const UIElem e);
+    UI(const Sprite::Info& s_i = {}, Menu* m = nullptr, const UIElem e = UIElem::NONE);
 
     virtual void GetInput() override;
     virtual void Draw() override;
 
-    inline bool Selected() { return active and Collision::RectPoint(bbox, Input::MousePos()) and menu->has_focus; }
+    bool Selected();
 
     void SetActive(const bool new_active = true);
     inline bool GetActive() const { return active; }
