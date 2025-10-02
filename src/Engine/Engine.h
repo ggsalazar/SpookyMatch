@@ -30,7 +30,7 @@ public:
     Camera camera;
     bool running = true;
 
-    Engine(const char* title, const uint init_fps);
+    Engine(const char* title, const uchar init_fps);
     ~Engine() {
         TTF_Quit();
         SDL_Quit(); //Pretty sure this has to be called last

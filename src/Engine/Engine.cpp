@@ -5,7 +5,7 @@
 #include "Graphics/Text.h"
 #include "Math/Math.h"
 
-Engine::Engine(const char* title, const uint init_fps)
+Engine::Engine(const char* title, const uchar init_fps)
     : fps(init_fps), resolution(min_res*2), camera({ 0 }, Vec2i(min_res)),
     window(title, resolution), renderer(window.GetWin(), &camera) {
  
