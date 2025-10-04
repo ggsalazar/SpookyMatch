@@ -12,11 +12,12 @@ Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 
 	//1 in 50 chance of being a special token
 	special = !(rand() % 50);
+	if (type == IconType::Pumpkin) special = !(rand() % 4);
 	
 	//Could put all of the icons into one sheet but not doing that for clarity reasons
 	string new_sheet = "Icons/";
 	switch (type) {
-		case IconType::Candy:
+		case IconType::Bat:
 			new_sheet += "Candy";
 		break;
 	

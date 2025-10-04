@@ -3,7 +3,7 @@
 
 class Button : public UI {
 public:
-    Button(const Sprite::Info& s_i, Menu* m, const UIElem e)
+    Button(const Sprite::Info& s_i, Menu* m, const Widget e)
         : UI(s_i, m, e) {
 
         //Can't put this in the init list for some reason

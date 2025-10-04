@@ -8,7 +8,7 @@ enum class GameMode {
 };
 
 enum class IconType {
-	Candy = 0,
+	Bat = 0,
 	Ghost = 1,
 	Mummy = 2,
 	Pumpkin = 3,
@@ -33,7 +33,7 @@ enum class MenuName {
 	Pause,
 };
 
-enum class UIElem {
+enum class Widget {
 	NONE,
 	//Buttons
 	Apply,

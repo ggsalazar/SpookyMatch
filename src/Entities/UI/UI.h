@@ -9,7 +9,7 @@ public:
     Menu* menu = nullptr;
     Text label;
 
-    UI(const Sprite::Info& s_i = {}, Menu* m = nullptr, const UIElem e = UIElem::NONE);
+    UI(const Sprite::Info& s_i = {}, Menu* m = nullptr, const Widget e = Widget::NONE);
 
     virtual void GetInput() override;
     virtual void Draw() override;
@@ -19,12 +19,12 @@ public:
     void SetActive(const bool new_active = true);
     inline bool GetActive() const { return active; }
     inline bool GetActivated() const { return activated; }
-    inline UIElem GetElem() const { return elem; }
+    inline Widget GetElem() const { return elem; }
 
 protected:
     //Variables
     int label_offset = 0;
-    UIElem elem = UIElem::NONE;
+    Widget elem = Widget::NONE;
     bool active = true;
     bool primed = false;
     bool activated = false;

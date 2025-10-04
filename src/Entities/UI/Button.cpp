@@ -22,10 +22,10 @@ void Button::Released() {
     activated = true;
     switch (elem) {
 
-        case UIElem::Apply:
+        case Widget::Apply:
             if (menu->GetName() == MenuName::Options) {
                 //Set the game's current resolution to the scale determined by the resolution picker
-                uint new_scale = stoi(menu->GetUIElemStatus(UIElem::Resolution));
+                uint new_scale = stoi(menu->GetWidgetStatus(Widget::Resolution));
                 uint old_scale = engine->resolution.x / engine->min_res.x;
                 if (new_scale != old_scale)
                     engine->SetResolution(new_scale);
@@ -37,48 +37,51 @@ void Button::Released() {
             }
         break;
 
-        case UIElem::Back:
+        case Widget::Back:
             menu->Open(false);
             game->OpenMenu(MenuName::Main);
         break;
 
-        case UIElem::Infinite:
+        case Widget::Infinite:
             game->gm_mode = GameMode::Infinite;
+            game->high_score = game->high_scores["Infinite"];
             game->ChangeScene(Scene::Game);
         break;
 
-        case UIElem::Moves:
-            game->moves_remaining = stoi(menu->GetUIElemStatus(UIElem::Moves_P));
+        case Widget::Moves:
+            game->moves_remaining = stoi(menu->GetWidgetStatus(Widget::Moves_P));
+            game->high_score = game->high_scores["Moves"][menu->GetWidgetStatus(Widget::Moves_P)];
             game->gm_mode = GameMode::Moves;
             game->ChangeScene(Scene::Game);
         break;
 
-        case UIElem::Options:
+        case Widget::Options:
             menu->Open(false);
             game->OpenMenu(MenuName::Options);
         break;
 
-        case UIElem::Play:
+        case Widget::Play:
             menu->Open(false);
             game->OpenMenu(MenuName::Choose_Game);
         break;
 
-        case UIElem::Quit:
+        case Widget::Quit:
             engine->window.open = false;
         break;
 
-        case UIElem::Resume:
+        case Widget::Resume:
             menu->Open(false);
             game->paused = false;
         break;
 
-        case UIElem::Time:
-            game->time_remaining = stoi(menu->GetUIElemStatus(UIElem::Time_P));
+        case Widget::Time:
+            game->time_remaining = stoi(menu->GetWidgetStatus(Widget::Time_P));
+            game->high_score = game->high_scores["Time"][menu->GetWidgetStatus(Widget::Time_P)];
             game->gm_mode = GameMode::Time;
             game->ChangeScene(Scene::Game);
         break;
 
-        case UIElem::Title:
+        case Widget::Title:
             game->gm_mode = GameMode::NONE;
             game->ChangeScene(Scene::Title);
         break;

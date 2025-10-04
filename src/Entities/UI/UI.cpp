@@ -2,63 +2,63 @@
 #include "../../Engine/Input.h" //Window
 #include "../../Game/Menu.h"
 
-UI::UI(const Sprite::Info& s_i, Menu* m, const UIElem e)
+UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
     : Entity(s_i), menu(m), elem(e), label(18) {
 
     //Label
     string l_str = "";
 
     switch (elem) {
-        case UIElem::Apply:
+        case Widget::Apply:
             l_str = "Apply";
             SetActive(false);
             break;
 
-        case UIElem::Back:
+        case Widget::Back:
             l_str = "Back";
             break;
 
-        case UIElem::Infinite:
+        case Widget::Infinite:
             l_str = "Infinite";
             break;
 
-        case UIElem::Moves:
+        case Widget::Moves:
             l_str = "Moves";
             break;
 
-        case UIElem::Moves_P:
+        case Widget::Moves_P:
             l_str = "Available Moves:";
             break;
 
-        case UIElem::Options:
+        case Widget::Options:
             l_str = "Options";
             break;
 
-        case UIElem::Play:
+        case Widget::Play:
             l_str = "Play!";
             break;
 
-        case UIElem::Quit:
+        case Widget::Quit:
             l_str = "Quit";
             break;
 
-        case UIElem::Resolution:
+        case Widget::Resolution:
             l_str = "Resolution";
             break;
 
-        case UIElem::Resume:
+        case Widget::Resume:
             l_str = "Resume";
             break;
 
-        case UIElem::Time:
+        case Widget::Time:
             l_str = "Time";
             break;
 
-        case UIElem::Time_P:
+        case Widget::Time_P:
             l_str = "Available Time:";
             break;
 
-        case UIElem::Title:
+        case Widget::Title:
             l_str = "Return to Title";
             break;
 

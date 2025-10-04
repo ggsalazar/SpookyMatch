@@ -1,1 +1,15 @@
 Special icons
+	-Pumpkin
+		-Explode
+	-Witch
+		-Remove all icons of swapped type + self
+	-Bat
+		-Swap with any other token
+	-Skeleton
+		-Clear row
+	-Zombie
+		-Clear column
+	-Mummy
+		-Clear all below + to the left+right
+	-Spider
+		-Each spider picks a random icon and removes it

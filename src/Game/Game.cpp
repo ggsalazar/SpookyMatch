@@ -26,25 +26,24 @@ void Game::Init(Engine* e) {
 	t_info.pos = { 10, 365 };
 	match_txt = new Text(t_info);
 
-	//Load high scores
+	//Init text displaying high scores
 	t_info.origin.x = .5;
 	t_info.str = "";
 	t_info.pos = { 0 };
 	t_info.font_size = 24;
 	for (uchar i=0; i < 3; ++i)
 		high_score_txts[i] = new Text(t_info);
+
+	//Load/Init high scores
 	ifstream in_file("high_scores.json");
 	if (in_file.good())
 		in_file >> high_scores;
 	else {
-		ofstream out_file("high_scores.json");
 		for (uint i = 5; i <= 100; i+=5)
 			high_scores["Moves"][to_string(i)] = 0;
 		for (uint i = 0; i <= 900; i += 30)
 			high_scores["Time"][to_string(i)] = 0;
 		high_scores["Infinite"] = 0;
-		out_file << high_scores.dump(4);
-		high_score = 0;
 	}
 }
 
@@ -56,7 +55,7 @@ void Game::ChangeScene(Scene new_scn) {
 		m->Open(false);
 	menus.clear();
 	icons.clear();
-	score = high_score = combo = 0;
+	score = combo = 0;
 	paused = false;
 	match_timer = match_timer_max;
 
@@ -67,6 +66,7 @@ void Game::ChangeScene(Scene new_scn) {
 			menus.push_back(new Menu(MenuName::Options));
 			menus.push_back(new Menu(MenuName::Choose_Game));
 
+			high_score = 0;
 			moves_remaining = 0;
 			time_remaining = 0;
 		break;
@@ -172,20 +172,17 @@ void Game::Update() {
 	//Get high scores
 	if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen()) {
 		Menu* m = FindMenu(MenuName::Choose_Game);
-		high_score_txts[0]->MoveTo({m->GetUIElemPos(UIElem::Moves).x, m->GetUIElemPos(UIElem::Moves).y - 40});
-		high_score_txts[1]->MoveTo({m->GetUIElemPos(UIElem::Time).x, m->GetUIElemPos(UIElem::Time).y - 40});
-		high_score_txts[2]->MoveTo({m->GetUIElemPos(UIElem::Infinite).x, m->GetUIElemPos(UIElem::Infinite).y + 12});
+		high_score_txts[0]->MoveTo({m->GetWidgetPos(Widget::Moves).x, m->GetWidgetPos(Widget::Moves).y - 40});
+		high_score_txts[1]->MoveTo({m->GetWidgetPos(Widget::Time).x, m->GetWidgetPos(Widget::Time).y - 40});
+		high_score_txts[2]->MoveTo({m->GetWidgetPos(Widget::Infinite).x, m->GetWidgetPos(Widget::Infinite).y + 12});
 
-		high_score = high_scores["Moves"][m->GetUIElemStatus(UIElem::Moves_P)];
-		high_score_txts[0]->SetStr("High Score: " + to_string(high_score));
-		high_score = high_scores["Time"][to_string(stoi(m->GetUIElemStatus(UIElem::Time_P))/Entity::SEC)];
-		high_score_txts[1]->SetStr("High Score: " + to_string(high_score));
-		high_score = high_scores["Infinite"];
-		high_score_txts[2]->SetStr("High Score: " + to_string(high_score));
+		high_score_txts[0]->SetStr("High Score: " + to_string(high_scores["Moves"][m->GetWidgetStatus(Widget::Moves_P)]));
+		high_score_txts[1]->SetStr("High Score: " + to_string(high_scores["Time"][to_string(stoi(m->GetWidgetStatus(Widget::Time_P)) / Entity::SEC)]));
+		high_score_txts[2]->SetStr("High Score: " + to_string(high_scores["Infinite"]));
 	}
 
 	if (engine->GetGameFrames() % 10 == 0) {
-		//Sort the entities vector by dfc value every 6th of a second (every 10 game frames) so that entities of a lower dfc value are drawn
+		//Sort the icons vector by dfc value every 6th of a second (every 10 game frames) so that icons of a lower dfc value are drawn
 		// last (closest to the camera)
 		sort(icons.begin(), icons.end(),
 			[](const Icon* a, const Icon* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
@@ -365,7 +362,6 @@ void Game::CheckSwap(Icon* icon) {
 
 void Game::RemoveIcons() {
 	chosen_icons[0] = chosen_icons[1] = nullptr;
-	//Reset the move buffer
 	move_buffer = move_buffer_max;
 	match_made = false;
 
@@ -380,43 +376,96 @@ void Game::RemoveIcons() {
 		case 8: new_score = 100000; break;
 		case 9: new_score = 1000000; break;
 	}
-	score += new_score * combo;
-	//Save the score for the given max time or moves remaining
-	ofstream out_file("high_scores.json", ios::app);
-
-	if (score > high_score) {
-		high_score = score;
-		if (gm_mode == GameMode::Moves) high_scores["Moves"][to_string(max_moves_remaining)] = score;
-		else if (gm_mode == GameMode::Time) high_scores["Time"][to_string(max_time_remaining/Entity::SEC)] = score;
-		else high_scores["Infinite"] = score;
-
-		out_file << high_scores.dump(4) << '\n';
-	}
-	out_file.close();
-	
-	//Create replacement icons
-	Sprite::Info icon_info = {};
-	for (uchar i = 0; i < matched_icons.size(); ++i) {
-		icon_info.pos = { matched_icons[i]->GetPos().x, 24 - (32 * (i * (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x))) };
-		icons.push_back(new Icon(icon_info));
-	}
-
-
-	//Mark the matched icons for removal, the icons above them to move down, and create the replacement icons
+	//Special icons/mark matched_icons as to_remove
+	vector<Icon*> remove_chain;
 	for (auto& mi : matched_icons) {
 		mi->to_remove = true;
 
-		for (auto& i : icons) {
-			//Horizontal match
-			if (matched_icons[0]->GetPos().y == matched_icons[1]->GetPos().y and i->GetPos().x == mi->GetPos().x and i->GetPos().y < mi->GetPos().y) {
-				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 };
-			}
+		//Special effects
+		if (mi->special) {
+			switch (mi->type) {
+				case IconType::Ghost:
+					//Add moves/time/points
+					new_score += 250 * (gm_mode == GameMode::Infinite);
+					moves_remaining += 5 * (gm_mode == GameMode::Moves);
+					time_remaining += 30 * Entity::SEC * (gm_mode == GameMode::Time);
+				break;
 
-			//Vertical match
-			else if (matched_icons[0]->GetPos().x == matched_icons[1]->GetPos().x and i->GetPos().x == matched_icons[0]->GetPos().x and i->GetPos().y < matched_icons[0]->GetPos().y)
-				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * (int)matched_icons.size() };
+				case IconType::Pumpkin:
+					/*
+					//Explode
+					Vec2i pos_to_check;
+					for (char i = -1; i <= 1; ++i) {
+						pos_to_check.x = mi->GetPos().x + 32 * i;
+						for (char j = -1; j <= 1; ++j) {
+							pos_to_check.y = mi->GetPos().y + 32 * i;
+							//Add icons to remove_chain and mark as matched!
+							for (auto& ic : icons) {
+								if (!ic->matched and ic->GetPos() == pos_to_check) {
+									ic->matched = true;
+									remove_chain.push_back(ic);
+								}
+							}
+
+						}
+					}
+					*/
+				break;
+			}
 		}
 	}
+	score += new_score * combo;
+	//Save the score for the given max time or moves remaining
+	if (score > high_score) {
+		high_score = score;
+		if (gm_mode == GameMode::Moves) high_scores["Moves"][to_string(max_moves_remaining)] = score;
+		else if (gm_mode == GameMode::Time) high_scores["Time"][to_string(max_time_remaining / Entity::SEC)] = score;
+		else high_scores["Infinite"] = score;
+
+		ofstream out_file("high_scores.json");
+		out_file << high_scores.dump(4) << '\n';
+		out_file.close();
+	}
+
+	//Move icons down by counting the amount of icons to be removed in a given columnn
+	uchar num_to_remove = 0;
+	int x_to_check, highest_y = 400;
+	vector<Icon*> icons_to_shift;
+	for (uchar col = 0; col < 10; ++col) {
+		num_to_remove = 0;
+		x_to_check = 56 + 32 * col;
+		icons_to_shift.clear();
+		highest_y = 400;
+		for (auto& mi : matched_icons)
+			if (mi->GetPos().x == x_to_check) highest_y = mi->GetPos().y < highest_y ? mi->GetPos().y : highest_y;
+
+		for (auto& i : icons) {
+			if (i->GetPos().x == x_to_check) {
+				if (i->GetPos().y < highest_y) icons_to_shift.push_back(i);
+				else if (i->to_remove) ++num_to_remove;
+			}
+		}
+
+		if (num_to_remove) {
+			//Create the replacement icons
+			Sprite::Info icon_info = {};
+			for (uchar i = 0; i < num_to_remove; ++i) {
+				icon_info.pos = { x_to_check, 24 - 32 * i };
+				icons.push_back(new Icon(icon_info));
+				icons_to_shift.push_back(icons[icons.size() - 1]);
+			}
+
+			//Set the position goals of the icons to shift
+			for (auto& i : icons_to_shift)
+				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * num_to_remove };
+		}
+	}
+
 	//Clear out matched_icons
 	matched_icons.clear();
+
+	if (!remove_chain.empty()) {
+		matched_icons = remove_chain;
+		RemoveIcons();
+	}
 }

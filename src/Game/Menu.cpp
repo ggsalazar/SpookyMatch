@@ -26,13 +26,13 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             e_y_buffer = round(engine->min_res.y * .1f);
 
-            ui_elems.insert({ UIElem::Play, new Button(elem_info, this, UIElem::Play) });
+            widgets.insert({ Widget::Play, new Button(elem_info, this, Widget::Play) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Options, new Button(elem_info, this, UIElem::Options) });
+            widgets.insert({ Widget::Options, new Button(elem_info, this, Widget::Options) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
+            widgets.insert({ Widget::Quit, new Button(elem_info, this, Widget::Quit) });
 
             break;
         }
@@ -43,21 +43,21 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.pos = Round(engine->min_res.x * .3f, engine->min_res.y * .4f);
             elem_info.sheet = "UI/Button";
             
-            ui_elems.insert({ UIElem::Time, new Button(elem_info, this, UIElem::Time) });
+            widgets.insert({ Widget::Time, new Button(elem_info, this, Widget::Time) });
             elem_info.pos.y = engine->min_res.y * .47f;
-            ui_elems.insert({ UIElem::Time_P, new Picker(elem_info, this, UIElem::Time_P) });
+            widgets.insert({ Widget::Time_P, new Picker(elem_info, this, Widget::Time_P) });
 
 
             elem_info.pos = Round(engine->min_res.x * .7f, engine->min_res.y * .4f);
-            ui_elems.insert({ UIElem::Moves, new Button(elem_info, this, UIElem::Moves) });
+            widgets.insert({ Widget::Moves, new Button(elem_info, this, Widget::Moves) });
             elem_info.pos.y = engine->min_res.y * .47f;
-            ui_elems.insert({ UIElem::Moves_P, new Picker(elem_info, this, UIElem::Moves_P) });
+            widgets.insert({ Widget::Moves_P, new Picker(elem_info, this, Widget::Moves_P) });
 
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .55f);
-            ui_elems.insert({ UIElem::Infinite, new Button(elem_info, this, UIElem::Infinite) });
+            widgets.insert({ Widget::Infinite, new Button(elem_info, this, Widget::Infinite) });
 
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .8f);
-            ui_elems.insert({ UIElem::Back, new Button(elem_info, this, UIElem::Back) });
+            widgets.insert({ Widget::Back, new Button(elem_info, this, Widget::Back) });
 
             break;
         }
@@ -68,10 +68,10 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
 
             elem_info.sheet = "UI/Button";
-            ui_elems.insert({ UIElem::Title, new Button(elem_info, this, UIElem::Title) });
+            widgets.insert({ Widget::Title, new Button(elem_info, this, Widget::Title) });
 
             elem_info.pos.y = engine->min_res.y * .5f;
-            ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
+            widgets.insert({ Widget::Quit, new Button(elem_info, this, Widget::Quit) });
             break;
         }
         
@@ -82,13 +82,13 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             e_y_buffer = round(engine->min_res.y * .1f);
             elem_info.sheet = "UI/Button";
 
-            ui_elems.insert({ UIElem::Resolution, new Picker(elem_info, this, UIElem::Resolution) });
+            widgets.insert({ Widget::Resolution, new Picker(elem_info, this, Widget::Resolution) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Apply, new Button(elem_info, this, UIElem::Apply) });
+            widgets.insert({ Widget::Apply, new Button(elem_info, this, Widget::Apply) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Back, new Button(elem_info, this, UIElem::Back) });
+            widgets.insert({ Widget::Back, new Button(elem_info, this, Widget::Back) });
 
             break;
         }
@@ -101,13 +101,13 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             //Resolution new Picker, fullscreen toggle, and apply new Button
             elem_info.sheet = "UI/Button";
-            ui_elems.insert({ UIElem::Resume, new Button(elem_info, this, UIElem::Resume) });
+            widgets.insert({ Widget::Resume, new Button(elem_info, this, Widget::Resume) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Title, new Button(elem_info, this, UIElem::Title) });
+            widgets.insert({ Widget::Title, new Button(elem_info, this, Widget::Title) });
 
             elem_info.pos.y += e_y_buffer;
-            ui_elems.insert({ UIElem::Quit, new Button(elem_info, this, UIElem::Quit) });
+            widgets.insert({ Widget::Quit, new Button(elem_info, this, Widget::Quit) });
 
             break;
         }
@@ -124,7 +124,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
 void Menu::GetInput() {
     if (open) {
-        for (auto& uie : ui_elems)
+        for (auto& uie : widgets)
             uie.second->GetInput();
 
         for (auto& s_m : sub_menus)
@@ -134,7 +134,7 @@ void Menu::GetInput() {
 
 void Menu::Update() {
     if (open) {
-        for (auto& ui : ui_elems) ui.second->Update();
+        for (auto& ui : widgets) ui.second->Update();
 
         for (const auto& s_m : sub_menus)
             s_m.second->Update();
@@ -146,7 +146,7 @@ void Menu::Draw() {
         engine->renderer.DrawTxt(menu_text);
         engine->renderer.DrawTxt(sup_text);
 
-        for (auto& uie : ui_elems)
+        for (auto& uie : widgets)
             uie.second->Draw();
 
         for (auto& s_m : sub_menus)
@@ -159,7 +159,7 @@ void Menu::Resize() {
     menu_text.SetFont();
     sup_text.SetFont();
 
-    for (auto& uie : ui_elems) {
+    for (auto& uie : widgets) {
         uie.second->label.SetFont();
         if (Picker* p = dynamic_cast<Picker*>(uie.second)) p->SetPickingF();
     }
@@ -181,54 +181,54 @@ void Menu::OpenSM(const MenuName s_m) {
     else cout << "That Sub-Menu does not exist in this Menu!\n";
 }
 
-void Menu::RemoveUIElem(const UIElem ui) {
-    if (CheckUIElem(ui)) {
-        //delete ui_elems[ui];
-        ui_elems.erase(ui);
+void Menu::RemoveWidget(const Widget ui) {
+    if (CheckWidget(ui)) {
+        //delete widgets[ui];
+        widgets.erase(ui);
     }
 }
 
-bool Menu::CheckUIElem(const UIElem ui) {
-    if (ui_elems.find(ui) != ui_elems.end()) return true;
+bool Menu::CheckWidget(const Widget ui) {
+    if (widgets.find(ui) != widgets.end()) return true;
 
     cout << "That UI Element does not exist!" << endl;
     return false;
 }
 
-void Menu::SetUIElemStatus(const UIElem ui, const string new_status) {
+void Menu::SetWidgetStatus(const Widget ui, const string new_status) {
 
-    if (CheckUIElem(ui)) {
-        if (auto p = dynamic_cast<Picker*>(ui_elems[ui]))
+    if (CheckWidget(ui)) {
+        if (auto p = dynamic_cast<Picker*>(widgets[ui]))
             p->SetPicking(new_status);
     }
 }
 
-void Menu::SetUIElemActive(const UIElem ui, const bool a) {
-    if (CheckUIElem(ui))
-        ui_elems[ui]->SetActive(a);
+void Menu::SetWidgetActive(const Widget ui, const bool a) {
+    if (CheckWidget(ui))
+        widgets[ui]->SetActive(a);
 }
 
-Vec2i Menu::GetUIElemPos(const UIElem ui) {
-    if (CheckUIElem(ui))
-        return ui_elems[ui]->GetPos();
+Vec2i Menu::GetWidgetPos(const Widget ui) {
+    if (CheckWidget(ui))
+        return widgets[ui]->GetPos();
 
-    cout << "Menu::GetUIElemPos(): No such UIElem exists\n";
+    cout << "Menu::GetWidgetPos(): No such Widget exists\n";
     return Vec2i();
 }
 
-string Menu::GetUIElemStatus(const UIElem ui) {
+string Menu::GetWidgetStatus(const Widget ui) {
 
-    if (CheckUIElem(ui)) {
-        if (Picker* p = dynamic_cast<Picker*>(ui_elems[ui]))
+    if (CheckWidget(ui)) {
+        if (Picker* p = dynamic_cast<Picker*>(widgets[ui]))
             return p->GetPicking();
     }
 
-    return "Menu::GetUIElemStatus(): No such UIElem exists\n";
+    return "Menu::GetWidgetStatus(): No such Widget exists\n";
 }
 
-bool Menu::GetUIElemActive(const UIElem ui) {
-    if (CheckUIElem(ui))
-        return ui_elems[ui]->GetActive();
+bool Menu::GetWidgetActive(const Widget ui) {
+    if (CheckWidget(ui))
+        return widgets[ui]->GetActive();
 
     return false;
 }

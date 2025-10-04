@@ -3,7 +3,7 @@
 #include "../../Engine/Input.h"
 #include "../../Game/Menu.h"
 
-Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e)
+Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget e)
     : UI(s_i, m, e), picking(label.GetFontSize()) {
 
     label_offset = 6;
@@ -24,15 +24,15 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const UIElem e)
     //What exactly ARE we picking?
     string picking_str = "";
     switch (elem) {
-        case UIElem::Resolution:
+        case Widget::Resolution:
             picking_str = to_string(engine->resolution.x / engine->min_res.x);
         break;
 
-        case UIElem::Moves_P:
+        case Widget::Moves_P:
             picking_str = to_string(30);
         break;
 
-        case UIElem::Time_P:
+        case Widget::Time_P:
             picking_str = to_string(SEC*60*5);
         break;
     }
@@ -68,7 +68,7 @@ void Picker::Draw() {
     UI::Draw();
     
     //Gotta convert the time being picked into seconds
-    if (elem == UIElem::Time_P) {
+    if (elem == Widget::Time_P) {
         uint true_time = stoi(picking.GetStr());
         uint time_secs = true_time / SEC;
         picking.SetStr(to_string(time_secs));
@@ -111,15 +111,15 @@ void Picker::LeftReleased() {
     uint curr_picking = stoi(picking.GetStr());
 
     switch (elem) {
-        case UIElem::Resolution:
+        case Widget::Resolution:
             if (--curr_picking < 1)
                 curr_picking = min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y / engine->min_res.y));
 
             //Set the Apply button to active
-            menu->SetUIElemActive(UIElem::Apply);
+            menu->SetWidgetActive(Widget::Apply);
         break;
 
-        case UIElem::Moves_P:
+        case Widget::Moves_P:
             curr_picking -= 5;
             curr_picking = curr_picking <= 0 ? 100 : curr_picking;
             if (game->high_scores.contains(to_string(curr_picking)))
@@ -127,7 +127,7 @@ void Picker::LeftReleased() {
             else game->high_score = 0;
         break;
 
-        case UIElem::Time_P:
+        case Widget::Time_P:
             curr_picking -= 30 * SEC;
             curr_picking = curr_picking <= 0 ? SEC * 60 * 15 : curr_picking;
             if (game->high_scores.contains(to_string(curr_picking)))
@@ -147,15 +147,15 @@ void Picker::RightReleased() {
     uint curr_picking = stoi(picking.GetStr());
 
     switch (elem) {
-        case UIElem::Resolution:
+        case Widget::Resolution:
             if (++curr_picking > min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y/engine->min_res.y)))
                 curr_picking = 1;
 
             //Set the Apply button to active
-            menu->SetUIElemActive(UIElem::Apply);
+            menu->SetWidgetActive(Widget::Apply);
         break;
 
-        case UIElem::Moves_P:
+        case Widget::Moves_P:
             curr_picking += 5;
             curr_picking = curr_picking > 100 ? 5 : curr_picking;
             if (game->high_scores.contains(to_string(curr_picking)))
@@ -163,7 +163,7 @@ void Picker::RightReleased() {
             else game->high_score = 0;
             break;
 
-        case UIElem::Time_P:
+        case Widget::Time_P:
             curr_picking += 30 * SEC;
             curr_picking = curr_picking > SEC * 60 * 15 ? SEC * 30 : curr_picking;
             if (game->high_scores.contains(to_string(curr_picking)))

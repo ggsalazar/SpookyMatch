@@ -6,7 +6,7 @@ using std::vector;
 
 class Picker : public UI {
 public:
-    Picker(const Sprite::Info& s_i, Menu* m, const UIElem e);
+    Picker(const Sprite::Info& s_i, Menu* m, const Widget e);
 
     void GetInput() override;
     void Draw() override;

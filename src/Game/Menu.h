@@ -11,8 +11,8 @@ public:
 
     Menu(const MenuName i_name);
     virtual ~Menu() {
-        for (auto& [_, ui] : ui_elems) delete ui;
-        ui_elems.clear();
+        for (auto& [_, w] : widgets) delete w;
+        widgets.clear();
 
         for (auto& [_, sm] : sub_menus) delete sm;
         sub_menus.clear();
@@ -34,13 +34,13 @@ public:
     void OpenSM(const MenuName s_m);
 
     //UI Elements
-    void RemoveUIElem(const UIElem ui);
-    bool CheckUIElem(const UIElem ui);
-    bool GetUIElemActive(const UIElem ui);
-    void SetUIElemActive(const UIElem ui, const bool a = true);
-    Vec2i GetUIElemPos(const UIElem ui);
-    void SetUIElemStatus(const UIElem ui, const string new_status);
-    string GetUIElemStatus(const UIElem ui);
+    void RemoveWidget(const Widget ui);
+    bool CheckWidget(const Widget ui);
+    bool GetWidgetActive(const Widget ui);
+    void SetWidgetActive(const Widget ui, const bool a = true);
+    Vec2i GetWidgetPos(const Widget ui);
+    void SetWidgetStatus(const Widget ui, const string new_status);
+    string GetWidgetStatus(const Widget ui);
 
 protected:
     MenuName name;
@@ -50,7 +50,7 @@ protected:
     bool open = false;
 
     unordered_map<MenuName, Menu*> sub_menus;
-    unordered_map<UIElem, UI*> ui_elems;
+    unordered_map<Widget, UI*> widgets;
     Vec2f ui_ori = { .5f, .5f };
 
     static inline Engine* engine;
