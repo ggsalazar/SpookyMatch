@@ -67,6 +67,7 @@ void Renderer::DrawTxt(Text& txt) {
 	SDL_SetRenderLogicalPresentation(renderer, win_size.x, win_size.y, SDL_LOGICAL_PRESENTATION_DISABLED);
 
 	if (surface) SDL_DestroySurface(surface);
+	//Try TTF_RenderText_LCD_Wrapped whenever you get a chance - TO-DO
 	surface = TTF_RenderText_Blended_Wrapped(txt.font.GetFont(), ti->str.c_str(), ti->str.length(), c, txt.GetMaxW(true));
 	if (!surface) {
 		std::cout << "Failed to create text surface!\n";

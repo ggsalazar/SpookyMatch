@@ -19,22 +19,21 @@ public:
         Color color{ 1 };
         Vec2f origin{};
         float rot = 0.f;
+        Info() = default;
     };
     static inline uchar res_scale = 1;
     static inline unordered_map<int, Font> fonts;
     Font font;
 
-    Text(const Info& i = {}) {
-        Init(i);
-    }
+    Text() { Init(info); }
+    Text(const Info& i) { Init(i); }
     Text(const uint i_size) {
         info.font_size = i_size;
         Init(info);
     }
     ~Text() {}
-    void Init(const Info& i = {}) {
+    void Init(const Info& i) {
         info = i;
-
         SetFont();
     }
 
@@ -49,8 +48,8 @@ public:
     inline Info GetInfo() const { return info; }
 
 
-    inline void SetFont(uint new_font_size = -1) { 
-        info.font_size = new_font_size == -1 ? info.font_size : new_font_size;
+    inline void SetFont(uint new_font_size = 0) { 
+        info.font_size = new_font_size == 0 ? info.font_size : new_font_size;
         
         font = fonts[info.font_size * res_scale];
     }

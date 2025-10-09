@@ -12,44 +12,46 @@ Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 
 	//1 in 50 chance of being a special token
 	special = !(rand() % 50);
-	if (type == IconType::Pumpkin) special = !(rand() % 4);
 	
 	//Could put all of the icons into one sheet but not doing that for clarity reasons
-	string new_sheet = "Icons/";
+	Sprite::Info new_info;
+	new_info.sheet = "Icons/"; new_info.frame_size = {32};
+	new_info.anim_fps = 8; new_info.num_frames = 4;
+	new_info.origin = {.5f}; new_info.ping_pong = true;
 	switch (type) {
 		case IconType::Bat:
-			new_sheet += "Candy";
+			new_info.sheet += "Bat";
 		break;
 	
 		case IconType::Ghost:
-			new_sheet += "Ghost";
+			new_info.sheet += "Ghost";
 		break;
 	
 		case IconType::Mummy:
-			new_sheet += "Mummy";
+			new_info.sheet += "Mummy";
 		break;
 
 		case IconType::Pumpkin:
-			new_sheet += "Pumpkin";
+			new_info.sheet += "Pumpkin";
 			break;
 
 		case IconType::Skeleton:
-			new_sheet += "Skeleton";
+			new_info.sheet += "Skeleton";
 			break;
 
 		case IconType::Spider:
-			new_sheet += "Spider";
+			new_info.sheet += "Spider";
 			break;
 
 		case IconType::Witch:
-			new_sheet += "Witch";
+			new_info.sheet += "Witch";
 			break;
 
 		case IconType::Zombie:
-			new_sheet += "Zombie";
+			new_info.sheet += "Zombie";
 			break;
 	}
-	sprite.SetSheet(new_sheet);
+	sprite.Init(new_info);
 	Entity::Move();
 }
 

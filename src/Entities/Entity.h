@@ -19,7 +19,7 @@ public:
     static void SetEngine(Engine* e, Game* g);
 
     inline virtual void GetInput() {}
-    inline virtual void Update() { sprite.SetDFC(-pos.y); }
+    inline virtual void Update() { sprite.Update(); sprite.SetDFC(-pos.y); }
     virtual void Draw();
     inline virtual void DrawGUI() {}
 

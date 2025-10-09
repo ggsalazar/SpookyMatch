@@ -7,7 +7,7 @@
 #include "../Game/Game.h" //Enums, Sprite
 
 using namespace std;
-using namespace chrono;
+using namespace std::chrono;
 using hr_clock = high_resolution_clock;
 using durationf = duration<float>;
 

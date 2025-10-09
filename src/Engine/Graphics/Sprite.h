@@ -3,6 +3,8 @@
 #include <SDL3_image/SDL_image.h>
 #include "../Math/Geometry.h" //(Vec2 (iostream))
 
+class Renderer;
+
 class Sprite {
     friend class Renderer;
 public:
@@ -20,15 +22,18 @@ public:
         uchar num_frames = 1; //How many frames are in the CURRENT sheet row
         uchar curr_frame = 0; //Which frame of the animation we are currently on
         char anim_fps = 0; //How many frames of the animation play per second
+        bool ping_pong = false; //Whether the animation plays in reverse upon finishing
         uchar game_frames = 0; //How many game frames have elapsed since the last frame change
         uchar fci = 0; //frame_change_interval: How many game frames until the next animation frame
         float anim_length = 0.f; //Length of the animation in seconds
         int dfc = 0; //Distance from camera; draw order, basically - the lower the number, the closer to the camera
+        Info() = default;
     };
 
     //ANY SPRITE (OR SOMETHING THAT HAS ONE) THAT IS COPY/MOVE CONSTRUCTED MUST BE INITIALIZED ON THE HEAP - JUST. FUCKING. TRUST!
 
-    Sprite(const Info& i = {}) : info(i) { Init(i); }
+    Sprite(const Info& i) : info(i) { Init(i); }
+    Sprite() { Init(info); }                                           
     ~Sprite() {
         if (texture) {
             SDL_DestroyTexture(texture);
@@ -47,7 +52,6 @@ public:
     void Update();
     void Draw() const;
 
-    void SetSheet(std::string new_sheet);
     inline std::string GetSheet() const { return info.sheet; }
     inline Vec2i GetSheetSize() const { return info.sheet_size; }
 
@@ -73,17 +77,20 @@ public:
     inline void SetColor(const Color& c) { info.tint = c; }
     inline Color GetColor() const { return info.tint; }
 
-    void SetSheetRow(uint new_s_r, const uint new_n_f = 0);
-    inline uint GetSheetRow() const { return info.sheet_row; }
+    void SetSheetRow(uchar new_s_r, const uchar new_n_f = 0);
+    inline uchar GetSheetRow() const { return info.sheet_row; }
 
-    void SetCurrFrame(uint new_c_f);
-    inline uint GetCurrFrame() const { return info.curr_frame; }
+    void SetCurrFrame(uchar new_c_f);
+    inline uchar GetCurrFrame() const { return info.curr_frame; }
 
     inline void SetNumFrames(const uint new_n_f) { info.num_frames = new_n_f; }
     inline uint GetNumFrames() const { return info.num_frames; }
 
     void SetAnimFPS(const int new_fps);
     inline uint GetAnimFPS() const { return info.anim_fps; }
+
+    void SetPingPong(const bool pp = true) { info.ping_pong = pp; }
+    inline bool GetPingPong() const { return info.ping_pong; }
 
     void SetOrigin(const Vec2f new_ori = { .5f, .5f });
     inline Vec2f GetOrigin() const { return info.origin; }; //Returns origin from 0-1
@@ -94,7 +101,7 @@ public:
     inline int GetDFC() const { return info.dfc; }
 
 private:
-    Info info; //private because whenever a member is set, other ancillary functions must be performed
+    Info info = {}; //private because whenever a member is set, other ancillary functions must be performed
     SDL_Texture* texture = nullptr;
     static inline SDL_Renderer* sdl_renderer;
     static inline Renderer* renderer;
