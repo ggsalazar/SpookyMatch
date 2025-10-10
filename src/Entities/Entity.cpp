@@ -24,6 +24,11 @@ void Entity::MoveBy(const Vec2f offset) {
 
     Entity::Move();
 }
+void Entity::MoveBy(const Vec2i offset) {
+	pos += offset;
+
+	Entity::Move();
+}
 
 void Entity::MoveTo(const Vec2f new_pos) {
     pos = Round(new_pos);

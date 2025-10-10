@@ -12,6 +12,7 @@ public:
     Vec2i size = { 0, 0 };
     Sprite sprite;
     inline static uchar SEC;
+    bool expired = false;
 
     Entity(const Sprite::Info s_i);
     virtual ~Entity() = default;
@@ -25,6 +26,7 @@ public:
 
 
     virtual void MoveBy(const Vec2f offset);
+    virtual void MoveBy(const Vec2i offset);
     virtual void MoveTo(const Vec2f new_pos);
     virtual void MoveTo(const Vec2i new_pos);
 

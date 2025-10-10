@@ -191,7 +191,7 @@ void Game::Update() {
 	//Remove dead icons walking
 	for (auto it = icons.begin(); it != icons.end();) {
 		Icon* i = *it;
-		if (i->to_remove) it = icons.erase(it);
+		if (i->expired) it = icons.erase(it);
 		else ++it;
 	}
 }
@@ -225,8 +225,6 @@ void Game::DrawGUI() {
 	//Menus are drawn last since they will always be closest to the camera
 	for (const auto& m : menus)
 		m->Draw();
-
-
 
 	//JK lol the cursor is drawn last
 	engine->renderer.DrawSprite(cursor);
@@ -376,10 +374,10 @@ void Game::RemoveIcons() {
 		case 8: new_score = 100000; break;
 		case 9: new_score = 1000000; break;
 	}
-	//Special icons/mark matched_icons as to_remove
+	//Special icons/mark matched_icons as expired
 	vector<Icon*> remove_chain;
 	for (auto& mi : matched_icons) {
-		mi->to_remove = true;
+		mi->expired = true;
 
 		//Special effects
 		if (mi->special) {
@@ -428,11 +426,11 @@ void Game::RemoveIcons() {
 	}
 
 	//Move icons down by counting the amount of icons to be removed in a given columnn
-	uchar num_to_remove = 0;
+	uchar num_expired = 0;
 	int x_to_check, highest_y = 400;
 	vector<Icon*> icons_to_shift;
 	for (uchar col = 0; col < 10; ++col) {
-		num_to_remove = 0;
+		num_expired = 0;
 		x_to_check = 56 + 32 * col;
 		icons_to_shift.clear();
 		highest_y = 400;
@@ -442,14 +440,14 @@ void Game::RemoveIcons() {
 		for (auto& i : icons) {
 			if (i->GetPos().x == x_to_check) {
 				if (i->GetPos().y < highest_y) icons_to_shift.push_back(i);
-				else if (i->to_remove) ++num_to_remove;
+				else if (i->expired) ++num_expired;
 			}
 		}
 
-		if (num_to_remove) {
+		if (num_expired) {
 			//Create the replacement icons
 			Sprite::Info icon_info = {};
-			for (uchar i = 0; i < num_to_remove; ++i) {
+			for (uchar i = 0; i < num_expired; ++i) {
 				icon_info.pos = { x_to_check, 24 - 32 * i };
 				icons.push_back(new Icon(icon_info));
 				icons_to_shift.push_back(icons[icons.size() - 1]);
@@ -457,7 +455,7 @@ void Game::RemoveIcons() {
 
 			//Set the position goals of the icons to shift
 			for (auto& i : icons_to_shift)
-				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * num_to_remove };
+				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * num_expired };
 		}
 	}
 

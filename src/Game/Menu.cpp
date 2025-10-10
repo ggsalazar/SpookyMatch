@@ -124,8 +124,8 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
 void Menu::GetInput() {
     if (open) {
-        for (auto& uie : widgets)
-            uie.second->GetInput();
+        for (auto& w : widgets)
+            w.second->GetInput();
 
         for (auto& s_m : sub_menus)
             s_m.second->GetInput();
@@ -134,7 +134,7 @@ void Menu::GetInput() {
 
 void Menu::Update() {
     if (open) {
-        for (auto& ui : widgets) ui.second->Update();
+        for (auto& w : widgets) w.second->Update();
 
         for (const auto& s_m : sub_menus)
             s_m.second->Update();
@@ -159,9 +159,9 @@ void Menu::Resize() {
     menu_text.SetFont();
     sup_text.SetFont();
 
-    for (auto& uie : widgets) {
-        uie.second->label.SetFont();
-        if (Picker* p = dynamic_cast<Picker*>(uie.second)) p->SetPickingF();
+    for (auto& w : widgets) {
+        w.second->label.SetFont();
+        if (Picker* p = dynamic_cast<Picker*>(w.second)) p->SetPickingF();
     }
 }
 
@@ -181,54 +181,54 @@ void Menu::OpenSM(const MenuName s_m) {
     else cout << "That Sub-Menu does not exist in this Menu!\n";
 }
 
-void Menu::RemoveWidget(const Widget ui) {
-    if (CheckWidget(ui)) {
-        //delete widgets[ui];
-        widgets.erase(ui);
+void Menu::RemoveWidget(const Widget w) {
+    if (CheckWidget(w)) {
+        //Why is this commented out?
+    	//delete widgets[ui];
+        widgets.erase(w);
     }
 }
 
-bool Menu::CheckWidget(const Widget ui) {
-    if (widgets.find(ui) != widgets.end()) return true;
+bool Menu::CheckWidget(const Widget w) {
+    if (widgets.find(w) != widgets.end()) return true;
 
-    cout << "That UI Element does not exist!" << endl;
+    cout << "That Widget does not exist!" << endl;
     return false;
 }
 
-void Menu::SetWidgetStatus(const Widget ui, const string new_status) {
-
-    if (CheckWidget(ui)) {
-        if (auto p = dynamic_cast<Picker*>(widgets[ui]))
+void Menu::SetWidgetStatus(const Widget w, const string new_status) {
+    if (CheckWidget(w)) {
+        if (auto p = dynamic_cast<Picker*>(widgets[w]))
             p->SetPicking(new_status);
     }
 }
 
-void Menu::SetWidgetActive(const Widget ui, const bool a) {
-    if (CheckWidget(ui))
-        widgets[ui]->SetActive(a);
+void Menu::SetWidgetActive(const Widget w, const bool a) {
+    if (CheckWidget(w))
+        widgets[w]->SetActive(a);
 }
 
-Vec2i Menu::GetWidgetPos(const Widget ui) {
-    if (CheckWidget(ui))
-        return widgets[ui]->GetPos();
+Vec2i Menu::GetWidgetPos(const Widget w) {
+    if (CheckWidget(w))
+        return widgets[w]->GetPos();
 
     cout << "Menu::GetWidgetPos(): No such Widget exists\n";
     return Vec2i();
 }
 
-string Menu::GetWidgetStatus(const Widget ui) {
+string Menu::GetWidgetStatus(const Widget w) {
 
-    if (CheckWidget(ui)) {
-        if (Picker* p = dynamic_cast<Picker*>(widgets[ui]))
+    if (CheckWidget(w)) {
+        if (Picker* p = dynamic_cast<Picker*>(widgets[w]))
             return p->GetPicking();
     }
 
     return "Menu::GetWidgetStatus(): No such Widget exists\n";
 }
 
-bool Menu::GetWidgetActive(const Widget ui) {
-    if (CheckWidget(ui))
-        return widgets[ui]->GetActive();
+bool Menu::GetWidgetActive(const Widget w) {
+    if (CheckWidget(w))
+        return widgets[w]->GetActive();
 
     return false;
 }
