@@ -7,6 +7,10 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
     //Label
     string l_str = "";
+    Sprite::Info info = {}; info.sheet = "UI/Btn_Blank";
+    info.pos = pos; info.origin = sprite.GetOrigin();
+    info.frame_size = {112, 33}; info.num_frames = 3;
+    info.anim_fps = 0; info.dfc = -10;
 
     switch (elem) {
         case Widget::Apply:
@@ -32,14 +36,17 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
         case Widget::Options:
             l_str = "Options";
+            info.sheet = "UI/Settings_Btn";
             break;
 
         case Widget::Play:
             l_str = "Play!";
+            info.sheet = "UI/Play_Btn";
             break;
 
         case Widget::Quit:
             l_str = "Quit";
+            info.sheet = "UI/Quit_Btn";
             break;
 
         case Widget::Resolution:
@@ -48,6 +55,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
         case Widget::Resume:
             l_str = "Resume";
+            info.sheet = "UI/Resume_Btn";
             break;
 
         case Widget::Time:
@@ -60,15 +68,19 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
         case Widget::Title:
             l_str = "Return to Title";
+            info.sheet = "UI/Title_Btn";
             break;
 
     }
 
+    sprite.Init(info);
+
+    //Calling this to set our bbox size
+    Entity::Move();
+
     label.MoveTo(pos);
     label.SetStr(l_str);
     label.SetOrigin();
-
-    sprite.SetDFC(-10);
 }
 
 void UI::GetInput() {
@@ -84,7 +96,9 @@ void UI::GetInput() {
 
 void UI::Draw() {
     Entity::Draw();
-    engine->renderer.DrawTxt(label);
+
+    if (sprite.GetSheet() == "UI/Btn_Blank")
+        engine->renderer.DrawTxt(label);
 }
 
 bool UI::Selected() {

@@ -7,14 +7,11 @@ class Font {
 public:
   Font() = default;
   Font(const std::string& file, uint size) {
-    //WINDOWS/VISUAL STUDIO METHOD
-    //std::string path = "assets/Fonts/" + file + ".ttf";
-    //LINUX/MESON METHOD
-    std::string path = "Projects/SpookyMatch/assets/Fonts/" + file + ".ttf";
+    std::string path = "assets/Fonts/" + file + ".ttf";
     font = TTF_OpenFont(path.c_str(), size);
 
     if (!font) {
-      path = "Projects/SpookyMatch/assets/Fonts/" + file + ".otf";
+      path = "assets/Fonts/" + file + ".otf";
       font = TTF_OpenFont(path.c_str(), size);
     }
 

@@ -3,12 +3,11 @@
 #include "../../Game/Menu.h"
 
 void Button::Update() {
+    //When not Selected or primed, this is 0; when Selected but not primed, this is 1; when selected and primed, this is 2
+    sprite.SetCurrFrame(Selected() + primed);
 }
 
 void Button::Draw() {
-    if (Selected())
-        engine->renderer.DrawRect(bbox, Color(1, 0, 0));
-
     UI::Draw();
 }
 
@@ -19,7 +18,6 @@ void Button::Pressed() {
 void Button::Released() {
     activated = true;
     switch (elem) {
-
         case Widget::Apply:
             if (menu->GetName() == MenuName::Options) {
                 //Set the game's current resolution to the scale determined by the resolution picker

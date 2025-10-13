@@ -21,7 +21,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
         case MenuName::Main: {
             m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "SpookyMatch!";
 
-            elem_info.sheet = "UI/Button";
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .4f);
 
             e_y_buffer = round(engine->min_res.y * .1f);
@@ -41,7 +40,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Select Game Mode";
 
             elem_info.pos = Round(engine->min_res.x * .3f, engine->min_res.y * .4f);
-            elem_info.sheet = "UI/Button";
             
             widgets.insert({ Widget::Time, new Button(elem_info, this, Widget::Time) });
             elem_info.pos.y = engine->min_res.y * .47f;
@@ -67,7 +65,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
 
-            elem_info.sheet = "UI/Button";
             widgets.insert({ Widget::Title, new Button(elem_info, this, Widget::Title) });
 
             elem_info.pos.y = engine->min_res.y * .5f;
@@ -80,7 +77,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
             e_y_buffer = round(engine->min_res.y * .1f);
-            elem_info.sheet = "UI/Button";
 
             widgets.insert({ Widget::Resolution, new Picker(elem_info, this, Widget::Resolution) });
 
@@ -100,7 +96,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             e_y_buffer = round(engine->min_res.y * .1f);
 
             //Resolution new Picker, fullscreen toggle, and apply new Button
-            elem_info.sheet = "UI/Button";
             widgets.insert({ Widget::Resume, new Button(elem_info, this, Widget::Resume) });
 
             elem_info.pos.y += e_y_buffer;
