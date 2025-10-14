@@ -13,17 +13,27 @@ void Game::Init(Engine* e) {
 	Menu::SetEngine(engine);
 	Entity::SetEngine(engine, this);
 
+    //Initialize the cursor sprite
+    Sprite::Info spr_info = {};
+    spr_info.sheet = "UI/Cursor"; spr_info.frame_size = {10, 14};
+    cursor.Init(spr_info);
+
+    //Initialize the game board sprite
+    spr_info = Sprite::Info{};
+    spr_info.sheet = "UI/Game_Board";
+    game_board.Init(spr_info);
+
 	Text::Info t_info = {};
-	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 10, 4 };
+	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 2, -2 };
 	score_txt = new Text(t_info);
-	t_info.str = "Combo: "; t_info.origin.x = 1; t_info.pos.x = 390;
+	t_info.str = "Combo: "; t_info.origin.x = 1; t_info.pos.x = 398;
 	combo_txt = new Text(t_info);
-	t_info.pos.y = 365;
+	t_info.pos.y = 374;
 	remaining_txt = new Text(t_info);
 	//matching stuff
 	t_info.origin.x = .0;
 	t_info.str = "MATCH MADE!!!";
-	t_info.pos = { 10, 365 };
+	t_info.pos = { score_txt->GetPos().x, remaining_txt->GetPos().y };
 	match_txt = new Text(t_info);
 
 	//Init text displaying high scores
@@ -85,7 +95,7 @@ void Game::ChangeScene(Scene new_scn) {
 			Sprite::Info icon_info = {};
 			for (uchar row = 0; row <= 9; ++row) {
 				for (uchar col = 0; col <= 9; ++col) {
-					icon_info.pos = { 56 + col * 32, 56 + row * 32 };
+					icon_info.pos = { 43 + col * icon_gap, 43 + row * icon_gap };
 
 					icons.push_back(new Icon(icon_info));
 				}
@@ -96,8 +106,9 @@ void Game::ChangeScene(Scene new_scn) {
 
 void Game::GetInput() {
 
-	//Update cursor position
+	//Update cursor position and frame
 	cursor.MoveTo(Input::MousePos());
+	cursor.SetCurrFrame(Input::BtnDown(LMB));
 
 	//Input for the icons
 	for (auto& i : icons) i->GetInput();
@@ -172,9 +183,9 @@ void Game::Update() {
 	//Get high scores
 	if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen()) {
 		Menu* m = FindMenu(MenuName::Choose_Game);
-		high_score_txts[0]->MoveTo({m->GetWidgetPos(Widget::Moves).x, m->GetWidgetPos(Widget::Moves).y - 40});
-		high_score_txts[1]->MoveTo({m->GetWidgetPos(Widget::Time).x, m->GetWidgetPos(Widget::Time).y - 40});
-		high_score_txts[2]->MoveTo({m->GetWidgetPos(Widget::Infinite).x, m->GetWidgetPos(Widget::Infinite).y + 12});
+		high_score_txts[0]->MoveTo({m->GetWidgetPos(Widget::Moves_P).x, m->GetWidgetPos(Widget::Moves_P).y - 40});
+		high_score_txts[1]->MoveTo({m->GetWidgetPos(Widget::Time_P).x, m->GetWidgetPos(Widget::Time_P).y - 40});
+		high_score_txts[2]->MoveTo({m->GetWidgetPos(Widget::Infinite).x, m->GetWidgetPos(Widget::Infinite).y + ((int)high_score_txts[2]->GetFontSize() - 8)});
 
 		high_score_txts[0]->SetStr("High Score: " + to_string(high_scores["Moves"][m->GetWidgetStatus(Widget::Moves_P)]));
 		high_score_txts[1]->SetStr("High Score: " + to_string(high_scores["Time"][to_string(stoi(m->GetWidgetStatus(Widget::Time_P)) / Entity::SEC)]));
@@ -197,12 +208,8 @@ void Game::Update() {
 }
 
 void Game::Draw() {
-	//If we're playing the game...
-	if (curr_scn == Scene::Game) {
-		//First draw the grid
-		engine->renderer.DrawGrid({ 40 }, { 360 }, 32);
-	}
-
+	//If we're playing the game draw the game board
+	if (curr_scn == Scene::Game) engine->renderer.DrawSprite(game_board);
 
 	//Entities
 	for (auto& i : icons) i->Draw();
@@ -236,6 +243,7 @@ void Game::Resize() {
 	combo_txt->SetFont();
 	match_txt->SetFont();
 	remaining_txt->SetFont();
+	for (auto& s : high_score_txts) s->SetFont();
 
 	for (const auto& m : menus) m->Resize();
 }
@@ -270,7 +278,7 @@ void Game::CheckSwap(Icon* icon) {
 		Vec2i check_pos = icon->GetPos();
 		//Check left
 		while (check_left and check_pos.x > 40) {
-			check_pos.x = icon->GetPos().x - 32 * i;
+			check_pos.x = icon->GetPos().x - icon_gap * i;
 			for (auto& ic : icons) {
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
@@ -286,7 +294,7 @@ void Game::CheckSwap(Icon* icon) {
 		//Check right
 		i = 1;
 		while (check_right and check_pos.x < 360) {
-			check_pos.x = icon->GetPos().x + 32 * i;
+			check_pos.x = icon->GetPos().x + icon_gap * i;
 			for (auto& ic : icons) {
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
@@ -308,7 +316,7 @@ void Game::CheckSwap(Icon* icon) {
 		//Check up
 		i = 1;
 		while (check_up and check_pos.y > 40) {
-			check_pos.y = icon->GetPos().y - 32 * i;
+			check_pos.y = icon->GetPos().y - icon_gap * i;
 			for (auto& ic : icons) {
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
@@ -325,7 +333,7 @@ void Game::CheckSwap(Icon* icon) {
 		//Check down
 		i = 1;
 		while (check_down and check_pos.y < 360) {
-			check_pos.y = icon->GetPos().y + 32 * i;
+			check_pos.y = icon->GetPos().y + icon_gap * i;
 			for (auto& ic : icons) {
 				if (ic->GetPos() == check_pos or ic->pos_goal == check_pos) {
 					if (ic->type == icon->type) {
@@ -394,9 +402,9 @@ void Game::RemoveIcons() {
 					//Explode
 					Vec2i pos_to_check;
 					for (char i = -1; i <= 1; ++i) {
-						pos_to_check.x = mi->GetPos().x + 32 * i;
+						pos_to_check.x = mi->GetPos().x + icon_gap * i;
 						for (char j = -1; j <= 1; ++j) {
-							pos_to_check.y = mi->GetPos().y + 32 * i;
+							pos_to_check.y = mi->GetPos().y + icon_gap * i;
 							//Add icons to remove_chain and mark as matched!
 							for (auto& ic : icons) {
 								if (!ic->matched and ic->GetPos() == pos_to_check) {
@@ -425,13 +433,13 @@ void Game::RemoveIcons() {
 		out_file.close();
 	}
 
-	//Move icons down by counting the amount of icons to be removed in a given columnn
+	//Move icons down by counting the amount of icons to be removed in a given column
 	uchar num_expired = 0;
 	int x_to_check, highest_y = 400;
 	vector<Icon*> icons_to_shift;
 	for (uchar col = 0; col < 10; ++col) {
 		num_expired = 0;
-		x_to_check = 56 + 32 * col;
+		x_to_check = 43 + icon_gap * col;
 		icons_to_shift.clear();
 		highest_y = 400;
 		for (auto& mi : matched_icons)
@@ -448,14 +456,14 @@ void Game::RemoveIcons() {
 			//Create the replacement icons
 			Sprite::Info icon_info = {};
 			for (uchar i = 0; i < num_expired; ++i) {
-				icon_info.pos = { x_to_check, 24 - 32 * i };
+				icon_info.pos = { x_to_check, 43 - icon_gap * (i+1) };
 				icons.push_back(new Icon(icon_info));
 				icons_to_shift.push_back(icons[icons.size() - 1]);
 			}
 
 			//Set the position goals of the icons to shift
 			for (auto& i : icons_to_shift)
-				i->pos_goal = { i->GetPos().x, i->GetPos().y + 32 * num_expired };
+				i->pos_goal = { i->GetPos().x, i->GetPos().y + icon_gap * num_expired };
 		}
 	}
 

@@ -38,6 +38,9 @@ Engine::Engine(const char* title, const uchar init_fps)
     //Init game, which sets the Engine* in all the classes that need it
     game.Init(this);
     game.ChangeScene(Scene::Title);
+
+    //SDL_SetWindowRelativeMouseMode(); //This will lock the cursor to the game window
+    SDL_HideCursor();
 }
 
 void Engine::Run() {

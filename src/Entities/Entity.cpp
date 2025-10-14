@@ -48,6 +48,6 @@ void Entity::Move() {
     //bbox position will always be top left
     bbox.x = pos.x - floor(sprite.GetOrigin().x * size.x);
     bbox.y = pos.y - floor(sprite.GetOrigin().y * size.y);
-    bbox.w = size.x;
-    bbox.h = size.y;
+    bbox.w = size.x-1;
+    bbox.h = size.y-1;
 }

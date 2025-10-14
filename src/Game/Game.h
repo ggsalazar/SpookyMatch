@@ -20,7 +20,7 @@ public:
     vector<Icon*> icons;
     Icon* chosen_icons[2];
     uint time_remaining = 0, max_time_remaining = 0, moves_remaining = 0, max_moves_remaining = 0, score = 0, high_score = 0;
-    uchar combo = 0, max_combo = 0, move_buffer = 0, move_buffer_max = 45;
+    uchar combo = 0, max_combo = 0, move_buffer = 0, move_buffer_max = 45, icon_gap = 35;
     bool paused = false;
     Text* score_txt = nullptr;
     Text* high_score_txts[3];
@@ -71,6 +71,7 @@ public:
 private:
     vector<Menu*> menus;
     Sprite cursor;
+    Sprite game_board;
 
     inline static Engine* engine = nullptr;
 };

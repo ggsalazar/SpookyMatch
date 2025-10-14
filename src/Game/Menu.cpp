@@ -41,14 +41,10 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             elem_info.pos = Round(engine->min_res.x * .3f, engine->min_res.y * .4f);
             
-            widgets.insert({ Widget::Time, new Button(elem_info, this, Widget::Time) });
-            elem_info.pos.y = engine->min_res.y * .47f;
             widgets.insert({ Widget::Time_P, new Picker(elem_info, this, Widget::Time_P) });
 
 
             elem_info.pos = Round(engine->min_res.x * .7f, engine->min_res.y * .4f);
-            widgets.insert({ Widget::Moves, new Button(elem_info, this, Widget::Moves) });
-            elem_info.pos.y = engine->min_res.y * .47f;
             widgets.insert({ Widget::Moves_P, new Picker(elem_info, this, Widget::Moves_P) });
 
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .55f);
@@ -75,7 +71,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
         case MenuName::Options: {
             m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Settings";
 
-            elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
+            elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .4f);
             e_y_buffer = round(engine->min_res.y * .1f);
 
             widgets.insert({ Widget::Resolution, new Picker(elem_info, this, Widget::Resolution) });

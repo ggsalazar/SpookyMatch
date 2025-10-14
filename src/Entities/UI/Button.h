@@ -7,7 +7,7 @@ public:
         : UI(s_i, m, e) {
 
         //Can't put this in the init list for some reason
-        label_offset = 2;
+        label_offset = 0;
         label.MoveTo({ pos.x, pos.y - label_offset });
     }
 

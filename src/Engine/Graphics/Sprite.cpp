@@ -27,14 +27,15 @@ void Sprite::Init(const Info& i) {
 
         info.frame_size = info.frame_size == Vec2i{0} ? info.sheet_size : info.frame_size;
         info.spr_size = info.spr_size == Vec2i{0} ? info.frame_size : info.spr_size;
+
+        //Automatically set num_frames if it wasn't already set (assumes only 1 row in the sheet)
+        if (info.num_frames == 1 and info.sheet_size.y == info.frame_size.y) info.num_frames = info.sheet_size.x / info.frame_size.x;
     }
 }
 
 void Sprite::Update() {
     if (info.anim_fps != 0 and ++info.game_frames >= info.fci) {
         info.game_frames = 0;
-
-        //if (info.ping_pong and (info.curr_frame == info.num_frames-1 or i))
 
         if (info.anim_fps > 0) SetCurrFrame(++info.curr_frame);
         else if (info.anim_fps < 0) SetCurrFrame(--info.curr_frame);

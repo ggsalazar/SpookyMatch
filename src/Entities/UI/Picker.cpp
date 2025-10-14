@@ -6,20 +6,30 @@
 Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget e)
     : UI(s_i, m, e), picking(label.GetFontSize()) {
 
-    label_offset = 6;
+    //We want those arrow sprites
+    Sprite::Info arrow_info = {};
+    arrow_info.sheet = "UI/Picker_Arrow"; arrow_info.origin = {.5f};
+    arrow_info.frame_size = {15, 10}; arrow_info.num_frames = 2;
+    l_arrow.Init(arrow_info);
+    r_arrow.Init(arrow_info);
+
+    label_offset = 4;
     label.MoveTo({ pos.x, pos.y - label_offset });
 
-    //Set up bbox
+    //Set up left bbox
     l_bbox.x = bbox.x + bbox.w * .05;
-    l_bbox.y = bbox.y + bbox.h * .1;
+    l_bbox.y = bbox.y + bbox.h * .15;
     l_bbox.w = bbox.w * .25;
     l_bbox.h = bbox.h * .75;
+    l_arrow.SetScale({-1, 1});
+    l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
     //Right bbox
-    r_bbox.x = bbox.x + bbox.w * .7;
-    r_bbox.y = bbox.y + bbox.h * .1;
+    r_bbox.x = bbox.x + bbox.w * .7 +1;
+    r_bbox.y = l_bbox.y;
     r_bbox.w = bbox.w * .25;
     r_bbox.h = bbox.h * .75;
+    r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
     //What exactly ARE we picking?
     string picking_str = "";
@@ -38,7 +48,7 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget e)
     }
     picking.SetStr(picking_str);
     picking.SetOrigin();
-    picking.MoveTo({ pos.x, pos.y + 2 });
+    picking.MoveTo({ pos.x, pos.y + label_offset });
 }
 
 void Picker::GetInput() {
@@ -58,15 +68,34 @@ void Picker::GetInput() {
                 RightReleased();
         }
         else if (!RightSelected()) r_primed = false;
+
+        //Pulling double duty as a button
+        if (Selected() and !LeftSelected() and !RightSelected()) {
+            if (Input::BtnPressed(LMB))
+                Pressed();
+
+            if (Input::BtnReleased(LMB) and primed)
+                Released();
+        }
+        else if (!Selected()) primed = false;
     }
 }
 
-void Picker::Draw() {
-    if (Selected())
-        engine->renderer.DrawRect(bbox, Color(0, 1, 0));
+void Picker::Update() {
+    //Change the current frame of the arrows
+    l_arrow.SetCurrFrame(LeftSelected());
+    r_arrow.SetCurrFrame(RightSelected());
+    //And ourself
+    sprite.SetCurrFrame(Selected() + primed);
+}
 
+void Picker::Draw() {
     UI::Draw();
     
+    //Draw the arrows
+    engine->renderer.DrawSprite(l_arrow);
+    engine->renderer.DrawSprite(r_arrow);
+
     //Gotta convert the time being picked into seconds
     if (elem == Widget::Time_P) {
         uint true_time = stoi(picking.GetStr());
@@ -77,10 +106,11 @@ void Picker::Draw() {
     }
     else engine->renderer.DrawTxt(picking);
 
-    if (LeftSelected())
+    /*if (LeftSelected())
         engine->renderer.DrawRect(l_bbox, Color(1, 0, 0, .5)); //Red, 50% opacity
     else if (RightSelected())
         engine->renderer.DrawRect(r_bbox, Color(0, 0, 1, .5)); //Blue, 50% opacity
+    */
 }
 
 void Picker::Move() {
@@ -90,13 +120,15 @@ void Picker::Move() {
     //l/r bboxes
     l_bbox.x = bbox.x + bbox.w * .05;
     l_bbox.y = bbox.y + bbox.h * .1;
+    l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
     r_bbox.x = bbox.x + bbox.w * .7;
     r_bbox.y = l_bbox.y;
+    r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
     label.MoveTo({ pos.x, pos.y - label_offset });
 
-    picking.MoveTo(pos);
+    picking.MoveTo({pos.x, pos.y + label_offset});
 }
 
 bool Picker::LeftSelected() {
@@ -173,4 +205,18 @@ void Picker::RightReleased() {
     }
 
     picking.SetStr(to_string(curr_picking));
+}
+
+void Picker::Released() {
+    activated = true;
+
+    switch (elem) {
+        case Widget::Moves_P:
+            game->moves_remaining = stoi(picking.GetStr());
+            game->high_score = game->high_scores["Moves"][picking.GetStr()];
+            game->gm_mode = GameMode::Moves;
+            game->ChangeScene(Scene::Game);
+        break;
+    }
+
 }

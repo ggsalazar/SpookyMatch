@@ -64,7 +64,7 @@ void Icon::GetInput() {
 			if (game->chosen_icons[0]) {
 				//Swap with the chosen icon IFF chosen icon adjacent and chosen icon not of the same type
 				Vec2i ci_pos = game->chosen_icons[0]->GetPos();
-				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + 32) or (ci_pos.x == pos.x and ci_pos.y == pos.y - 32) or (ci_pos.x == pos.x + 32 and ci_pos.y == pos.y) or (ci_pos.x == pos.x - 32 and ci_pos.y == pos.y))
+				if (((ci_pos.x == pos.x and ci_pos.y == pos.y + game->icon_gap) or (ci_pos.x == pos.x and ci_pos.y == pos.y - game->icon_gap) or (ci_pos.x == pos.x + game->icon_gap and ci_pos.y == pos.y) or (ci_pos.x == pos.x - game->icon_gap and ci_pos.y == pos.y))
 					and type != game->chosen_icons[0]->type and !game->match_made) {
 
 					//If we're swapping, gotta reset the combo

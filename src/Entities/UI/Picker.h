@@ -9,6 +9,7 @@ public:
     Picker(const Sprite::Info& s_i, Menu* m, const Widget e);
 
     void GetInput() override;
+    void Update() override;
     void Draw() override;
 
     inline void SetPickingF() { picking.font = label.font; }
@@ -20,6 +21,10 @@ public:
     inline string GetPicking() const { return picking.GetStr(); }
 
 private:
+    //Arrow sprites
+    Sprite l_arrow;
+    Sprite r_arrow;
+
     //Variables
     Rect l_bbox;
     bool l_primed = false;
@@ -40,4 +45,6 @@ private:
     bool RightSelected();
     inline void RightPressed() { r_primed = true; }
     void RightReleased();
+
+    void Released() override;
 };

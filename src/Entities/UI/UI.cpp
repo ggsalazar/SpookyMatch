@@ -31,7 +31,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
             break;
 
         case Widget::Moves_P:
-            l_str = "Available Moves:";
+            l_str = "Moves";
             break;
 
         case Widget::Options:
@@ -63,7 +63,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
             break;
 
         case Widget::Time_P:
-            l_str = "Available Time:";
+            l_str = "Time";
             break;
 
         case Widget::Title:
@@ -78,7 +78,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
     //Calling this to set our bbox size
     Entity::Move();
 
-    label.MoveTo(pos);
+    label.MoveTo({pos.x, pos.y});
     label.SetStr(l_str);
     label.SetOrigin();
 }
