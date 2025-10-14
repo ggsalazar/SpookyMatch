@@ -8,8 +8,7 @@ void Sprite::Init(const Info& i) {
     if (info.sheet != "") {
 
         SetAnimFPS(info.anim_fps);
-        //cwd: ~/gg_salazar/Projects/SpookyMatch/
-        std::string sheet_png = "assets/Sprites/" + info.sheet + ".png";
+        std::string sheet_png = "../assets/Sprites/" + info.sheet + ".png";
         if (texture) {
             SDL_DestroyTexture(texture);
             texture = nullptr;
@@ -48,7 +47,7 @@ void Sprite::Draw() const {
 
 void Sprite::SetSheetRow(uchar new_s_r, const uchar new_n_f) {
     //Dividing the height of the sheet by the height of the frame should ALWAYS produce a whole number
-    const uint num_rows = info.sheet_size.y / info.frame_size.y;
+    const uchar num_rows = info.sheet_size.y / info.frame_size.y;
     while (0 > new_s_r or new_s_r >= num_rows) {
         if (new_s_r < 0) new_s_r += num_rows;
         else if (new_s_r >= num_rows) new_s_r -= num_rows;
@@ -78,13 +77,13 @@ void Sprite::SetCurrFrame(uchar new_c_f) {
     info.curr_frame = new_c_f;
 }
 
-void Sprite::SetAnimFPS(const int new_fps) {
+void Sprite::SetAnimFPS(const char new_fps) {
     info.anim_fps = new_fps;
 
     if (info.anim_fps != 0) {
         info.fci = abs(round(game_fps / info.anim_fps));
 
-        info.anim_length = info.num_frames / info.anim_fps;
+        info.anim_length = (float)info.num_frames / (float)info.anim_fps;
     }
     else {
         info.fci = 0;

@@ -1,10 +1,8 @@
 #include "Picker.h"
-#include "../../Engine/Engine.h"
 #include "../../Engine/Input.h"
-#include "../../Game/Menu.h"
 
-Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget e)
-    : UI(s_i, m, e), picking(label.GetFontSize()) {
+Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
+    : UI(s_i, m, w), picking(label.GetFontSize()) {
 
     //We want those arrow sprites
     Sprite::Info arrow_info = {};
@@ -17,23 +15,23 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget e)
     label.MoveTo({ pos.x, pos.y - label_offset });
 
     //Set up left bbox
-    l_bbox.x = bbox.x + bbox.w * .05;
-    l_bbox.y = bbox.y + bbox.h * .15;
-    l_bbox.w = bbox.w * .25;
-    l_bbox.h = bbox.h * .75;
+    l_bbox.x = bbox.x + round(bbox.w * .05);
+    l_bbox.y = bbox.y + round(bbox.h * .15);
+    l_bbox.w = round(bbox.w * .25);
+    l_bbox.h = round(bbox.h * .75);
     l_arrow.SetScale({-1, 1});
     l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
     //Right bbox
-    r_bbox.x = bbox.x + bbox.w * .7 +1;
+    r_bbox.x = bbox.x + round(bbox.w * .7) +1;
     r_bbox.y = l_bbox.y;
-    r_bbox.w = bbox.w * .25;
-    r_bbox.h = bbox.h * .75;
+    r_bbox.w = l_bbox.w;
+    r_bbox.h = l_bbox.h;
     r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
     //What exactly ARE we picking?
-    string picking_str = "";
-    switch (elem) {
+    string picking_str;
+    switch (widget) {
         case Widget::Resolution:
             picking_str = to_string(engine->resolution.x / engine->min_res.x);
         break;
@@ -91,13 +89,17 @@ void Picker::Update() {
 
 void Picker::Draw() {
     UI::Draw();
-    
+
+    //Draw the label
+    if (sprite.GetSheet() == "UI/Btn_Blank")
+        engine->renderer.DrawTxt(label);
+
     //Draw the arrows
     engine->renderer.DrawSprite(l_arrow);
     engine->renderer.DrawSprite(r_arrow);
 
     //Gotta convert the time being picked into seconds
-    if (elem == Widget::Time_P) {
+    if (widget == Widget::Time_P) {
         uint true_time = stoi(picking.GetStr());
         uint time_secs = true_time / SEC;
         picking.SetStr(to_string(time_secs));
@@ -114,15 +116,16 @@ void Picker::Draw() {
 }
 
 void Picker::Move() {
-    //Entity::Move() is called in MoveBy/MoveTo takes care of sprite & bbox
+    //Entity::Move() takes care of sprite & bbox
 
     //Move everything else
+
     //l/r bboxes
-    l_bbox.x = bbox.x + bbox.w * .05;
-    l_bbox.y = bbox.y + bbox.h * .1;
+    l_bbox.x = bbox.x + round(bbox.w * .05);
+    l_bbox.y = bbox.y + round(bbox.h * .1);
     l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
-    r_bbox.x = bbox.x + bbox.w * .7;
+    r_bbox.x = bbox.x + round(bbox.w * .7);
     r_bbox.y = l_bbox.y;
     r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
@@ -131,18 +134,18 @@ void Picker::Move() {
     picking.MoveTo({pos.x, pos.y + label_offset});
 }
 
-bool Picker::LeftSelected() {
-    return active and Collision::RectPoint(l_bbox, Input::MousePos());
+void Picker::SetPicking(const string& new_p) {
+    picking.SetStr(new_p);
 }
 
-void Picker::SetPicking(const string new_p) {
-    picking.SetStr(new_p);
+bool Picker::LeftSelected() {
+    return active and Collision::RectPoint(l_bbox, Input::MousePos());
 }
 
 void Picker::LeftReleased() {
     uint curr_picking = stoi(picking.GetStr());
 
-    switch (elem) {
+    switch (widget) {
         case Widget::Resolution:
             if (--curr_picking < 1)
                 curr_picking = min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y / engine->min_res.y));
@@ -178,7 +181,7 @@ bool Picker::RightSelected() {
 void Picker::RightReleased() {
     uint curr_picking = stoi(picking.GetStr());
 
-    switch (elem) {
+    switch (widget) {
         case Widget::Resolution:
             if (++curr_picking > min(floor(engine->window.ScreenSize().x / engine->min_res.x), floor(engine->window.ScreenSize().y/engine->min_res.y)))
                 curr_picking = 1;
@@ -210,7 +213,7 @@ void Picker::RightReleased() {
 void Picker::Released() {
     activated = true;
 
-    switch (elem) {
+    switch (widget) {
         case Widget::Moves_P:
             game->moves_remaining = stoi(picking.GetStr());
             game->high_score = game->high_scores["Moves"][picking.GetStr()];
@@ -218,5 +221,4 @@ void Picker::Released() {
             game->ChangeScene(Scene::Game);
         break;
     }
-
 }

@@ -1,13 +1,12 @@
 #include <thread>
-#include <string>
 #include "Engine.h"
 #include "Input.h"
 #include "Graphics/Text.h"
 #include "Math/Math.h"
 
 Engine::Engine(const char* title, const uchar init_fps)
-    : fps(init_fps), resolution(min_res*2), camera({ 0 }, Vec2i(min_res)),
-    window(title, resolution), renderer(window.GetWin(), &camera) {
+    : fps(init_fps), resolution(min_res*2), window(title, resolution),
+    renderer(window.GetWin(), &camera), camera({ 0 }, Vec2i(min_res)) {
  
     //Set random seed
     srand((uint)time(nullptr));
@@ -34,6 +33,8 @@ Engine::Engine(const char* title, const uchar init_fps)
 
     //Initialize the Input namespace
     Input::Init(&window, &camera);
+
+    //Initialize the DJ's tracks - TO-DO
 
     //Init game, which sets the Engine* in all the classes that need it
     game.Init(this);
@@ -64,7 +65,6 @@ void Engine::Run() {
         //Update the game world
         Update();
     }
-
 
     //Draw the game world
     if (window.open) Render();
@@ -101,6 +101,12 @@ void Engine::Render() {
     renderer.EndFrame();
 }
 
+void Engine::SetMusicVolume(float n_v) {
+    Math::Clamp(n_v, 0, 100);
+    msc_volume = n_v;
+    //dj.SetVolume(music_volume);
+}
+
 void Engine::SetResolution(uchar res_scalar) {
     //Minimum resolution is 640 x 360
     if (res_scalar > 0) {
@@ -120,7 +126,6 @@ void Engine::SetResolution(uchar res_scalar) {
 }
 
 void Engine::SetResolution(Vec2u n_r) {
-
     if (n_r.x > 0 and n_r.y > 0) {
         n_r.x = n_r.x <= window.ScreenSize().x ? n_r.x : window.ScreenSize().x;
         n_r.y = n_r.y <= window.ScreenSize().y ? n_r.y : window.ScreenSize().y;
@@ -129,7 +134,6 @@ void Engine::SetResolution(Vec2u n_r) {
 
         SetRes();
     }
-
 }
 
 void Engine::SetRes() {

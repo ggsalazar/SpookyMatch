@@ -39,12 +39,10 @@ enum class Widget {
 	Apply,
 	Back,
 	Infinite,
-	Moves,
 	Options,
 	Play,
 	Quit,
 	Resume,
-	Time,
 	Title,
 	//Pickers
 	Resolution,

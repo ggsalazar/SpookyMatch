@@ -1,6 +1,4 @@
 #include "Button.h"
-#include "../../Engine/Engine.h"
-#include "../../Game/Menu.h"
 
 void Button::Update() {
     //When not Selected or primed, this is 0; when Selected but not primed, this is 1; when selected and primed, this is 2
@@ -9,6 +7,9 @@ void Button::Update() {
 
 void Button::Draw() {
     UI::Draw();
+
+    if (sprite.GetSheet() == "UI/Btn_Blank")
+        engine->renderer.DrawTxt(label);
 }
 
 void Button::Pressed() {
@@ -17,7 +18,7 @@ void Button::Pressed() {
 
 void Button::Released() {
     activated = true;
-    switch (elem) {
+    switch (widget) {
         case Widget::Apply:
             if (menu->GetName() == MenuName::Options) {
                 //Set the game's current resolution to the scale determined by the resolution picker
@@ -44,13 +45,6 @@ void Button::Released() {
             game->ChangeScene(Scene::Game);
         break;
 
-        case Widget::Moves:
-            game->moves_remaining = stoi(menu->GetWidgetStatus(Widget::Moves_P));
-            game->high_score = game->high_scores["Moves"][menu->GetWidgetStatus(Widget::Moves_P)];
-            game->gm_mode = GameMode::Moves;
-            game->ChangeScene(Scene::Game);
-        break;
-
         case Widget::Options:
             menu->Open(false);
             game->OpenMenu(MenuName::Options);
@@ -68,13 +62,6 @@ void Button::Released() {
         case Widget::Resume:
             menu->Open(false);
             game->paused = false;
-        break;
-
-        case Widget::Time:
-            game->time_remaining = stoi(menu->GetWidgetStatus(Widget::Time_P));
-            game->high_score = game->high_scores["Time"][menu->GetWidgetStatus(Widget::Time_P)];
-            game->gm_mode = GameMode::Time;
-            game->ChangeScene(Scene::Game);
         break;
 
         case Widget::Title:

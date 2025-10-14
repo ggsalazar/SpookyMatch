@@ -1,6 +1,4 @@
 #pragma once
-#include <queue>
-#include <unordered_map>
 #include <nlohmann/json.hpp>
 #include "../Engine/Enums.h"
 #include "../Engine/Graphics/Sprite.h"
@@ -36,19 +34,7 @@ public:
     json high_scores;
 
     Game() = default;
-	~Game() {
-        for (auto& i : icons) delete i;
-        icons.clear();
-
-        for (auto& m : menus) delete m;
-        menus.clear();
-
-        delete score_txt;
-        for (auto& h : high_score_txts) delete h;
-        delete combo_txt;
-        delete match_txt;
-        delete remaining_txt;
-    }
+	~Game();
 	void Init(Engine* e);
 
     void ChangeScene(Scene new_scn);

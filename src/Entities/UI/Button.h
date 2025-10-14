@@ -3,8 +3,8 @@
 
 class Button : public UI {
 public:
-    Button(const Sprite::Info& s_i, Menu* m, const Widget e)
-        : UI(s_i, m, e) {
+    Button(const Sprite::Info& s_i, Menu* m, const Widget w)
+        : UI(s_i, m, w) {
 
         //Can't put this in the init list for some reason
         label_offset = 0;

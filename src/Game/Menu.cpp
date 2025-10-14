@@ -7,12 +7,12 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
     //Menu and Supp text variables
     menu_text.SetOrigin();
     Vec2i m_t_pos = { 0 };
-    string m_t_str = "MENU DEFAULT";
+    string m_t_str;
 
     sup_text.SetOrigin();
     Vec2i s_t_pos = { 0 };
-    string s_t_str = "";
-    uint s_t_str_max_w = -1;
+    string s_t_str;
+    uint s_t_str_max_w = 0;
 
     Sprite::Info elem_info = {}; elem_info.origin = ui_ori;
     int e_y_buffer = 0;
@@ -42,7 +42,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             elem_info.pos = Round(engine->min_res.x * .3f, engine->min_res.y * .4f);
             
             widgets.insert({ Widget::Time_P, new Picker(elem_info, this, Widget::Time_P) });
-
 
             elem_info.pos = Round(engine->min_res.x * .7f, engine->min_res.y * .4f);
             widgets.insert({ Widget::Moves_P, new Picker(elem_info, this, Widget::Moves_P) });
@@ -108,8 +107,16 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
     //Set our texts (not strictly necessary but keeping for now)
     menu_text.MoveTo(m_t_pos); menu_text.SetStr(m_t_str); menu_text.SetMaxW(engine->min_res.x);
     sup_text.MoveTo(s_t_pos); sup_text.SetStr(s_t_str); sup_text.SetOrigin({ .5f, .0f }); sup_text.SetMaxW(engine->min_res.x);
-    if (s_t_str_max_w != -1)
+    if (s_t_str_max_w != 0)
         sup_text.SetMaxW(s_t_str_max_w);
+}
+
+Menu::~Menu() {
+    for (auto& [_, w] : widgets) delete w;
+    widgets.clear();
+
+    for (auto& [_, sm] : sub_menus) delete sm;
+    sub_menus.clear();
 }
 
 
@@ -169,7 +176,7 @@ void Menu::Open(const bool o) {
 void Menu::OpenSM(const MenuName s_m) {
     if (sub_menus.count(s_m) > 0)
         sub_menus[s_m]->Open();
-    else cout << "That Sub-Menu does not exist in this Menu!\n";
+    else cout << "Menu::OpenSM(): That Sub-Menu does not exist in this Menu!\n";
 }
 
 void Menu::RemoveWidget(const Widget w) {
@@ -183,15 +190,15 @@ void Menu::RemoveWidget(const Widget w) {
 bool Menu::CheckWidget(const Widget w) {
     if (widgets.find(w) != widgets.end()) return true;
 
-    cout << "That Widget does not exist!" << endl;
+    cout << "Menu::CheckWidget(): That Widget does not exist!" << endl;
     return false;
 }
 
-void Menu::SetWidgetStatus(const Widget w, const string new_status) {
-    if (CheckWidget(w)) {
-        if (auto p = dynamic_cast<Picker*>(widgets[w]))
-            p->SetPicking(new_status);
-    }
+bool Menu::GetWidgetActive(const Widget w) {
+    if (CheckWidget(w))
+        return widgets[w]->GetActive();
+
+    return false;
 }
 
 void Menu::SetWidgetActive(const Widget w, const bool a) {
@@ -207,8 +214,14 @@ Vec2i Menu::GetWidgetPos(const Widget w) {
     return Vec2i();
 }
 
-string Menu::GetWidgetStatus(const Widget w) {
+void Menu::SetWidgetStatus(const Widget w, const string new_status) {
+    if (CheckWidget(w)) {
+        if (auto p = dynamic_cast<Picker*>(widgets[w]))
+            p->SetPicking(new_status);
+    }
+}
 
+string Menu::GetWidgetStatus(const Widget w) {
     if (CheckWidget(w)) {
         if (Picker* p = dynamic_cast<Picker*>(widgets[w]))
             return p->GetPicking();
@@ -217,9 +230,4 @@ string Menu::GetWidgetStatus(const Widget w) {
     return "Menu::GetWidgetStatus(): No such Widget exists\n";
 }
 
-bool Menu::GetWidgetActive(const Widget w) {
-    if (CheckWidget(w))
-        return widgets[w]->GetActive();
 
-    return false;
-}

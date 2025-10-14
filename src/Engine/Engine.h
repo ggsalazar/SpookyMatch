@@ -15,10 +15,10 @@ class Engine {
 private:
     //Variables
     uchar fps = 0, game_frames = 0;
-    float target_frame_time, delta_time = .0f;
+    float target_frame_time, delta_time = .0f, accumulated_time = .0f;
     hr_clock::time_point last_time;
     durationf delta;
-    float accumulated_time = 0.f;
+    float msc_volume = 100;
 
 public:
     //Game UTH details
@@ -43,10 +43,13 @@ public:
     void Render();
 
     //Frame stuff
-    inline uint GetFPS() const { return fps; }
-    inline int GetGameFrames() const { return game_frames; }
+    [[nodiscard]] inline uchar GetFPS() const { return fps; }
+    [[nodiscard]] inline uchar GetGameFrames() const { return game_frames; }
 
     //Settings
+    void SetMusicVolume(float n_v);
+    [[nodiscard]] inline float GetMusicVolume() const { return msc_volume; }
+
     void SetResolution(uchar res_scalar);
     void SetResolution(Vec2u n_r);
     void SetRes();

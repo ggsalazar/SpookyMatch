@@ -4,8 +4,21 @@
 #include "../Engine/Engine.h"
 #include "../Engine/Input.h"
 #include "../Engine/Graphics/Text.h"
-#include "../Engine/Math/Math.h"
 #include "../Entities/Icon.h"
+
+Game::~Game() {
+	for (auto& i : icons) delete i;
+	icons.clear();
+
+	for (auto& m : menus) delete m;
+	menus.clear();
+
+	delete score_txt;
+	for (auto& h : high_score_txts) delete h;
+	delete combo_txt;
+	delete match_txt;
+	delete remaining_txt;
+}
 
 void Game::Init(Engine* e) {
 	//Initialize all the things
@@ -23,6 +36,7 @@ void Game::Init(Engine* e) {
     spr_info.sheet = "UI/Game_Board";
     game_board.Init(spr_info);
 
+	//Initialize the text
 	Text::Info t_info = {};
 	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 2, -2 };
 	score_txt = new Text(t_info);
@@ -105,7 +119,6 @@ void Game::ChangeScene(Scene new_scn) {
 }
 
 void Game::GetInput() {
-
 	//Update cursor position and frame
 	cursor.MoveTo(Input::MousePos());
 	cursor.SetCurrFrame(Input::BtnDown(LMB));
@@ -114,8 +127,7 @@ void Game::GetInput() {
 	for (auto& i : icons) i->GetInput();
 
 	//Input for the menus
-	for (uchar i = 0; i < menus.size(); ++i)
-		menus[i]->GetInput();
+	for (uchar i = 0; i < menus.size(); ++i) menus[i]->GetInput();
 
 	//Game Input
 	if (curr_scn == Scene::Game) {

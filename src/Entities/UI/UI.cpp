@@ -1,18 +1,17 @@
 #include "UI.h"
 #include "../../Engine/Input.h" //Window
-#include "../../Game/Menu.h"
 
-UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
-    : Entity(s_i), menu(m), elem(e), label(18) {
+UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
+    : Entity(s_i), menu(m),  label(18), widget(w) {
 
     //Label
-    string l_str = "";
+    string l_str;
     Sprite::Info info = {}; info.sheet = "UI/Btn_Blank";
     info.pos = pos; info.origin = sprite.GetOrigin();
     info.frame_size = {112, 33}; info.num_frames = 3;
     info.anim_fps = 0; info.dfc = -10;
 
-    switch (elem) {
+    switch (widget) {
         case Widget::Apply:
             l_str = "Apply";
             SetActive(false);
@@ -24,10 +23,6 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
         case Widget::Infinite:
             l_str = "Infinite";
-            break;
-
-        case Widget::Moves:
-            l_str = "Moves";
             break;
 
         case Widget::Moves_P:
@@ -58,10 +53,6 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
             info.sheet = "UI/Resume_Btn";
             break;
 
-        case Widget::Time:
-            l_str = "Time";
-            break;
-
         case Widget::Time_P:
             l_str = "Time";
             break;
@@ -75,7 +66,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget e)
 
     sprite.Init(info);
 
-    //Calling this to set our bbox size
+    //Set bbox size
     Entity::Move();
 
     label.MoveTo({pos.x, pos.y});
@@ -96,9 +87,6 @@ void UI::GetInput() {
 
 void UI::Draw() {
     Entity::Draw();
-
-    if (sprite.GetSheet() == "UI/Btn_Blank")
-        engine->renderer.DrawTxt(label);
 }
 
 bool UI::Selected() {

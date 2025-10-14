@@ -18,13 +18,13 @@ public:
 	}
 
 	//Functionality
-	SDL_Renderer* GetRenderer() const { return renderer; }
-	void BeginFrame() {
-		SDL_SetRenderTarget(renderer, NULL);
+	[[nodiscard]] SDL_Renderer* GetRenderer() const { return renderer; }
+	void BeginFrame() const {
+		SDL_SetRenderTarget(renderer, nullptr);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 	}
-	void EndFrame() {
+	void EndFrame() const {
 		SDL_RenderPresent(renderer);
 	}
 
@@ -33,17 +33,17 @@ public:
 	}
 
 	//Sprites
-	void DrawSheet(const Sprite& sheet, const Vec2i& pos = { 0 }); //Helpful for debugging/seeing entire sheet
-	void DrawSprite(const Sprite& spr);
+	void DrawSheet(const Sprite& sheet, const Vec2i& pos = { 0 }) const;
+	void DrawSprite(const Sprite& spr) const;
 	//Text
 	void DrawTxt(Text& txt);
 
-	void DrawGrid(const Vec2i& start = { 0, 0 }, const Vec2i& end = { 400 }, const uchar& tile_size = 16, const Color& grid_color = Color(1));
+	void DrawGrid(const Vec2i& start = { 0, 0 }, const Vec2i& end = { 400 }, const uchar& tile_size = 16, const Color& grid_color = Color(1)) const;
 
-	void DrawPath(std::vector<Vec2i> path, const Color& path_color = Color(1));
+	void DrawPath(const std::vector<Vec2i>& path, const Color& path_color = Color(1));
 
 	//Drawing shapes
-	void DrawLine(const Line& line, const Color& color = Color(1), const uchar edge_w = 1);
+	void DrawLine(const Line& line, const Color& color = Color(1), const uchar edge_w = 1) const;
 	void DrawCircle(const Circle& circle, const Color& fill_color = Color(1), const Color& stroke_color = Color(0, 0), const uchar edge_w = 1);
 	void DrawTri(const Tri& tri, const Color& fill_color = Color(1), const Color& stroke_color = Color(0, 0), const uchar edge_w = 1);
 	void DrawRect(const Rect& rect, const Color& fill_color = Color(1), const Color& stroke_color = Color(0, 0), const uchar edge_w = 1);
