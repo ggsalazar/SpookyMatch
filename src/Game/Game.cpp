@@ -36,8 +36,8 @@ void Game::Init(Engine* e) {
     spr_info.sheet = "UI/Game_Board";
     game_board.Init(spr_info);
 
-	//Play the title track
-	engine->dj.PlaySong(Song::Ghoulish_Fun);
+	//Play a random track
+	engine->dj.PlaySong(static_cast<Song>(rand()%3));
 
 	//Initialize the text
 	Text::Info t_info = {};
@@ -55,7 +55,7 @@ void Game::Init(Engine* e) {
 
 	//Init text displaying high scores
 	t_info.origin.x = .5;
-	t_info.str = "";
+	t_info.str;
 	t_info.pos = { 0 };
 	t_info.font_size = 24;
 	for (uchar i=0; i < 3; ++i)

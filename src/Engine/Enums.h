@@ -55,8 +55,8 @@ enum class Widget {
 
 //Audio
 enum class Song {
-	NONE,
-	Ghoulish_Fun,
-	Spooky_Enchantment,
-	Trick_or_Treat
+	NONE = -1,
+	Ghoulish_Fun = 0,
+	Spooky_Enchantment = 1,
+	Trick_or_Treat = 2
 };

@@ -11,6 +11,8 @@ public:
 
 	//Check if a song exists
 	bool CheckSong(const Song s);
+	//What song is currently playing?
+	Song CurrSong();
 
 	//Play a song
 	void PlaySong(const Song s, const char loop_num = 0, float fadein = 0.f);

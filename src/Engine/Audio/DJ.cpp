@@ -11,18 +11,31 @@ DJ::DJ() {
 
 	//Initialize all of the game's tracks
 	songs.insert({Song::Ghoulish_Fun, MIX_LoadAudio(mixer, "../assets/Music/Ghoulish_Fun.mp3", false)});
+	songs.insert({Song::Spooky_Enchantment, MIX_LoadAudio(mixer, "../assets/Music/Spooky_Enchantment.mp3", false)});
+	songs.insert({Song::Trick_or_Treat, MIX_LoadAudio(mixer, "../assets/Music/Trick_or_Treat.mp3", false)});
 }
 
 bool DJ::CheckSong(const Song s)   {
 	if (songs.count(s) > 0) return true;
 
-	//std::cout << "DJ::CheckSong(): Checked for non-loaded song!\n";
+	std::cout << "DJ::CheckSong(): Checked for non-loaded song!\n";
 	return false;
+}
+
+Song DJ::CurrSong() {
+	MIX_Audio* curr_audio = MIX_GetTrackAudio(msc_track);
+	if (!curr_audio) return Song::NONE;
+
+	for (auto& [s, a] : songs)
+		if (a == curr_audio) return s;
+
+	//Likely unnecessary but putting it here jic
+	return Song::NONE;
 }
 
 void DJ::PlaySong(const Song s, const char loop_num, float fadein) {
 	if (!CheckSong(s)) {
-		//std::cout << "DJ::PlaySong(): Trying to play non-existent song!\n";
+		std::cout << "DJ::PlaySong(): Trying to play non-existent song!\n";
 		return;
 	}
 

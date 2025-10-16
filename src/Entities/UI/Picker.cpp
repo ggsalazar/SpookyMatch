@@ -13,8 +13,6 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
 
     label_offset = 6;
 
-
-
     //What exactly ARE we picking?
     string picking_str;
     switch (widget) {
@@ -22,9 +20,13 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
             picking_str = to_string(engine->resolution.x / engine->min_res.x);
         break;
 
-        case Widget::Music_P:
-            picking_str = "Ghoulish Fun";
-        break;
+        case Widget::Music_P: {
+            Song curr_playing = engine->dj.CurrSong();
+            if (curr_playing == Song::Ghoulish_Fun) picking_str = "Ghoulish Fun";
+            else if (curr_playing == Song::Spooky_Enchantment) picking_str = "Spooky Enchantment";
+            else if (curr_playing == Song::Trick_or_Treat) picking_str = "Trick or Treat";
+            else picking_str = "Unknown";
+        } break;
 
         case Widget::Moves_P:
             picking_str = to_string(30);
