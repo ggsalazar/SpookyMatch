@@ -11,23 +11,9 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
     l_arrow.Init(arrow_info);
     r_arrow.Init(arrow_info);
 
-    label_offset = 4;
-    label.MoveTo({ pos.x, pos.y - label_offset });
+    label_offset = 6;
 
-    //Set up left bbox
-    l_bbox.x = bbox.x + round(bbox.w * .05);
-    l_bbox.y = bbox.y + round(bbox.h * .15);
-    l_bbox.w = round(bbox.w * .25);
-    l_bbox.h = round(bbox.h * .75);
-    l_arrow.SetScale({-1, 1});
-    l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
-    //Right bbox
-    r_bbox.x = bbox.x + round(bbox.w * .7) +1;
-    r_bbox.y = l_bbox.y;
-    r_bbox.w = l_bbox.w;
-    r_bbox.h = l_bbox.h;
-    r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
     //What exactly ARE we picking?
     string picking_str;
@@ -50,7 +36,9 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
     }
     picking.SetStr(picking_str);
     picking.SetOrigin();
-    picking.MoveTo({ pos.x, pos.y + label_offset });
+
+    //Move shit
+    Move();
 }
 
 void Picker::GetInput() {
@@ -125,16 +113,22 @@ void Picker::Move() {
     //Move everything else
 
     //l/r bboxes
-    l_bbox.x = bbox.x + round(bbox.w * .05);
-    l_bbox.y = bbox.y + round(bbox.h * .1);
+    //Set up left bbox
+    l_bbox.x = bbox.x + round(bbox.w * .025);
+    l_bbox.y = bbox.y + round(bbox.h * .15);
+    l_bbox.w = round(bbox.w * .2);
+    l_bbox.h = round(bbox.h * .75);
+    l_arrow.SetScale({-1, 1});
     l_arrow.MoveTo(Round(l_bbox.x + l_bbox.w*.5, l_bbox.y + l_bbox.h*.5));
 
-    r_bbox.x = bbox.x + round(bbox.w * .7);
+    //Right bbox
+    r_bbox.x = bbox.x + round(bbox.w * .775);
     r_bbox.y = l_bbox.y;
+    r_bbox.w = l_bbox.w;
+    r_bbox.h = l_bbox.h;
     r_arrow.MoveTo(Round(r_bbox.x + r_bbox.w*.5, r_bbox.y + r_bbox.h*.5));
 
     label.MoveTo({ pos.x, pos.y - label_offset });
-
     picking.MoveTo({pos.x, pos.y + label_offset});
 }
 
@@ -147,7 +141,7 @@ bool Picker::LeftSelected() {
 }
 
 void Picker::LeftReleased() {
-    uint curr_picking = stoi(picking.GetStr());
+    uint curr_picking = widget != Widget::Music_P ? stoi(picking.GetStr()) : 0;
 
     switch (widget) {
         case Widget::Resolution:
@@ -190,7 +184,7 @@ bool Picker::RightSelected() {
 }
 
 void Picker::RightReleased() {
-    uint curr_picking = stoi(picking.GetStr());
+    uint curr_picking = widget != Widget::Music_P ? stoi(picking.GetStr()) : 0;
 
     switch (widget) {
         case Widget::Resolution:
@@ -229,9 +223,15 @@ void Picker::RightReleased() {
 }
 
 void Picker::Released() {
-    activated = true;
+    primed = false;
 
     switch (widget) {
+        case Widget::Music_P:
+            if (picking.GetStr() == "Ghoulish Fun") engine->dj.PlaySong(Song::Ghoulish_Fun);
+            else if (picking.GetStr() == "Spooky Enchantment") engine->dj.PlaySong(Song::Spooky_Enchantment);
+            else if (picking.GetStr() == "Trick or Treat") engine->dj.PlaySong(Song::Trick_or_Treat);
+        break;
+
         case Widget::Moves_P:
             game->moves_remaining = stoi(picking.GetStr());
             game->high_score = game->high_scores["Moves"][picking.GetStr()];

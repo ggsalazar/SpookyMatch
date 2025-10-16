@@ -17,7 +17,8 @@ void Button::Pressed() {
 }
 
 void Button::Released() {
-    activated = true;
+    primed = false;
+
     switch (widget) {
         case Widget::Apply:
             if (menu->GetName() == MenuName::Options) {

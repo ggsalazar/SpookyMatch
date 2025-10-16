@@ -17,14 +17,13 @@ public:
 
     void SetActive(const bool new_active = true);
     [[nodiscard]] inline bool GetActive() const { return active; }
-    [[nodiscard]] inline bool GetActivated() const { return activated; }
     [[nodiscard]] inline Widget GetWidget() const { return widget; }
 
 protected:
     //Variables
     int label_offset = 0;
     Widget widget = Widget::NONE;
-    bool active = true, primed = false, activated = false;
+    bool active = true, primed = false;
 
     //Functions
     virtual void Pressed();

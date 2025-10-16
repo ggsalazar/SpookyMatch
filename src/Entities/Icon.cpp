@@ -11,8 +11,8 @@ Icon::Icon(const Sprite::Info& i_si) : Entity(i_si) {
 	type = static_cast<IconType>(rand() % 8);
 
 	//1 in 50 chance of being a special token
-	special = !(rand() % 50);
-	
+	//special = !(rand() % 50);
+
 	//Could put all of the icons into one sheet but not doing that for clarity reasons
 	Sprite::Info new_info;
 	new_info.sheet = "Icons/"; new_info.frame_size = {32};
@@ -117,6 +117,9 @@ void Icon::Update() {
 
 		MoveTo(new_pos);
 	}
+
+	//Rotate if we're matched
+	if (matched) sprite.AlterRotD(4);
 }
 
 void Icon::Draw() {
@@ -125,7 +128,5 @@ void Icon::Draw() {
 		Entity::Draw();
 
 		engine->renderer.DrawRect(Rect({ bbox.x, bbox.y }, { bbox.w + 1, bbox.h + 1 }), Color(0, 0), Color(selected, chosen, special, (selected or chosen or special)));
-
-		engine->renderer.DrawRect(Rect({ bbox.x + 1, bbox.y + 1 }, { bbox.w - 1, bbox.h - 1 }), Color(0, 0), Color(1, 0, 0, matched));
 	}
 }

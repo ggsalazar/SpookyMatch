@@ -16,7 +16,7 @@ public:
     Scene curr_scn = Scene::Title;
     GameMode gm_mode = GameMode::NONE;
     vector<Icon*> icons;
-    Icon* chosen_icons[2];
+    Icon* chosen_icons[2] = {nullptr};
     uint time_remaining = 0, max_time_remaining = 0, moves_remaining = 0, max_moves_remaining = 0, score = 0, high_score = 0;
     uchar combo = 0, max_combo = 0, move_buffer = 0, move_buffer_max = 45, icon_gap = 35;
     bool paused = false;
@@ -28,7 +28,7 @@ public:
     //Matching stuff
     Text* match_txt;
     bool match_made = false, swap_back = false;
-    uint match_timer_max = 200, match_timer = 200;
+    uint match_timer_max = 180, match_timer = 180; //3 seconds
     vector<Icon*> matched_icons;
 
     json high_scores;
