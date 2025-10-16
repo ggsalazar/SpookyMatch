@@ -4,7 +4,7 @@ sources += files(
   'Input.cpp'
 )
 
-foreach d : ['Graphics', 'Math']
+foreach d : ['Audio', 'Graphics', 'Math']
    subdir(d)
 endforeach
 

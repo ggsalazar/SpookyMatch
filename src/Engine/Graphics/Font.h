@@ -15,7 +15,8 @@ public:
       std::cout << "Could not load font from file: " << path << "! SDL Error: " << SDL_GetError() << '\n';
   }
   ~Font() {
-	  //Likely does not need to be called because of copy construction bullshit
+	  //May not need to be called because of copy construction bullshit,
+      //But the more likely cause is Engine calls TTF_Quit() before everything else is destroyed, causing this to segfault
 	  //TTF_CloseFont(font);
   }
 

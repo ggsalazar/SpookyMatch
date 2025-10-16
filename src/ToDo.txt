@@ -1,3 +1,8 @@
+Change song option
+
+Credits button & screen
+    -Likely just a menu will do fine... Probably
+
 Special icons
 	-Pumpkin
 		-Explode

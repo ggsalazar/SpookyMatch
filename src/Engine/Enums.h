@@ -47,5 +47,16 @@ enum class Widget {
 	//Pickers
 	Resolution,
 	Moves_P,
-	Time_P
+	Music_P,
+	Time_P,
+	//Sliders
+	Msc_Vol
+};
+
+//Audio
+enum class Song {
+	NONE,
+	Ghoulish_Fun,
+	Spooky_Enchantment,
+	Trick_or_Treat
 };

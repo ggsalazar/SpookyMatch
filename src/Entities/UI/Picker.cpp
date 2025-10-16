@@ -36,6 +36,10 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
             picking_str = to_string(engine->resolution.x / engine->min_res.x);
         break;
 
+        case Widget::Music_P:
+            picking_str = "Ghoulish Fun";
+        break;
+
         case Widget::Moves_P:
             picking_str = to_string(30);
         break;
@@ -154,6 +158,12 @@ void Picker::LeftReleased() {
             menu->SetWidgetActive(Widget::Apply);
         break;
 
+        case Widget::Music_P:
+            if (picking.GetStr() == "Ghoulish Fun") picking.SetStr("Trick or Treat");
+            else if (picking.GetStr() == "Spooky Enchantment") picking.SetStr("Ghoulish Fun");
+            else if (picking.GetStr() == "Trick or Treat") picking.SetStr("Spooky Enchantment");
+        break;
+
         case Widget::Moves_P:
             curr_picking -= 5;
             curr_picking = curr_picking <= 0 ? 100 : curr_picking;
@@ -171,7 +181,8 @@ void Picker::LeftReleased() {
         break;
     }
 
-    picking.SetStr(to_string(curr_picking));
+    if (widget != Widget::Music_P)
+        picking.SetStr(to_string(curr_picking));
 }
 
 bool Picker::RightSelected() { 
@@ -190,13 +201,19 @@ void Picker::RightReleased() {
             menu->SetWidgetActive(Widget::Apply);
         break;
 
+        case Widget::Music_P:
+            if (picking.GetStr() == "Ghoulish Fun") picking.SetStr("Spooky Enchantment");
+            else if (picking.GetStr() == "Spooky Enchantment") picking.SetStr("Trick or Treat");
+            else if (picking.GetStr() == "Trick or Treat") picking.SetStr("Ghoulish Fun");
+        break;
+
         case Widget::Moves_P:
             curr_picking += 5;
             curr_picking = curr_picking > 100 ? 5 : curr_picking;
             if (game->high_scores.contains(to_string(curr_picking)))
                 game->high_score = game->high_scores[to_string(curr_picking)];
             else game->high_score = 0;
-            break;
+        break;
 
         case Widget::Time_P:
             curr_picking += 30 * SEC;
@@ -207,7 +224,8 @@ void Picker::RightReleased() {
         break;
     }
 
-    picking.SetStr(to_string(curr_picking));
+    if (widget != Widget::Music_P)
+        picking.SetStr(to_string(curr_picking));
 }
 
 void Picker::Released() {
@@ -218,6 +236,13 @@ void Picker::Released() {
             game->moves_remaining = stoi(picking.GetStr());
             game->high_score = game->high_scores["Moves"][picking.GetStr()];
             game->gm_mode = GameMode::Moves;
+            game->ChangeScene(Scene::Game);
+        break;
+
+        case Widget::Time_P:
+            game->time_remaining = stoi(picking.GetStr());
+            game->high_score = game->high_scores["Time"][to_string(stoi(picking.GetStr())/SEC)];
+            game->gm_mode = GameMode::Time;
             game->ChangeScene(Scene::Game);
         break;
     }

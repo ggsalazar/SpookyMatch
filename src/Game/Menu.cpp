@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "../Entities/UI/Button.h"
 #include "../Entities/UI/Picker.h"
+#include "src/Entities/UI/Slider.h"
 
 Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
@@ -77,6 +78,12 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             elem_info.pos.y += e_y_buffer;
             widgets.insert({ Widget::Apply, new Button(elem_info, this, Widget::Apply) });
+
+            elem_info.pos.y += e_y_buffer;
+            widgets.insert({Widget::Music_P, new Picker(elem_info, this, Widget::Music_P) });
+
+            elem_info.pos.y += e_y_buffer;
+            widgets.insert({Widget::Msc_Vol, new Slider(elem_info, this, Widget::Msc_Vol) });
 
             elem_info.pos.y += e_y_buffer;
             widgets.insert({ Widget::Back, new Button(elem_info, this, Widget::Back) });

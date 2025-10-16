@@ -29,6 +29,14 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
             l_str = "Moves";
             break;
 
+        case Widget::Msc_Vol:
+            l_str = "Music Volume";
+            break;
+
+        case Widget::Music_P:
+            l_str = "Song";
+            break;
+
         case Widget::Options:
             l_str = "Options";
             info.sheet = "UI/Settings_Btn";

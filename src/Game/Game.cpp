@@ -36,6 +36,9 @@ void Game::Init(Engine* e) {
     spr_info.sheet = "UI/Game_Board";
     game_board.Init(spr_info);
 
+	//Play the title track
+	engine->dj.PlaySong(Song::Ghoulish_Fun);
+
 	//Initialize the text
 	Text::Info t_info = {};
 	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 2, -2 };
