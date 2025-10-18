@@ -58,6 +58,7 @@ private:
     vector<Menu*> menus;
     Sprite cursor;
     Sprite game_board;
+    Sprite logo;
 
     inline static Engine* engine = nullptr;
 };

@@ -15,10 +15,12 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
         case Widget::Apply:
             l_str = "Apply";
             SetActive(false);
+            info.sheet = "UI/Apply_Btn";
             break;
 
         case Widget::Back:
             l_str = "Back";
+            info.sheet = "UI/Back_Btn";
             break;
 
         case Widget::Infinite:
@@ -71,7 +73,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
             break;
 
     }
-
+    info.tint = sprite.GetColor();
     sprite.Init(info);
 
     //Set bbox size
@@ -104,7 +106,7 @@ bool UI::Selected() {
 void UI::SetActive(const bool new_active) {
     active = new_active;
     Color new_color = sprite.GetColor();
-    new_color.a = active ? 1.f : .5f;
+    new_color.r = new_color.g = new_color.b = active ? 1.f : .5f;
     sprite.SetColor(new_color);
     label.SetColor(new_color);
 

@@ -5,9 +5,11 @@
 
 Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
+    //Init the menu image
+
     //Menu and Supp text variables
     menu_text.SetOrigin();
-    Vec2i m_t_pos = { 0 };
+    Vec2i m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .27f);
     string m_t_str;
 
     sup_text.SetOrigin();
@@ -20,8 +22,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
     //What we do depends on our name
     switch (name) {
         case MenuName::Main: {
-            m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "SpookyMatch!";
-
             elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .4f);
 
             e_y_buffer = round(engine->min_res.y * .1f);
@@ -38,7 +38,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
         }
 
         case MenuName::Choose_Game: {
-            m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Select Game Mode";
+            m_t_str = "Select Game Mode";
 
             elem_info.pos = Round(engine->min_res.x * .3f, engine->min_res.y * .4f);
             
@@ -57,19 +57,19 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
         }
 
         case MenuName::GO: {
-            m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Game Over!";
+            m_t_str = "Game Over!";
 
-            elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
+            elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .4f);
 
             widgets.insert({ Widget::Title, new Button(elem_info, this, Widget::Title) });
 
-            elem_info.pos.y = engine->min_res.y * .5f;
+            elem_info.pos.y = engine->min_res.y * .6f;
             widgets.insert({ Widget::Quit, new Button(elem_info, this, Widget::Quit) });
             break;
         }
         
         case MenuName::Options: {
-            m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Settings";
+            m_t_str = "Settings";
 
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .4f);
             e_y_buffer = round(engine->min_res.y * .1f);
@@ -92,7 +92,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
         }
 
         case MenuName::Options_I: {
-            m_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .12f); m_t_str = "Settings";
+            m_t_str = "Settings";
 
             elem_info.pos = Round(m_t_pos.x, engine->min_res.y * .3f);
             e_y_buffer = round(engine->min_res.y * .1f);
@@ -111,7 +111,7 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
     }
 
 
-    //Set our texts (not strictly necessary but keeping for now)
+    //Set our texts
     menu_text.MoveTo(m_t_pos); menu_text.SetStr(m_t_str); menu_text.SetMaxW(engine->min_res.x);
     sup_text.MoveTo(s_t_pos); sup_text.SetStr(s_t_str); sup_text.SetOrigin({ .5f, .0f }); sup_text.SetMaxW(engine->min_res.x);
     if (s_t_str_max_w != 0)

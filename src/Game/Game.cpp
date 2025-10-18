@@ -28,13 +28,17 @@ void Game::Init(Engine* e) {
 
     //Initialize the cursor sprite
     Sprite::Info spr_info = {};
-    spr_info.sheet = "UI/Cursor"; spr_info.frame_size = {10, 14};
+    spr_info.sheet = "UI/Cursor"; spr_info.frame_size = {18, 20};
     cursor.Init(spr_info);
 
-    //Initialize the game board sprite
+    //Initialize the game board sprite & logo
     spr_info = Sprite::Info{};
     spr_info.sheet = "UI/Game_Board";
-    game_board.Init(spr_info);
+	game_board.Init(spr_info);
+	spr_info.sheet = "UI/Logo";
+	spr_info.origin = {.5f};
+	spr_info.pos = {200, 60};
+	logo.Init(spr_info);
 
 	//Play a random track
 	engine->dj.PlaySong(static_cast<Song>(rand()%3));
@@ -223,8 +227,7 @@ void Game::Update() {
 }
 
 void Game::Draw() {
-	//If we're playing the game draw the game board
-	if (curr_scn == Scene::Game) engine->renderer.DrawSprite(game_board);
+	engine->renderer.DrawSprite(game_board);
 
 	//Entities
 	for (auto& i : icons) i->Draw();
@@ -241,8 +244,13 @@ void Game::DrawGUI() {
 		if (gm_mode != GameMode::Infinite) engine->renderer.DrawTxt(*remaining_txt);
 	}
 	//Display high scores
-	else if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen())
-		for (uchar i = 0; i < 3; ++i) engine->renderer.DrawTxt(*high_score_txts[i]);
+	else if (curr_scn == Scene::Title) {
+		//Draw the logo
+		engine->renderer.DrawSprite(logo);
+
+		if (FindMenu(MenuName::Choose_Game)->GetOpen())
+			for (uchar i = 0; i < 3; ++i) engine->renderer.DrawTxt(*high_score_txts[i]);
+	}
 
 	//Menus are drawn last since they will always be closest to the camera
 	for (const auto& m : menus)
