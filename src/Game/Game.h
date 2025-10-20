@@ -28,7 +28,7 @@ public:
     //Matching stuff
     Text* match_txt;
     bool match_made = false, swap_back = false;
-    uint match_timer_max = 180, match_timer = 180; //3 seconds
+    uchar match_timer_max = 60, match_timer = 60; //1 second
     vector<Icon*> matched_icons;
 
     json high_scores;

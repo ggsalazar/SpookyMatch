@@ -4,7 +4,7 @@
 #include <vector>
 #include "../Math/Geometry.h"
 
-using std::vector, std::string;
+using std::vector, std::string, std::cout;
 
 class Camera;
 class Sprite;

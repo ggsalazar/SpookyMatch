@@ -106,7 +106,7 @@ void Renderer::DrawTxt(Text& txt) {
 
 	//Draw the text
 	string line;
-	for (uint i = 0; i < lines.size(); i++) {
+	for (int i = 0; i < lines.size(); i++) {
 		line = lines[i];
 
 		//Surface and texture
@@ -128,7 +128,8 @@ void Renderer::DrawTxt(Text& txt) {
 
 		Vec2i txt_pos = { ti->pos.x * Text::res_scale + camera->viewport.x, ti->pos.y * Text::res_scale + camera->viewport.y };
 		txt_pos = Round(txt_pos.x - (line_size.x * ti->origin.x), txt_pos.y - (line_size.y * ti->origin.y));
-		if (Collision::AABB(true_cam_vp, Rect(txt_pos, Vec2i(str_size.x, str_size.y)))) {
+
+		if (Collision::AABB(true_cam_vp, Rect(txt_pos, str_size))) {
 			SDL_FRect src_rect = { 0, 0, (float)surface->w, (float)surface->h };
 			SDL_FRect dest_rect = {
 				(float)(txt_pos.x - true_cam_vp.x),

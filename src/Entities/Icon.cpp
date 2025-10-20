@@ -119,7 +119,7 @@ void Icon::Update() {
 	}
 
 	//Rotate if we're matched
-	if (matched) sprite.AlterRotD(4);
+	if (matched) sprite.AlterRotD(360/game->match_timer_max);
 }
 
 void Icon::Draw() {
