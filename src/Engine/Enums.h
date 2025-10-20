@@ -26,6 +26,7 @@ enum class Scene {
 
 enum class MenuName {
 	Choose_Game,
+	Credits,
 	GO,
 	Main,
 	Options,
@@ -38,6 +39,7 @@ enum class Widget {
 	//Buttons
 	Apply,
 	Back,
+	Credits,
 	Infinite,
 	Options,
 	Play,

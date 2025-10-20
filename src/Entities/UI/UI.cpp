@@ -23,6 +23,10 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
             info.sheet = "UI/Back_Btn";
             break;
 
+        case Widget::Credits:
+            l_str = "Credits";
+            break;
+
         case Widget::Infinite:
             l_str = "Infinite";
             break;

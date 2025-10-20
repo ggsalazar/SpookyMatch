@@ -4,6 +4,8 @@
 #include <vector>
 #include "../Math/Geometry.h"
 
+using std::vector, std::string;
+
 class Camera;
 class Sprite;
 class Text;
@@ -40,7 +42,7 @@ public:
 
 	void DrawGrid(const Vec2i& start = { 0, 0 }, const Vec2i& end = { 400 }, const uchar& tile_size = 16, const Color& grid_color = Color(1)) const;
 
-	void DrawPath(const std::vector<Vec2i>& path, const Color& path_color = Color(1));
+	void DrawPath(const vector<Vec2i>& path, const Color& path_color = Color(1));
 
 	//Drawing shapes
 	void DrawLine(const Line& line, const Color& color = Color(1), const uchar edge_w = 1) const;

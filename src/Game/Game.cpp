@@ -94,8 +94,9 @@ void Game::ChangeScene(Scene new_scn) {
 		case Scene::Title:
 			menus.push_back(new Menu(MenuName::Main));
 			FindMenu(MenuName::Main)->Open();
-			menus.push_back(new Menu(MenuName::Options));
 			menus.push_back(new Menu(MenuName::Choose_Game));
+			menus.push_back(new Menu(MenuName::Options));
+			menus.push_back(new Menu(MenuName::Credits));
 
 			high_score = 0;
 			moves_remaining = 0;
@@ -198,7 +199,6 @@ void Game::Update() {
 		OpenMenu(MenuName::GO);
 	}
 
-
 	//Get high scores
 	if (curr_scn == Scene::Title and FindMenu(MenuName::Choose_Game)->GetOpen()) {
 		Menu* m = FindMenu(MenuName::Choose_Game);
@@ -218,6 +218,9 @@ void Game::Update() {
 			[](const Icon* a, const Icon* b) { return a->sprite.GetDFC() > b->sprite.GetDFC(); });
 	}
 
+	//Change the song when there isn't one playing
+	if (!engine->dj.SongPlaying()) engine->dj.PlaySong(static_cast<Song>(rand()%3));
+
 	//Remove dead icons walking
 	for (auto it = icons.begin(); it != icons.end();) {
 		Icon* i = *it;
@@ -226,7 +229,7 @@ void Game::Update() {
 	}
 }
 
-void Game::Draw() {
+void Game::Draw() const {
 	engine->renderer.DrawSprite(game_board);
 
 	//Entities

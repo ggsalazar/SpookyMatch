@@ -42,7 +42,7 @@ public:
     //Engine stuff
     void GetInput();
     void Update();
-    void Draw();
+    void Draw() const;
     void DrawGUI();
     void Resize();
 

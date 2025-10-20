@@ -79,6 +79,14 @@ void Picker::Update() {
     r_arrow.SetCurrFrame(RightSelected());
     //And ourself
     sprite.SetCurrFrame(Selected() + primed);
+
+    if (widget == Widget::Music_P) {
+        Song curr_playing = engine->dj.CurrSong();
+        if (curr_playing == Song::Ghoulish_Fun) picking.SetStr("Ghoulish Fun");
+        else if (curr_playing == Song::Spooky_Enchantment) picking.SetStr("Spooky Enchantment");
+        else if (curr_playing == Song::Trick_or_Treat) picking.SetStr("Trick or Treat");
+        else picking.SetStr("Unknown");
+    }
 }
 
 void Picker::Draw() {

@@ -3,7 +3,7 @@
 #include "../Entities/UI/Picker.h"
 #include "src/Entities/UI/Slider.h"
 
-Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
+Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(24) {
 
     //Init the menu image
 
@@ -30,6 +30,9 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
 
             elem_info.pos.y += e_y_buffer;
             widgets.insert({ Widget::Options, new Button(elem_info, this, Widget::Options) });
+
+            elem_info.pos.y += e_y_buffer;
+            widgets.insert({Widget::Credits, new Button(elem_info, this, Widget::Credits) });
 
             elem_info.pos.y += e_y_buffer;
             widgets.insert({ Widget::Quit, new Button(elem_info, this, Widget::Quit) });
@@ -91,6 +94,17 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             break;
         }
 
+        case MenuName::Credits: {
+            m_t_str = "Credits";
+            s_t_str = "Programming and Game Design: Griffin G. Salazar\nArt and Sprites: Gabriela \"Brysia\" Szmit\nMusic\n\"Ghoulish Fun\" by Eric Matyas\n\"Spooky Enchantment\" by Eric Matyas\n\"Trick or Treat\" by HitCtrl\nAll music found on OpenGameArt.org";
+            s_t_pos = Round(engine->min_res.x * .5f, engine->min_res.y * .35f);
+            sup_text.SetColor(Color(0, 1));
+            sup_text.SetLHO(5);
+            elem_info.pos = Round(engine->min_res.x * .5f, engine->min_res.y * .8f);
+            widgets.insert({Widget::Back, new Button(elem_info, this, Widget::Back) });
+            break;
+        }
+
         case MenuName::Options_I: {
             m_t_str = "Settings";
 
@@ -109,7 +123,6 @@ Menu::Menu(const MenuName i_name) : name(i_name), menu_text(42), sup_text(30) {
             break;
         }
     }
-
 
     //Set our texts
     menu_text.MoveTo(m_t_pos); menu_text.SetStr(m_t_str); menu_text.SetMaxW(engine->min_res.x);
@@ -150,6 +163,20 @@ void Menu::Draw() {
     if (open) {
         engine->renderer.DrawTxt(menu_text);
         engine->renderer.DrawTxt(sup_text);
+
+
+
+        if (name == MenuName::Credits) {
+            Rect test = Rect(
+                {
+                    (int)(sup_text.GetPos().x - sup_text.GetOrigin().x * sup_text.GetStrSize().x),
+                    (int)(sup_text.GetPos().y - sup_text.GetOrigin().y * sup_text.GetStrSize().y),
+                },
+                sup_text.GetStrSize());
+
+            engine->renderer.DrawRect(test, Color(0,0,1, .5), Color(0,0,1, .8));
+        }
+
 
         for (auto& uie : widgets)
             uie.second->Draw();

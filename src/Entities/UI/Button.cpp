@@ -40,6 +40,11 @@ void Button::Released() {
             game->OpenMenu(MenuName::Main);
         break;
 
+        case Widget::Credits:
+            menu->Open(false);
+            game->OpenMenu(MenuName::Credits);
+        break;
+
         case Widget::Infinite:
             game->gm_mode = GameMode::Infinite;
             game->high_score = game->high_scores["Infinite"];

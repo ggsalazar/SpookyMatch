@@ -18,21 +18,24 @@ dependency('sdl3-mixer', required : true),
 dependency('nlohmann_json', required : true)
 ]
 
-# Resource file
-rc_file = 'icon.rc'
-res_obj = rc_file.replace('.rc', '.res')
+if host_machine.system() == 'windows'
+  # Resource file
+  rc_file = 'icon.rc'
+  res_obj = rc_file.replace('.rc', '.res')
 
-# Compile .rc -> .res using windres
-rc_compile = custom_target(
-  'compile_rc',
-  input: rc_file,
-  output: res_obj,
-  command: ['x86_64-w64-mingw32-windres', '@INPUT@', '-O', 'coff', '-o', '@OUTPUT@']
-)
+  # Compile .rc -> .res using windres
+  rc_compile = custom_target(
+    'compile_rc',
+    input: rc_file,
+    output: res_obj,
+    command: ['x86_64-w64-mingw32-windres', '@INPUT@', '-O', 'coff', '-o', '@OUTPUT@']
+  )
+  sources += rc_compile
+endif
 
 # Build executable including the resource object
 executable('SpookyMatch',
-  sources + [rc_compile],
+  sources,
   win_subsystem: 'windows',
   dependencies: deps,
   install: true,
