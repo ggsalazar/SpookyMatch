@@ -25,18 +25,22 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
 
         case Widget::Credits:
             l_str = "Credits";
+            info.sheet = "UI/Credits_Btn";
             break;
 
         case Widget::Infinite:
             l_str = "Infinite";
+            info.sheet = "UI/Infinite_Btn";
             break;
 
         case Widget::Moves_P:
             l_str = "Moves";
+            info.sheet = "UI/Moves_Btn";
             break;
 
         case Widget::Msc_Vol:
             l_str = "Music Volume";
+            info.sheet = "UI/Slider";
             break;
 
         case Widget::Music_P:
@@ -69,6 +73,7 @@ UI::UI(const Sprite::Info& s_i, Menu* m, const Widget w)
 
         case Widget::Time_P:
             l_str = "Time";
+            info.sheet = "UI/Time_Btn";
             break;
 
         case Widget::Title:

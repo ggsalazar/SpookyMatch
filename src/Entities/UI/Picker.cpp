@@ -11,7 +11,7 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
     l_arrow.Init(arrow_info);
     r_arrow.Init(arrow_info);
 
-    label_offset = 6;
+    label_offset = 7;
 
     //What exactly ARE we picking?
     string picking_str;
@@ -30,10 +30,12 @@ Picker::Picker(const Sprite::Info& s_i, Menu* m, const Widget w)
 
         case Widget::Moves_P:
             picking_str = to_string(30);
+            label_offset = 18;
         break;
 
         case Widget::Time_P:
             picking_str = to_string(SEC*60*5);
+            label_offset = 18;
         break;
     }
     picking.SetStr(picking_str);

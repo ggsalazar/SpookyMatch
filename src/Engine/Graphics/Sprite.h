@@ -33,12 +33,10 @@ public:
     //ANY SPRITE (OR SOMETHING THAT HAS ONE) THAT IS COPY/MOVE CONSTRUCTED MUST BE INITIALIZED ON THE HEAP - JUST. FUCKING. TRUST!
 
     Sprite(const Info& i) : info(i) { Init(i); }
-    Sprite() { Init(info); }                                           
+    Sprite() { Init(info); }
     ~Sprite() {
-        if (texture) {
+        if (texture)
             SDL_DestroyTexture(texture);
-            texture = nullptr;
-        }
     }
     void Init(const Info& i);
 

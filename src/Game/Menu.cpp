@@ -164,20 +164,6 @@ void Menu::Draw() {
         engine->renderer.DrawTxt(menu_text);
         engine->renderer.DrawTxt(sup_text);
 
-
-
-        if (name == MenuName::Credits) {
-            Rect test = Rect(
-                {
-                    (int)(sup_text.GetPos().x - sup_text.GetOrigin().x * sup_text.GetStrSize().x),
-                    (int)(sup_text.GetPos().y - sup_text.GetOrigin().y * sup_text.GetStrSize().y),
-                },
-                sup_text.GetStrSize());
-
-            engine->renderer.DrawRect(test, Color(0,0,1, .5), Color(0,0,1, .8));
-        }
-
-
         for (auto& uie : widgets)
             uie.second->Draw();
 

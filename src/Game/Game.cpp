@@ -16,7 +16,6 @@ Game::~Game() {
 	delete score_txt;
 	for (auto& h : high_score_txts) delete h;
 	delete combo_txt;
-	delete match_txt;
 	delete remaining_txt;
 }
 
@@ -27,43 +26,57 @@ void Game::Init(Engine* e) {
 	Entity::SetEngine(engine, this);
 
     //Initialize the cursor sprite
-    Sprite::Info spr_info = {};
-    spr_info.sheet = "UI/Cursor"; spr_info.frame_size = {18, 20};
+    Sprite::Info spr_info;
+    spr_info.sheet = "UI/Cursor"; spr_info.frame_size = {16, 18};
     cursor.Init(spr_info);
 
-    //Initialize the game board sprite & logo
+    //Initialize the various other sprites
     spr_info = Sprite::Info{};
+	//Game Board
     spr_info.sheet = "UI/Game_Board";
 	game_board.Init(spr_info);
+	//Logo
 	spr_info.sheet = "UI/Logo";
 	spr_info.origin = {.5f};
 	spr_info.pos = {200, 60};
 	logo.Init(spr_info);
+	//Score plaque
+	spr_info.sheet = "UI/Score";
+	spr_info.origin = {.0f};
+	spr_info.pos ={-4, -6};
+	score_plaque.Init(spr_info);
+	//Combo plaque
+	spr_info.sheet = "UI/Combo";
+	spr_info.origin = {1, 0};
+	spr_info.pos = {404, -6};
+	combo_plaque.Init(spr_info);
+	//Match flash
+	spr_info.sheet = "UI/Match_Made";
+	spr_info.origin = {.5f};
+	spr_info.num_frames = 2;
+	spr_info.frame_size = {125, 19};
+	spr_info.anim_fps = 10;
+	spr_info.pos = {200};
+	match_flash.Init(spr_info);
 
 	//Play a random track
 	engine->dj.PlaySong(static_cast<Song>(rand()%3));
 
 	//Initialize the text
-	Text::Info t_info = {};
-	t_info.font_size = 36; t_info.str = "Score: "; t_info.pos = { 2, -2 };
+	Text::Info t_info;
+	t_info.font_size = 36; t_info.pos = { 70, -5 };
 	score_txt = new Text(t_info);
-	t_info.str = "Combo: "; t_info.origin.x = 1; t_info.pos.x = 398;
+	t_info.origin.x = 1; t_info.pos.x = 400;
 	combo_txt = new Text(t_info);
 	t_info.pos.y = 374;
 	remaining_txt = new Text(t_info);
-	//matching stuff
-	t_info.origin.x = .0;
-	t_info.str = "MATCH MADE!!!";
-	t_info.pos = { score_txt->GetPos().x, remaining_txt->GetPos().y };
-	match_txt = new Text(t_info);
 
 	//Init text displaying high scores
 	t_info.origin.x = .5;
-	t_info.str;
 	t_info.pos = { 0 };
 	t_info.font_size = 24;
-	for (uchar i=0; i < 3; ++i)
-		high_score_txts[i] = new Text(t_info);
+	for (auto& hst : high_score_txts)
+		hst = new Text(t_info);
 
 	//Load/Init high scores
 	ifstream in_file("high_scores.json");
@@ -175,13 +188,14 @@ void Game::Update() {
 		RemoveIcons();
 		match_timer = match_timer_max;
 	}
+	if (match_made) match_flash.Update();
 
 	//Are we waiting for icons to move into place?
 	move_buffer -= (move_buffer != 0 and !paused);
 
 	//Texts
-	score_txt->SetStr("Score: " + to_string(score) + "|" + to_string(high_score));
-	combo_txt->SetStr("Combo: " + to_string(combo) + "x|" + to_string(max_combo) + 'x');
+	score_txt->SetStr(to_string(score) + "|" + to_string(high_score));
+	combo_txt->SetStr(to_string(combo) + "x|" + to_string(max_combo) + 'x');
 	if (gm_mode == GameMode::Moves)
 		remaining_txt->SetStr("Moves: " + to_string(moves_remaining));
 	else if (gm_mode == GameMode::Time) {
@@ -241,9 +255,11 @@ void Game::DrawGUI() {
 
 	//Draw the score & combo
 	if (curr_scn == Scene::Game) {
+		engine->renderer.DrawSprite(score_plaque);
+		engine->renderer.DrawSprite(combo_plaque);
 		engine->renderer.DrawTxt(*score_txt);
 		engine->renderer.DrawTxt(*combo_txt);
-		if (match_made) engine->renderer.DrawTxt(*match_txt);
+		if (match_made) engine->renderer.DrawSprite(match_flash);
 		if (gm_mode != GameMode::Infinite) engine->renderer.DrawTxt(*remaining_txt);
 	}
 	//Display high scores
@@ -252,7 +268,7 @@ void Game::DrawGUI() {
 		engine->renderer.DrawSprite(logo);
 
 		if (FindMenu(MenuName::Choose_Game)->GetOpen())
-			for (uchar i = 0; i < 3; ++i) engine->renderer.DrawTxt(*high_score_txts[i]);
+			for (auto & hst : high_score_txts) engine->renderer.DrawTxt(*hst);
 	}
 
 	//Menus are drawn last since they will always be closest to the camera
@@ -267,7 +283,6 @@ void Game::Resize() {
 	//Reset the fonts of the texts
 	score_txt->SetFont();
 	combo_txt->SetFont();
-	match_txt->SetFont();
 	remaining_txt->SetFont();
 	for (auto& s : high_score_txts) s->SetFont();
 
@@ -276,7 +291,7 @@ void Game::Resize() {
 
 void Game::OpenMenu(const MenuName menu, const bool o) {
 	if (Menu* m = FindMenu(menu))
-		m->Open();
+		m->Open(o);
 	else
 		cout << "Game::OpenMenu(): Cannot open non-existent menu.\n";
 }

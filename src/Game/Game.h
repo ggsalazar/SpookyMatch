@@ -26,7 +26,6 @@ public:
     Text* remaining_txt = nullptr;
 
     //Matching stuff
-    Text* match_txt;
     bool match_made = false, swap_back = false;
     uchar match_timer_max = 60, match_timer = 60; //1 second
     vector<Icon*> matched_icons;
@@ -59,6 +58,9 @@ private:
     Sprite cursor;
     Sprite game_board;
     Sprite logo;
+    Sprite score_plaque;
+    Sprite combo_plaque;
+    Sprite match_flash;
 
     inline static Engine* engine = nullptr;
 };

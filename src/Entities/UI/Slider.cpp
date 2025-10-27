@@ -5,11 +5,11 @@
 Slider::Slider(const Sprite::Info& s_i, Menu* m, const Widget w)
     : UI(s_i, m, w), knob_label(label.GetFontSize()) {
 
-    Sprite::Info knob_info = {}; knob_info.sheet = "Icons/Pumpkin_Icon";
+    Sprite::Info knob_info = {}; knob_info.sheet = "UI/Slider_Knob";
     knob_info.scale = sprite.GetScale();
     knob_spr.Init(knob_info);
 
-    label_offset = 8;
+    label_offset = 15;
     label.MoveTo({ pos.x, pos.y - label_offset });
     label.SetOrigin();
 
